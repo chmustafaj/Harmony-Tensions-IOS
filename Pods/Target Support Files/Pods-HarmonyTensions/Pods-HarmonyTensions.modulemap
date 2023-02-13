@@ -1,0 +1,6 @@
+framework module Pods_HarmonyTensions {
+  umbrella header "Pods-HarmonyTensions-umbrella.h"
+
+  export *
+  module * { export * }
+}

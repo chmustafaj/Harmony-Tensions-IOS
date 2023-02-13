@@ -1,0 +1,7 @@
+Target dependency graph (3 targets)
+SnapKit in Pods, no dependencies
+LZViewPager in Pods, depends on:
+SnapKit in Pods (explicit)
+Pods-HarmonyTensions in Pods, depends on:
+LZViewPager in Pods (explicit)
+SnapKit in Pods (explicit)
