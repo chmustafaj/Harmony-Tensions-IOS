@@ -1,1 +1,4 @@
 /* Localized versions of Info.plist keys */
+//<key>UIMainStoryBoardFile</key>
+//<string>Storyboard</string>
+

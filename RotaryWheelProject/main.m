@@ -12,7 +12,14 @@
 
 int main(int argc, char *argv[])
 {
+//    @autoreleasepool {
+//        return UIApplicationMain(argc, argv, nil, NSStringFromClass([SMAppDelegate class]));
+//    }
+    NSString * appDelegateClassName;
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([SMAppDelegate class]));
+        // Setup code that might create autoreleased objects goes here.
+        appDelegateClassName = NSStringFromClass([SMAppDelegate class]);
     }
+        return UIApplicationMain(argc, argv, nil, appDelegateClassName);
+
 }

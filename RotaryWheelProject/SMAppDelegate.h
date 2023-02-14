@@ -7,12 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class SMViewController;
+//@class SMViewController;
 
 @interface SMAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) SMViewController *viewController;
+//@property (strong, nonatomic) UIWindow *window;
+//
+//@property (strong, nonatomic) SMViewController *viewController;
 
 @end

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-@objc extension SMViewController{
+@objc extension HarmonyWheelViewController{
     func displaySwiftUIWrapper(){
         let hostingVC = UIHostingController(rootView: SwiftUIView())
         hostingVC.modalPresentationStyle = .fullScreen
