@@ -4,3 +4,5 @@
 
 #import "SMRotaryWheel.h"
 #import "HarmonyWheelViewController.h"
+#import "SMRotaryProtocol.h"
+#import "HarmonyWheelViewController.m"

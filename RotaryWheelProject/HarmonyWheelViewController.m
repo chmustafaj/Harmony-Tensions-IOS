@@ -24,6 +24,7 @@
 #pragma mark - View lifecycle
 int hwNo=1;
 int noOfHarmonywheels=4;
+NSString *key;
 UIImageView *mask;
 UILabel *dot1;
 UILabel *dot2;
@@ -68,6 +69,7 @@ UILabel *dot4;
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
+    key=@"c";
 
 //    valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 750, 120, 30)];
 //    valueLabel.textAlignment = UITextAlignmentCenter;
@@ -168,7 +170,7 @@ UILabel *dot4;
 
 - (void) wheelDidChangeValue:(NSString *)newValue {
 
-    //self.valueLabel.text = newValue;
+    key=newValue;
 
 }
 
