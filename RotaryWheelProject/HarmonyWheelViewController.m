@@ -79,7 +79,7 @@ UILabel *dot4;
 
     UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 420, 420)];
     imageHolder.center=CGPointMake(215,500);
-    UIImage *image = [UIImage imageNamed:@"circle_border.jpeg"];
+    UIImage *image = [UIImage imageNamed:@"circle_border.png"];
     imageHolder.image = image;
     // optional:
     // [imageHolder sizeToFit];

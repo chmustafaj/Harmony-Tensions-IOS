@@ -104,14 +104,13 @@
 		1C1647F7298BFA740036EF8D /* note3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1647B5298BFA740036EF8D /* note3.png */; };
 		1C1647F8298BFA740036EF8D /* a_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1647B6298BFA740036EF8D /* a_green.png */; };
 		1C1647F9298BFA740036EF8D /* v76_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1647B7298BFA740036EF8D /* v76_yellow.png */; };
-		1C1647FD298F90E40036EF8D /* segment.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C1647FC298F90E40036EF8D /* segment.jpg */; };
 		1C3B72A729A246F200E663B8 /* letters.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1C3B72A629A246F200E663B8 /* letters.jpeg */; };
 		1C625AEE299A90BD009F4205 /* HarmonyTensions-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDF438A814E5638700A27135 /* HarmonyTensions-Info.plist */; };
 		1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B14299AA2DB009F4205 /* SceneDelegate.m */; };
 		1C625B19299AB3CD009F4205 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */; };
 		1C625B1C299BC261009F4205 /* HarmonyWheelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */; };
-		1C8E28EE2994416E00CF01B7 /* thin_circle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 1C8E28ED2994416E00CF01B7 /* thin_circle.svg */; };
-		1C8E28F02994477400CF01B7 /* circle_border.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1C8E28EF2994477400CF01B7 /* circle_border.jpeg */; };
+		1CAD03AB29B8E73700411901 /* circle_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03AA29B8E73700411901 /* circle_border.png */; };
+		1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03AE29B9B8BC00411901 /* Utils.swift */; };
 		1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */; };
 		1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC72299A6FAC00250820 /* PagingViewController.swift */; };
 		1CEBEC75299A70A300250820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CEBEC74299A70A300250820 /* Main.storyboard */; };
@@ -226,7 +225,6 @@
 		1C1647B5298BFA740036EF8D /* note3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = note3.png; path = "../../../../Documents/Android Projects/Harmony Tensions With Accounts/app/src/main/res/drawable-v24/note3.png"; sourceTree = "<group>"; };
 		1C1647B6298BFA740036EF8D /* a_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_green.png; path = "../../../../Documents/Android Projects/Harmony Tensions With Accounts/app/src/main/res/drawable-v24/a_green.png"; sourceTree = "<group>"; };
 		1C1647B7298BFA740036EF8D /* v76_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = v76_yellow.png; path = "../../../../Documents/Android Projects/Harmony Tensions With Accounts/app/src/main/res/drawable-v24/v76_yellow.png"; sourceTree = "<group>"; };
-		1C1647FC298F90E40036EF8D /* segment.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = segment.jpg; path = ../../../segment.jpg; sourceTree = "<group>"; };
 		1C3B72A629A246F200E663B8 /* letters.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = letters.jpeg; sourceTree = "<group>"; };
 		1C625B13299AA2DB009F4205 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		1C625B14299AA2DB009F4205 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
@@ -234,8 +232,8 @@
 		1C625B1A299BC261009F4205 /* HarmonyWheelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarmonyWheelViewController.h; sourceTree = "<group>"; };
 		1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarmonyWheelViewController.m; sourceTree = "<group>"; };
 		1C8E28BE29942C6B00CF01B7 /* HarmonyTensions-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarmonyTensions-Bridging-Header.h"; sourceTree = "<group>"; };
-		1C8E28ED2994416E00CF01B7 /* thin_circle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = thin_circle.svg; path = ../../../thin_circle.svg; sourceTree = "<group>"; };
-		1C8E28EF2994477400CF01B7 /* circle_border.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = circle_border.jpeg; path = ../../../circle_border.jpeg; sourceTree = "<group>"; };
+		1CAD03AA29B8E73700411901 /* circle_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle_border.png; path = ../../../circle_border.png; sourceTree = "<group>"; };
+		1CAD03AE29B9B8BC00411901 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtension.swift; sourceTree = "<group>"; };
 		1CEBEC72299A6FAC00250820 /* PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
 		1CEBEC74299A70A300250820 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -288,8 +286,7 @@
 		BD683C5214EAB964005EF069 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				1C8E28EF2994477400CF01B7 /* circle_border.jpeg */,
-				1C8E28ED2994416E00CF01B7 /* thin_circle.svg */,
+				1CAD03AA29B8E73700411901 /* circle_border.png */,
 				1C1647B6298BFA740036EF8D /* a_green.png */,
 				1C164782298BFA720036EF8D /* note10.png */,
 				1C164790298BFA720036EF8D /* a_yellow.png */,
@@ -363,7 +360,6 @@
 				1C16473F298BFA350036EF8D /* b.PNG */,
 				1C164755298BFA360036EF8D /* c.PNG */,
 				1C16474B298BFA350036EF8D /* centre.png */,
-				1C1647FC298F90E40036EF8D /* segment.jpg */,
 				1C164747298BFA350036EF8D /* circle_modified.png */,
 				1C164739298BFA350036EF8D /* circle.JPG */,
 				1C164756298BFA360036EF8D /* d_flat.PNG */,
@@ -430,6 +426,7 @@
 				BDF438B014E5638700A27135 /* SMAppDelegate.m */,
 				1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */,
 				1C625B1A299BC261009F4205 /* HarmonyWheelViewController.h */,
+				1CAD03AE29B9B8BC00411901 /* Utils.swift */,
 				1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */,
 				1CEBEC72299A6FAC00250820 /* PagingViewController.swift */,
 				1CEBEC76299A76B400250820 /* GameViewController.swift */,
@@ -521,10 +518,8 @@
 				1C164765298BFA360036EF8D /* e_flat.PNG in Resources */,
 				1C1647BD298BFA740036EF8D /* e_yellow.png in Resources */,
 				1C16476B298BFA360036EF8D /* a.PNG in Resources */,
-				1C8E28F02994477400CF01B7 /* circle_border.jpeg in Resources */,
 				1C1647D3298BFA740036EF8D /* v72_yellow.png in Resources */,
 				1C1647DD298BFA740036EF8D /* page_3.jpg in Resources */,
-				1C1647FD298F90E40036EF8D /* segment.jpg in Resources */,
 				1C1647F9298BFA740036EF8D /* v76_yellow.png in Resources */,
 				1C164769298BFA360036EF8D /* f_sharp.PNG in Resources */,
 				1C164775298BFA360036EF8D /* d_flat.PNG in Resources */,
@@ -595,6 +590,7 @@
 				1C1647DF298BFA740036EF8D /* note8.png in Resources */,
 				1C1647E3298BFA740036EF8D /* page_4.jpg in Resources */,
 				1C164770298BFA360036EF8D /* fb.png in Resources */,
+				1CAD03AB29B8E73700411901 /* circle_border.png in Resources */,
 				1C1647F0298BFA740036EF8D /* v74_yellow.png in Resources */,
 				1C1647D9298BFA740036EF8D /* c_yellow.png in Resources */,
 				1C1647F1298BFA740036EF8D /* v75_yellow.png in Resources */,
@@ -602,7 +598,6 @@
 				1C164761298BFA360036EF8D /* dimvwhite.png in Resources */,
 				1C164760298BFA360036EF8D /* dimiwhite.png in Resources */,
 				1C16476D298BFA360036EF8D /* instagram_logo.png in Resources */,
-				1C8E28EE2994416E00CF01B7 /* thin_circle.svg in Resources */,
 				1C1647CA298BFA740036EF8D /* note5.png in Resources */,
 				1C1647D2298BFA740036EF8D /* a_yellow.png in Resources */,
 				1C1647C2298BFA740036EF8D /* note7.png in Resources */,
@@ -684,6 +679,7 @@
 				BDF438B114E5638700A27135 /* SMAppDelegate.m in Sources */,
 				1C625B1C299BC261009F4205 /* HarmonyWheelViewController.m in Sources */,
 				1CEBEC77299A76B400250820 /* GameViewController.swift in Sources */,
+				1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */,
 				BDF438BF14E5641000A27135 /* SMRotaryWheel.m in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,

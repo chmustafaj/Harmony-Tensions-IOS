@@ -9,16 +9,49 @@ import UIKit
 import SwiftUI
 
 class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    private var difficultySelection = 1
+    let difficulties = ["Level 1","Level 2","Level 3"]
+
+
+   
+    
+    @IBAction func btnLevelPressed(_ sender: Any) {
+        if(difficultyPicker.isHidden){
+            difficultyPicker.isHidden=false
+        }
+    }
+    @IBOutlet weak var difficultyPicker: UIPickerView!
+    @IBOutlet weak var btnLevel: UIButton!
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 0
+        return 1
     }
-    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 0
+        return difficulties.count
     }
-    
-    
-    private var difficultySelection = 0
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return difficulties[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        btnLevel.setTitle(difficulties[row], for: .normal)
+        difficultyPicker.isHidden=true
+
+        switch(difficulties[row]){
+        case "Level 1":
+            difficultySelection=1
+            break
+        case "Level 2":
+            difficultySelection=2
+            break
+        case "Level 3":
+            difficultySelection=3
+            break
+        default:
+            difficultySelection=1
+            
+        }
+    }
+    //TODO create a button and make it work with picker view
     private var beat = 0
     let circleView = UIImageView(image: UIImage(named: "letters.jpeg"))
 
@@ -26,18 +59,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "square.and.arrow.down"), for: .normal)
-        // button.addTarget(self, action: #selector(downloadButtonTapped), for: .touchUpInside)
-        view.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        ])
-        button.isHidden = true
-        
         let beatLabel = UILabel()
         beatLabel.text = "\(beat)"
         beatLabel.font = UIFont.systemFont(ofSize: 40)
@@ -48,18 +69,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             beatLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
-        let difficultyPicker = UIPickerView()
         difficultyPicker.dataSource = self
         difficultyPicker.delegate = self
-        view.addSubview(difficultyPicker)
-        difficultyPicker.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            difficultyPicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            difficultyPicker.topAnchor.constraint(equalTo: beatLabel.bottomAnchor, constant: 16),
-            difficultyPicker.widthAnchor.constraint(equalToConstant: 200),
-            difficultyPicker.heightAnchor.constraint(equalToConstant: 100)
-        ])
-        
+        difficultyPicker.isHidden=true
+
         
         view.addSubview(circleView)
         circleView.translatesAutoresizingMaskIntoConstraints = false
@@ -194,6 +207,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         selectKey()
         NSLog("key"+key)
     }
+    @objc func buttonAction(sender: UIButton!) {
+      print("Button tapped")
+    }
         
    
 //        let wheel = SMRotaryWheel(frame: CGRect(x: 0, y: 0, width: 350, height: 350), andDelegate: self, withSections: 12)
@@ -243,6 +259,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             circleView.transform.rotated(by: 0)
             
         }
+       
         
     }
 //    struct SMRotaryWheel: UIViewRepresentable {
