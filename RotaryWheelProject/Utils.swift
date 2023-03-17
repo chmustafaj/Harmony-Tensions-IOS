@@ -192,7 +192,7 @@ public class Utils{
         }
     }
 
-    func getFirst(_ key: String) -> Int {
+  func getFirst(_ key: String) -> Int {
         switch key {
         case "C":
             return 0
