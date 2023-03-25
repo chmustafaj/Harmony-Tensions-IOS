@@ -45,7 +45,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     static var gameInitialized = false
     var onSecondaryDominant = false
     var replayGame = false
-    var noteOn = key
+    var noteOn : String = key
     var turnaroundListCounter = 0
     var ranDiminished = 0
     var goToDiminished = 0
@@ -60,7 +60,18 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let v72ImageView = UIImageView(image: UIImage(named: "v72_white"))
     let v76ImageView = UIImageView(image: UIImage(named: "v76_white"))
     let v73ImageView = UIImageView(image: UIImage(named: "v73_white"))
-
+    let note0 = UIImageView();
+    let note1 = UIImageView();
+    let note2 = UIImageView();
+    let note3 = UIImageView();
+    let note4 = UIImageView();
+    let note5 = UIImageView();
+    let note6 = UIImageView();
+    let note7 = UIImageView();
+    let note8 = UIImageView();
+    let note9 = UIImageView();
+    let note10 = UIImageView();
+    let note11 = UIImageView();
 
     func makeDiminishedNotesVisible(_ isVisible:Bool){
         if isVisible{
@@ -163,20 +174,23 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         super.viewDidLoad()
         bpm = 60;  //default value
         bpmText = bpm;
+        noteOn = key
+        initProbabilityList()
         initUI()
-        
-
-      
-        
+       
+  
     }
     func startGame(){
         loopEnded = false
-
+        NSLog("beat "+String(beat))
         DispatchQueue.global(qos: .background).async { [self] in
+
 //            metronomeClick.start()
             if beat == 1 {
                 DispatchQueue.main.async { [self] in
                     labelBar.text = "\(barOn)"
+                    NSLog("Note on "+noteOn)
+
                 }
                 if onSecondaryDominant {
                     DispatchQueue.main.async {
@@ -185,8 +199,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                 }
             }
             if self.beat == 1 {
-//                resetWheel()
-                changeColor(note: utils.getFirst(noteOn), color: "g")
+                DispatchQueue.main.async { [self] in
+                    resetWheel()
+                    changeColor(note: Utils().getFirst(noteOn), c: "g")
+                }
                 switch difficultySelection {
                 case 1:
                     beginnerDifficulty()
@@ -229,12 +245,12 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                 beatOn = 1
             }
             noteOn = nextNote
-            
-            changeColor(note: utils.getFirst(nextNote), color: "y")
+            DispatchQueue.main.sync {
+                changeColor(note: utils.getFirst(nextNote), c: "y")
+            }
         }
-        var dispatchAfter = DispatchTimeInterval.seconds(60000 / bpmText)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + dispatchAfter) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + (60.0 / Double(bpmText))) {
             self.loopEnded = true
             if self.gameStarted {
                 self.startGame()
@@ -247,9 +263,190 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
     }
     func stopGame(){
-        
+        if difficultySelection == -1 {
+        // B is the temporary difficulty for the intermediate section. If the game is stopped during the temporary beginner difficulty part of the intermediate section, the difficulty will again be set to intermediate
+        difficultySelection = 2
+        }
+        replayGame = false
+        gameStarted = false
+        // metronomeClick.pause();   //todo make metronome click work
+//        metronomeClick.release()
+        btnStart.setTitle("Start", for: .normal)
+//        DispatchQueue.main.sync {
+            resetWheel()
+//        }
+        noteOn = key
+        beatOn = 1
+        beat = 1
+        barOn = 1
+        onSecondaryDominant = false
+        nextStep = 0
+        turnaroundListCounter = 0
+        turnaroundRandom = Int.random(in: 0...2)
+        labelBar.text = ""
+        changeColorDiminished(ranDiminished, "w")
+        if savedProgression.count > 0 {
+//        btnSave.setVisibility(View.VISIBLE)
+        }
+        //todo selected song
+//        HomeScreen.selectedSong = nil
     }
-    func changeColor(note : Int, color: Character ){
+    func resetWheel(){
+        note0.image = UIImage(named: "note0")
+        note1.image = UIImage(named: "note1")
+        note2.image = UIImage(named: "note2")
+        note3.image =  UIImage(named: "note3")
+        note4.image = UIImage(named: "note4")
+        note5.image = UIImage(named: "note5")
+        note6.image = UIImage(named: "note6")
+        note7.image =  UIImage(named: "note7")
+        note8.image = UIImage(named: "note8")
+        note9.image = UIImage(named: "note9")
+        note10.image = UIImage(named: "note10")
+        note11.image = UIImage(named: "note11")
+
+
+
+    }
+    func changeColor(note : Int, c: Character ){
+        switch note {
+        case 0:
+            switch c {
+            case "y":
+                note0.image = UIImage(named: "c_yellow")
+            case "g":
+                note0.image = UIImage(named: "c_green")
+            case "w":
+                note0.image = UIImage(named: "note0")
+            default:
+                break
+            }
+        case 1:
+            switch c {
+            case "y":
+                note1.image = UIImage(named: "g_yellow")
+            case "g":
+                note1.image = UIImage(named: "g_green")
+            case "w":
+                note1.image = UIImage(named: "note1")
+            default:
+                break
+            }
+        case 2:
+            switch c {
+            case "y":
+                note2.image = UIImage(named: "d_yellow")
+            case "g":
+                note2.image =  UIImage(named: "d_green")
+            case "w":
+                note2.image = UIImage(named: "note2")
+            default:
+                break
+            }
+        case 3:
+            switch c {
+            case "y":
+                note3.image = UIImage(named: "a_yellow")
+            case "g":
+                note3.image = UIImage(named: "a_green")
+            case "w":
+                note3.image =  UIImage(named: "note3")
+            default:
+                break
+            }
+        case 4:
+            switch c {
+            case "y":
+                note4.image = UIImage(named: "e_yellow")
+            case "g":
+                note4.image = UIImage(named: "e_green")
+            case "w":
+                note4.image = UIImage(named: "note4")
+            default:
+                break
+            }
+        case 5:
+            switch c {
+            case "y":
+                note5.image = UIImage(named: "b_yellow")
+            case "g":
+                note5.image = UIImage(named: "b_green")
+            case "w":
+                note5.image = UIImage(named: "note5")
+            default:
+                break
+            }
+        case 6:
+            switch c {
+            case "y":
+                note6.image = UIImage(named: "fs_yellow")
+            case "g":
+                note6.image =  UIImage(named: "fs_green")
+            case "w":
+                note6.image = UIImage(named: "note6")
+            default:
+                break
+            }
+        case 7:
+            switch c {
+            case "y":
+                note7.image = UIImage(named: "db_yellow")
+            case "g":
+                note7.image =  UIImage(named: "db_green")
+            case "w":
+                note7.image =  UIImage(named: "note7")
+            default:
+                break
+            }
+        case 8:
+            switch c {
+            case "y":
+                note8.image = UIImage(named: "ab_yellow")
+            case "g":
+                note8.image = UIImage(named: "ab_green")
+            case "w":
+                note8.image = UIImage(named: "note8")
+            default:
+                break
+            }
+        case 9:
+            switch c {
+            case "y":
+                note9.image = UIImage(named: "eb_yellow")
+            case "g":
+                note9.image = UIImage(named: "eb_green")
+            case "w":
+                note9.image = UIImage(named: "note9")
+            default:
+                break
+            }
+        case 10:
+            switch c {
+            case "y":
+                note10.image = UIImage(named: "bb_yellow")
+            case "g":
+                note10.image = UIImage(named: "bb_green")
+            case "w":
+                note10.image = UIImage(named: "note10")
+            default:
+                break
+            }
+        case 11:
+            switch c {
+            case "y":
+                note11.image = UIImage(named: "f_yellow")
+            case "g":
+                note11.image = UIImage(named: "f_green")
+            case "w":
+                note11.image = UIImage(named: "note11")
+            default:
+                break
+            }
+        default:
+            break
+        }
+                
+
         
     }
     private func beginnerDifficulty() {
@@ -257,27 +454,31 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             nextNote = key  //initializing
         }
         if !replayGame {
-            let random = Int.random(in: 0..<20)
-            let step = utils.getStepFromNote(key: key, note: nextNote)   //The step is either a first, second, third, fourth, fifth, sixth of seventh. We need to find if the note we are on is which 'step' of the key
+            NSLog("Next note "+nextNote)
+            NSLog("Key "+key)
+            let step = Utils().getStepFromNote(key: key, note: nextNote)   //The step is either a first, second, third, fourth, fifth, sixth of seventh. We need to find if the note we are on is which 'step' of the key
+            NSLog("step " + String(step))
             var nextStep = 0
             switch step {
                 case 1:
-                    nextStep = probabilityList1[random]
+                nextStep = probabilityList1.randomElement()!
                 case 2:
-                    nextStep = probabilityList2[random]
+                nextStep = probabilityList2.randomElement()!
                 case 3:
-                    nextStep = probabilityList3[random]
+                nextStep = probabilityList3.randomElement()!
                 case 4:
-                    nextStep = probabilityList4[random]
+                nextStep = probabilityList4.randomElement()!
                 case 5:
-                    nextStep = probabilityList5[random]
+                nextStep = probabilityList5.randomElement()!
                 case 6:
-                    nextStep = probabilityList6[random]
+                nextStep = probabilityList6.randomElement()!
                 case 7:
-                    nextStep = probabilityList7[random]
+                nextStep = probabilityList7.randomElement()!
                 default:
                     break
             }
+            NSLog("Next step "+String(nextStep))
+
             nextNote = getNoteFromInterval(interval: nextStep)
             savedProgression.append(nextNote)
         } else {
@@ -455,10 +656,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     private func goToDiminishedNote(ranDiminished: Int) {
         if beatOn <= 2 {
-            changeColor(note: utils.getDiminished(ranDiminished, key), color: "y")
+            changeColor(note: utils.getDiminished(ranDiminished, key), c: "y")
             changeColorDiminished(ranDiminished, "y")
         } else {
-            changeColor(note: utils.getDiminished(ranDiminished, key), color: "g")
+            changeColor(note: utils.getDiminished(ranDiminished, key), c: "g")
             changeColorDiminished(ranDiminished, "g")
         }
     }
@@ -552,7 +753,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         ])
         
         
-        let imageNames = ["note10", "note11","note0", "note1", "note2", "note3", "note4", "note5", "note6", "note7", "note8", "note9"]
+        let imageNames = ["note0", "note1", "note2", "note3", "note4", "note5", "note6", "note7", "note8", "note9","note10","note11"]
             let radius: CGFloat = 170  // Adjust this value to change the size of the ring
             var imageViews = [UIImageView]()
         
@@ -562,13 +763,96 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
         // Create image views and position them in a ring around the center
         for i in 0..<imageNames.count {
+            let note=(i+3)%12   //adjusting the index as the notes are added from the right
             let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
             let x = centerX + radius * cos(angle)
             let y = centerY + radius * sin(angle)
-            let imageView = UIImageView(image: UIImage(named: imageNames[i]))
-            imageView.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-            lettersView.addSubview(imageView)
-            imageViews.append(imageView)
+            switch(note){
+            case 0:
+                note0.image = UIImage(named: imageNames[note])
+                note0.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note0)
+                imageViews.append(note0)
+                break;
+            case 1:
+                note1.image = UIImage(named: imageNames[note])
+                note1.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note1)
+                imageViews.append(note1)
+                break;
+            case 2:
+                note2.image = UIImage(named: imageNames[note])
+                note2.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note2)
+                imageViews.append(note2)
+                break;
+            case 3:
+                note3.image = UIImage(named: imageNames[note])
+                note3.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note3)
+                imageViews.append(note3)
+                break;
+            case 4:
+                note4.image = UIImage(named: imageNames[note])
+                note4.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note4)
+                imageViews.append(note4)
+                break;
+            case 5:
+                note5.image = UIImage(named: imageNames[note])
+                note5.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note5)
+                imageViews.append(note5)
+                break;
+            case 6:
+                note6.image = UIImage(named: imageNames[note])
+                note6.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note6)
+                imageViews.append(note6)
+                break;
+            case 7:
+                note7.image = UIImage(named: imageNames[note])
+                note7.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note7)
+                imageViews.append(note7)
+                break;
+            case 8:
+                note8.image = UIImage(named: imageNames[note])
+                note8.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note8)
+                imageViews.append(note8)
+                break;
+            case 9:
+                note9.image = UIImage(named: imageNames[note])
+                note9.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note9)
+                imageViews.append(note9)
+                break;
+            case 10:
+                note10.image = UIImage(named: imageNames[note])
+                note10.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note10)
+                imageViews.append(note10)
+                break;
+            case 11:
+                note11.image = UIImage(named: imageNames[note])
+                note11.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note11)
+                imageViews.append(note11)
+                break;
+            default:
+                note0.image = UIImage(named: imageNames[note])
+                note0.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                lettersView.addSubview(note0)
+                imageViews.append(note0)
+            }
+            
+        }
+//        adding rotation to the images accordingly
+        for i in 0...11{
+            var index=(i+9)%12
+            imageViews[index].transform=imageViews[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
+           
         }
         circleView.addSubview(lettersView)
 
@@ -745,6 +1029,48 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
        
        
         
+    }
+    func initProbabilityList() {
+        //Probabilities of going to different notes from the 1
+        // Probabilities of going to different notes from each starting note
+        probabilityList1 = [3, 3, 3, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7]
+        probabilityList2 = [1, 1, 1, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7]
+        probabilityList3 = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7]
+        probabilityList4 = [1, 1, 1, 1, 1, 1, 2, 2, 3, 3, 3, 5, 5, 5, 5, 6, 6, 7, 7, 7]
+        
+        
+        
+        //Probabilities of going to different notes from the 5
+        probabilityList5 += [1, 1, 1, 1, 1, 1]
+        probabilityList5 += [2, 2, 2, 2]
+        probabilityList5 += [3, 3, 3, 3]
+        probabilityList5 += [4, 4, 4, 4]
+        probabilityList5 += [6]
+        probabilityList5 += [7]
+        // Probabilities of going to different notes from the 6
+        probabilityList6 += [1, 1, 1, 1, 1, 1]
+        probabilityList6 += [2, 2, 2, 2]
+        probabilityList6 += [3, 3, 3, 3]
+        probabilityList6 += [4, 4, 4, 4]
+        probabilityList6 += [5]
+        probabilityList6 += [7]
+        
+        // Probabilities of going to different notes from the 7
+        probabilityList7 += [1, 1, 1, 1, 1, 1]
+        probabilityList7 += [2, 2, 2, 2]
+        probabilityList7 += [3]
+        probabilityList7 += [4, 4, 4, 4]
+        probabilityList7 += [5]
+        probabilityList7 += [6, 6, 6, 6]
+        
+        // Probabilities of going to different notes from the different diminished notes. -1 means the secondary dominant. The probability of coming from that note to the diminished note is the same as going from the diminished note to that note
+        probabilityListDimSharpV += [-1, 7, 6, 6]
+        
+        probabilityListDimSharpI += [-1, 3, 2, 2]
+        
+        probabilityListDimSharpIV += [-1, 6, 5, 5]
+        
+        probabilityListDimSharpII += [-1, 7, 3, 3]
     }
 
    

@@ -69,7 +69,7 @@ UILabel *dot4;
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor whiteColor];
-    key=@"c";
+    key=@"C";
 
 //    valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 750, 120, 30)];
 //    valueLabel.textAlignment = UITextAlignmentCenter;
@@ -93,7 +93,8 @@ UILabel *dot4;
     wheel.center = CGPointMake(215,400);
 
 
-    wheel.transform = CGAffineTransformMakeRotation(-0.1); //rotation in radians
+    wheel.transform = CGAffineTransformMakeRotation(1.135*M_PI); //rotation in radians
+//    wheel.transform = CGAffineTransformMakeRotation(-0.1); //rotation in radians
 
 
     [self.view addSubview:wheel];

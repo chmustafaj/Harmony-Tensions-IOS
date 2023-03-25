@@ -307,48 +307,48 @@ static float maxAlphavalue = 10.0;
     
     switch (position) {
         case 0:
-            res = @"c";
+            res = @"C";
             break;
             
         case 1:
-            res = @"g";
+            res = @"G";
             break;
             
         case 2:
-            res = @"d";
+            res = @"D";
             break;
             
         case 3:
-            res = @"a";
+            res = @"A";
             break;
             
         case 4:
-            res = @"e";
+            res = @"E";
             break;
             
         case 5:
-            res = @"b";
+            res = @"B";
             break;
             
         case 6:
-            res = @"fs";
+            res = @"F#";
             break;
             
         case 7:
-            res = @"db";
+            res = @"Db";
             break;
             
         case 8:
-            res = @"ab";
+            res = @"Ab";
             break;
         case 9:
-            res = @"eb";
+            res = @"Eb";
             break;
         case 10:
-            res = @"bb";
+            res = @"Bb";
             break;
         case 11:
-            res = @"f";
+            res = @"F";
             break;
         default:
             break;
