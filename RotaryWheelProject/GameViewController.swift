@@ -12,6 +12,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     private var difficultySelection = 1
     let circleView = UIImageView()
     let lettersView = UIView()
+    let txtBarOn = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     let utils = Utils()
     let difficulties = ["Level 1","Level 2","Level 3"]
     var nextNote: String=""
@@ -127,9 +128,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             difficultyPicker.isHidden=false
         }
     }
-    let labelBar = UILabel()
     @IBOutlet weak var difficultyPicker: UIPickerView!
     @IBOutlet weak var btnLevel: UIButton!
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -140,7 +141,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         return difficulties[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         btnLevel.setTitle(difficulties[row], for: .normal)
         difficultyPicker.isHidden=true
         btnLevel.isHidden=false
@@ -176,19 +176,19 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         bpmText = bpm;
         noteOn = key
         initProbabilityList()
+        initTurnAroundLists()
         initUI()
        
   
     }
     func startGame(){
         loopEnded = false
-        NSLog("beat "+String(beat))
         DispatchQueue.global(qos: .background).async { [self] in
 
 //            metronomeClick.start()
             if beat == 1 {
                 DispatchQueue.main.async { [self] in
-                    labelBar.text = "\(barOn)"
+                    txtBarOn.text = "\(barOn)"
                     NSLog("Note on "+noteOn)
 
                 }
@@ -199,9 +199,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                 }
             }
             if self.beat == 1 {
-                DispatchQueue.main.async { [self] in
-                    resetWheel()
-                    changeColor(note: Utils().getFirst(noteOn), c: "g")
+                DispatchQueue.main.sync { [self] in
+                    self.resetWheel()
+                    self.changeColor(note: self.utils.getFirst(self.noteOn), c: "g")
+                    NSLog("Turning note " + String(self.noteOn) + "green")
                 }
                 switch difficultySelection {
                 case 1:
@@ -224,7 +225,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                             goToDiminishedNote(ranDiminished: ranDiminished)
                         }
                     } else if barOn == 3 {
-                        changeColorDiminished(ranDiminished, "w")
+                        DispatchQueue.main.async { [self] in
+                            changeColorDiminished(ranDiminished, "w")
+                        }
                     }
                 default:
                     break
@@ -260,7 +263,117 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
     }
     func intermediateDifficulty(){
-        
+        if !replayGame {
+            if barOn < 2 {
+                onSecondaryDominant = false
+                DispatchQueue.main.async { [self] in
+                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")
+                }
+                let random1 = Int.random(in: 0...2)    // There is an equal chance for it to go either to the first, third, or sixth
+                switch random1 {
+                case 0:
+                    nextNote = noteFromNumber(n: Utils().getFirst(key))
+                    savedProgression.append(nextNote)
+                    break;
+                case 1:
+                    nextNote = noteFromNumber(n: Utils().getThird(key))
+                    savedProgression.append(nextNote)
+                    break;
+                case 2:
+                    nextNote = noteFromNumber(n: Utils().getSixth(key))
+                    savedProgression.append(nextNote)
+                    break;
+                default:
+                    break;
+                }
+            } else if barOn == 2 {
+                randomSecDom = Int.random(in: 0...5)      // One of 6 secondary dominants will be chosen
+                DispatchQueue.main.async { [self] in
+                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")
+                }
+                nextNote = noteFromNumber(n: Utils().getSecondaryDominant(secondaryDominantNumber: randomSecDom, key: key))
+                savedProgression.append(nextNote)
+            } else if barOn == 3 {
+                onSecondaryDominant = true
+                DispatchQueue.main.async { [self] in
+                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "g")
+                }
+                nextNote = noteFromNumber(n: Utils().getDominant(secondaryDominant: randomSecDom, key: key))
+                onSecondaryDominant = false
+                savedProgression.append(nextNote)
+                difficultySelection = -1 // -1 is a temporary difficulty for the intermediate section. The fifth and sixth bars in the intermediate section will be identical to the beginner section
+            } else if barOn >= 6 {    // We will check from the 6 note onwards as the turn around starts on bar 7. We will decide the next note here
+                if turnaroundRandom == 0 {    // the first turn around list has 4 elements, so we check for it separately
+                    if turnaroundListCounter >= 4 {
+                        replayGame = true
+                        restartGame()
+                        return
+                    }
+                } else {
+                    if turnaroundListCounter >= 2 {
+                        replayGame = true
+                        restartGame()
+                        return
+                    }
+                }
+                switch turnaroundRandom {
+                case 0:
+                    nextNote = getNoteFromInterval(interval: turnaroundList1[turnaroundListCounter])
+                    savedProgression.append(nextNote)
+                    break;
+                case 1:
+                    nextNote = getNoteFromInterval(interval: turnaroundList2[turnaroundListCounter])
+                    savedProgression.append(nextNote)
+                    break;
+                case 2:
+                    nextNote = getNoteFromInterval(interval: turnaroundList3[turnaroundListCounter])
+                    savedProgression.append(nextNote)
+                    break;
+                case 3:
+                    nextNote = getNoteFromInterval(interval: turnaroundList4[turnaroundListCounter])
+                    savedProgression.append(nextNote)
+                    break;
+                default:
+                    break;
+                }
+                turnaroundListCounter += 1
+                NSLog("intermediateDifficulty: next note" + String(nextNote))
+            }
+        } else {
+            if replayIndex < savedProgression.count {
+                if barOn < 2 {
+                    onSecondaryDominant = false
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")
+                    }
+                } else if barOn == 2 {
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")
+                    }
+                } else if barOn == 3 {
+                    onSecondaryDominant = true
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "g")
+                    }
+                    nextNote = noteFromNumber(n: Utils().getDominant(secondaryDominant: randomSecDom, key: key))
+                    onSecondaryDominant = false
+                    difficultySelection = -1
+                    replayIndex += 1
+                    return
+                }
+                nextNote = savedProgression[replayIndex]
+                replayIndex += 1
+            } else {
+                restartGame()
+                replayGame = true
+            }
+            
+            if replayIndex >= savedProgression.count + 1 { // adding 1 as the tonic is not in the array
+                replayGame = true
+                restartGame()
+            }
+        }
+
     }
     func stopGame(){
         if difficultySelection == -1 {
@@ -283,8 +396,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         nextStep = 0
         turnaroundListCounter = 0
         turnaroundRandom = Int.random(in: 0...2)
-        labelBar.text = ""
-        changeColorDiminished(ranDiminished, "w")
+        txtBarOn.text = ""
+        DispatchQueue.main.async { [self] in
+            changeColorDiminished(ranDiminished, "w")
+        }
         if savedProgression.count > 0 {
 //        btnSave.setVisibility(View.VISIBLE)
         }
@@ -304,6 +419,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         note9.image = UIImage(named: "note9")
         note10.image = UIImage(named: "note10")
         note11.image = UIImage(named: "note11")
+        
+        v71ImageView.image = UIImage(named: "v71_white")
+        v75ImageView.image = UIImage(named: "v75_white")
+        v74ImageView.image = UIImage(named: "v74_white")
+        v72ImageView.image = UIImage(named: "v72_white")
+        v76ImageView.image = UIImage(named: "v76_white")
+        v73ImageView.image = UIImage(named: "v73_white")
 
 
 
@@ -718,7 +840,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     func initUI(){
         view.backgroundColor = .white
-    
         let ring = UIImageView(image: UIImage(named: "circle_border"))
         view.addSubview(ring)
         ring.translatesAutoresizingMaskIntoConstraints=false
@@ -732,6 +853,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         difficultyPicker.dataSource = self
         difficultyPicker.delegate = self
         difficultyPicker.isHidden=true
+     
 
         
         view.addSubview(circleView)
@@ -742,6 +864,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             circleView.widthAnchor.constraint(equalToConstant: 400),
             circleView.heightAnchor.constraint(equalToConstant: 400)
         ])
+       
+
+//        txtBarOn.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            txtBarOn.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            txtBarOn.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            txtBarOn.widthAnchor.constraint(equalToConstant: 40),
+//            txtBarOn.heightAnchor.constraint(equalToConstant: 40)
+//        ])
         
         view.addSubview(lettersView)
         lettersView.translatesAutoresizingMaskIntoConstraints = false
@@ -879,7 +1010,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             centre.heightAnchor.constraint(equalToConstant: 100)
         ])
 
-        imageView.addSubview(labelBar)
         NSLayoutConstraint.activate([
             centre.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
             centre.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
@@ -979,6 +1109,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         ])
         makeSecondaryDominantsVisible(false)
         makeDiminishedNotesVisible(false)
+        txtBarOn.center = CGPoint(x: centerX, y: centerY)
+            txtBarOn.textAlignment = .center
+        self.view.addSubview(txtBarOn)
        
 
     }
@@ -1072,6 +1205,26 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
         probabilityListDimSharpII += [-1, 7, 3, 3]
     }
+    private func initTurnAroundLists() {
+        //These are the outros. Either of the 4 will be played based on a 1/4 probability
+        turnaroundList1.append(1)
+        turnaroundList1.append(6)
+        turnaroundList1.append(2)
+        turnaroundList1.append(5)
+
+        turnaroundList2.append(3)
+        turnaroundList2.append(5)
+
+        turnaroundList3.append(6)
+        turnaroundList3.append(5)
+
+        turnaroundList4.append(1)
+        turnaroundList4.append(5)
+
+        let r = Int.random(in: 0..<3)
+        turnaroundRandom = r
+    }
+
 
    
 }
