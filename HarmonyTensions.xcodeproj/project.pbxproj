@@ -111,6 +111,7 @@
 		1CAD03AB29B8E73700411901 /* circle_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03AA29B8E73700411901 /* circle_border.png */; };
 		1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03AE29B9B8BC00411901 /* Utils.swift */; };
 		1CAD03B129BF8A0100411901 /* simple_hw.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03B029BF8A0100411901 /* simple_hw.png */; };
+		1CAD03B429D17C4100411901 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03B329D17C4100411901 /* click.mp3 */; };
 		1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */; };
 		1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC72299A6FAC00250820 /* PagingViewController.swift */; };
 		1CEBEC75299A70A300250820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CEBEC74299A70A300250820 /* Main.storyboard */; };
@@ -234,6 +235,7 @@
 		1CAD03AA29B8E73700411901 /* circle_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle_border.png; path = ../../../circle_border.png; sourceTree = "<group>"; };
 		1CAD03AE29B9B8BC00411901 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1CAD03B029BF8A0100411901 /* simple_hw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = simple_hw.png; path = "../../../../Documents/Android Projects/Harmony_Tensions-master/app/src/main/res/drawable-v24/simple_hw.png"; sourceTree = "<group>"; };
+		1CAD03B329D17C4100411901 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtension.swift; sourceTree = "<group>"; };
 		1CEBEC72299A6FAC00250820 /* PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
 		1CEBEC74299A70A300250820 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -281,6 +283,14 @@
 				8DB413B28B2B2337EFEE50BF /* Pods-HarmonyTensions.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1CAD03B229D17C4100411901 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				1CAD03B329D17C4100411901 /* click.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		BD683C5214EAB964005EF069 /* assets */ = {
@@ -433,6 +443,7 @@
 				1CEBEC74299A70A300250820 /* Main.storyboard */,
 				BDF438B514E5638700A27135 /* SMViewController.xib */,
 				BDF438BD14E5641000A27135 /* SMRotaryWheel.h */,
+				1CAD03B229D17C4100411901 /* Sounds */,
 				1C625B13299AA2DB009F4205 /* SceneDelegate.h */,
 				1C625B14299AA2DB009F4205 /* SceneDelegate.m */,
 				1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */,
@@ -536,6 +547,7 @@
 				1C1647CF298BFA740036EF8D /* hw1.png in Resources */,
 				BDF438B714E5638700A27135 /* SMViewController.xib in Resources */,
 				1C1647C1298BFA740036EF8D /* v76_green.png in Resources */,
+				1CAD03B429D17C4100411901 /* click.mp3 in Resources */,
 				1C1647CB298BFA740036EF8D /* hw4.png in Resources */,
 				1C1647C5298BFA740036EF8D /* g_yellow.png in Resources */,
 				1C1647DB298BFA740036EF8D /* e_green.png in Resources */,

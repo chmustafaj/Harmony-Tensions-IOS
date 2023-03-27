@@ -7,8 +7,10 @@
 
 import UIKit
 import SwiftUI
+import AVFoundation
 
 class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    var metronomeClick : AVAudioPlayer!
     private var difficultySelection = 1
     let circleView = UIImageView()
     let lettersView = UIView()
@@ -106,8 +108,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
     }
     
+    @IBOutlet weak var labelBPM: UILabel!
     @IBOutlet weak var beatLabel: UILabel!
     
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var btnStart: UIButton!
     @IBAction func btnStartPressed(_ sender: Any) {
         if(!gameStarted && loopEnded){
@@ -178,14 +182,16 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initProbabilityList()
         initTurnAroundLists()
         initUI()
+        let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+        
        
   
     }
     func startGame(){
         loopEnded = false
         DispatchQueue.global(qos: .background).async { [self] in
-
-//            metronomeClick.start()
+            metronomeClick!.play()
             if beat == 1 {
                 DispatchQueue.main.async { [self] in
                     txtBarOn.text = "\(barOn)"
@@ -215,7 +221,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     }
                     beginnerDifficulty()
                 case 3:
-//                    advancedDifficulty()
+                    advancedDifficulty()
                     if barOn == 2 {
                         if !replayGame {
                             ranDiminished = Int.random(in: 0..<3)
@@ -375,6 +381,81 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
 
     }
+    private func advancedDifficulty() {
+        if !replayGame {
+            if barOn < 2 {
+                onSecondaryDominant = false
+                DispatchQueue.main.async { [self] in
+                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")}
+                let random1 = Int.random(in: 0...2) // There is an equal chance for it to go either to the first, third, or sixth
+                switch random1 {
+                case 0:
+                    nextNote = noteFromNumber(n: utils.getFirst(key))
+                    savedProgression.append(nextNote)
+                    break;
+                case 1:
+                    nextNote = noteFromNumber(n: utils.getThird(key))
+                    savedProgression.append(nextNote)
+                    break;
+                case 2:
+                    nextNote = noteFromNumber(n: utils.getSixth(key))
+                    savedProgression.append(nextNote)
+                    break;
+                default:
+                    break;
+                }
+
+            } else if barOn == 2 {
+                randomSecDom = Int.random(in: 0...5) // One of 6 secondary dominants will be chosen
+                DispatchQueue.main.async { [self] in
+                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")}
+                nextNote = noteFromNumber(n: utils.getSecondaryDominant(secondaryDominantNumber: randomSecDom, key: key))
+                savedProgression.append(nextNote)
+            } else if barOn == 3 {
+                onSecondaryDominant = true
+                DispatchQueue.main.async {
+                    self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
+                }
+                nextNote = noteFromNumber(n: utils.getDominant(secondaryDominant: randomSecDom, key: key))
+                onSecondaryDominant = false
+                savedProgression.append(nextNote)
+
+            } else {
+                replayGame = true
+                restartGame()
+            }
+        } else {
+            if replayIndex < savedProgression.count {
+                if barOn < 2 {
+                    onSecondaryDominant = false
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")}
+                } else if barOn == 2 {
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")}
+                } else if barOn == 3 {
+                    onSecondaryDominant = true
+                    DispatchQueue.main.async {
+                        self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
+                    }
+                    onSecondaryDominant = false
+                }
+                nextNote = savedProgression[replayIndex]
+                replayIndex += 1
+
+            } else {
+                restartGame()
+                replayGame = true
+
+            }
+            if replayIndex >= savedProgression.count + 1 { // adding 1 as the tonic is not in the array
+                replayGame = true
+                restartGame()
+
+            }
+        }
+    }
+
     func stopGame(){
         if difficultySelection == -1 {
         // B is the temporary difficulty for the intermediate section. If the game is stopped during the temporary beginner difficulty part of the intermediate section, the difficulty will again be set to intermediate
@@ -382,12 +463,12 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
         replayGame = false
         gameStarted = false
-        // metronomeClick.pause();   //todo make metronome click work
+        metronomeClick!.stop();   //todo make metronome click work
 //        metronomeClick.release()
         btnStart.setTitle("Start", for: .normal)
-//        DispatchQueue.main.sync {
+        DispatchQueue.main.async { [self] in
             resetWheel()
-//        }
+        }
         noteOn = key
         beatOn = 1
         beat = 1
@@ -778,11 +859,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     private func goToDiminishedNote(ranDiminished: Int) {
         if beatOn <= 2 {
-            changeColor(note: utils.getDiminished(ranDiminished, key), c: "y")
-            changeColorDiminished(ranDiminished, "y")
+            DispatchQueue.main.async { [self] in
+                changeColor(note: utils.getDiminished(ranDiminished, key), c: "y")
+                changeColorDiminished(ranDiminished, "y")}
         } else {
-            changeColor(note: utils.getDiminished(ranDiminished, key), c: "g")
-            changeColorDiminished(ranDiminished, "g")
+            DispatchQueue.main.async { [self] in
+                changeColor(note: utils.getDiminished(ranDiminished, key), c: "g")
+                changeColorDiminished(ranDiminished, "g")}
         }
     }
 
@@ -1160,9 +1243,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             
         }
        
-       
         
     }
+    
     func initProbabilityList() {
         //Probabilities of going to different notes from the 1
         // Probabilities of going to different notes from each starting note
@@ -1204,6 +1287,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         probabilityListDimSharpIV += [-1, 6, 5, 5]
         
         probabilityListDimSharpII += [-1, 7, 3, 3]
+    }
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        var sliderValue = slider.value
+        sliderValue=sliderValue*100
+        bpmText=Int(sliderValue)
+        labelBPM.text=String(Int(sliderValue))
+        NSLog("slider " + String(sliderValue))
     }
     private func initTurnAroundLists() {
         //These are the outros. Either of the 4 will be played based on a 1/4 probability
