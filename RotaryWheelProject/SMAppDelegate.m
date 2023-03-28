@@ -6,12 +6,27 @@
 //  Copyright (c) 2012 studiomagnolia.com. All rights reserved.
 
 #import "SMAppDelegate.h"
-
+#import "CoreData/CoreData.h"
 
 @implementation SMAppDelegate
 
 //@synthesize window = _window;
 //@synthesize viewController = _viewController;
+//@property (nonatomic, strong, readonly) NSPersistentContainer *persistentContainer;
+//- (NSPersistentContainer *)persistentContainer {
+//    static NSPersistentContainer *container = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        container = [[NSPersistentContainer alloc] initWithName:@"HarmonyTensions"];
+//        [container loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
+//            if (error) {
+//                NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+//                abort();
+//            }
+//        }];
+//    });
+//    return container;
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -68,3 +83,4 @@
 }
 
 @end
+

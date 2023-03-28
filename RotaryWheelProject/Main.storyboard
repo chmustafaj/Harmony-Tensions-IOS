@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -110,6 +111,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLg-b2-OPA">
+                                <rect key="frame" x="183" y="128" width="63" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title=" ">
+                                    <imageReference key="image" image="square.and.arrow.down.fill" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="btnSavePushed:" destination="8HR-tR-r9D" eventType="touchUpInside" id="d9F-Fx-Z1F"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddA-aj-76K"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -117,6 +129,7 @@
                     <connections>
                         <outlet property="beatLabel" destination="rdL-wY-WL1" id="YFr-En-7VD"/>
                         <outlet property="btnLevel" destination="wI1-Gz-i3j" id="C1s-2C-EPY"/>
+                        <outlet property="btnSave" destination="QLg-b2-OPA" id="Qvj-JD-wfD"/>
                         <outlet property="btnStart" destination="ncv-eH-GHf" id="hTf-tS-feF"/>
                         <outlet property="difficultyPicker" destination="9nK-sX-KpG" id="3fP-tZ-opa"/>
                         <outlet property="labelBPM" destination="bnQ-hD-j7a" id="H95-Lr-YT4"/>
@@ -129,6 +142,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="square.and.arrow.down.fill" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

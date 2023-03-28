@@ -11,7 +11,7 @@ import AVFoundation
 
 class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var metronomeClick : AVAudioPlayer!
-    private var difficultySelection = 1
+    private var difficultySelection = Int()
     let circleView = UIImageView()
     let lettersView = UIView()
     let txtBarOn = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
@@ -108,9 +108,21 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
     }
     
+    @IBAction func btnSavePushed(_ sender: Any) {
+        let overLayer = ViewControllerSaveSong()
+        overLayer.difficulty=difficultySelection
+        overLayer.goToDiminished=goToDiminished
+        overLayer.ranDiminished=ranDiminished
+        overLayer.randomSecDom=randomSecDom
+        overLayer.turnaroundRandom=turnaroundRandom
+        overLayer.savedProgression=savedProgression
+        overLayer.key=key
+        overLayer.appear(sender: self)
+    }
     @IBOutlet weak var labelBPM: UILabel!
     @IBOutlet weak var beatLabel: UILabel!
     
+    @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var btnStart: UIButton!
     @IBAction func btnStartPressed(_ sender: Any) {
@@ -128,6 +140,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     
     @IBAction func btnLevelPressed(_ sender: Any) {
         btnLevel.isHidden=true
+        btnSave.isHidden = true
         if(difficultyPicker.isHidden){
             difficultyPicker.isHidden=false
         }
@@ -148,6 +161,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         btnLevel.setTitle(difficulties[row], for: .normal)
         difficultyPicker.isHidden=true
         btnLevel.isHidden=false
+        btnSave.isHidden = false
 
         switch(difficulties[row]){
         case "Level 1":
@@ -177,6 +191,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     override func viewDidLoad() {
         super.viewDidLoad()
         bpm = 60;  //default value
+        difficultySelection=1
         bpmText = bpm;
         noteOn = key
         initProbabilityList()
@@ -184,6 +199,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initUI()
         let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
         metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+        var songs: [Song] = DataManager.shared.getSongs()
+        print("Songs: ")
+        print(songs)
         
        
   

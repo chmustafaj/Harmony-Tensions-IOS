@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 studiomagnolia.com. All rights reserved.
 
 #import <UIKit/UIKit.h>
-
 //@class SMViewController;
 
 @interface SMAppDelegate : UIResponder <UIApplicationDelegate>

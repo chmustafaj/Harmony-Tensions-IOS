@@ -110,7 +110,7 @@ UILabel *dot4;
         [self.view addSubview:next];
     [next addTarget:self action:@selector(nextPressed:)
       forControlEvents:UIControlEventTouchUpInside];
-    [next setFrame:CGRectMake(250, 650, 130, 44)];
+    [next setFrame:CGRectMake(250, 680, 130, 44)];
 
     UIButton *prev = [UIButton buttonWithType:UIButtonTypeSystem];
         [prev setTitle:@"Previous" forState:UIControlStateNormal];
@@ -118,9 +118,9 @@ UILabel *dot4;
         [self.view addSubview:prev];
     [prev addTarget:self action:@selector(prevPressed:)
       forControlEvents:UIControlEventTouchUpInside];
-    [prev setFrame:CGRectMake(50, 650, 130, 44)];
+    [prev setFrame:CGRectMake(50, 680, 130, 44)];
     
-    dot1 = [[UILabel alloc] initWithFrame:CGRectMake(180, 507, 300, 300)];
+    dot1 = [[UILabel alloc] initWithFrame:CGRectMake(180, 537, 300, 300)];
 
     [dot1 setTextColor:[UIColor colorWithRed:(80.0/255.f) green:(194.0/255.f) blue:(201.0/255.f) alpha:1]];
     [dot1 setBackgroundColor:[UIColor clearColor]];
@@ -128,21 +128,21 @@ UILabel *dot4;
     dot1.text=@".";
     [self.view addSubview:dot1];
     
-    dot2 = [[UILabel alloc] initWithFrame:CGRectMake(200, 507, 300, 300)];
+    dot2 = [[UILabel alloc] initWithFrame:CGRectMake(200, 537, 300, 300)];
     [dot2 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
     [dot2 setBackgroundColor:[UIColor clearColor]];
     [dot2 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];
     dot2.text=@".";
     [self.view addSubview:dot2];
     
-    dot3 = [[UILabel alloc] initWithFrame:CGRectMake(220, 507, 300, 300)];
+    dot3 = [[UILabel alloc] initWithFrame:CGRectMake(220, 537, 300, 300)];
     [dot3 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
     [dot3 setBackgroundColor:[UIColor clearColor]];
     [dot3 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];
     dot3.text=@".";
     [self.view addSubview:dot3];
     
-    dot4 = [[UILabel alloc] initWithFrame:CGRectMake(240, 507, 300, 300)];
+    dot4 = [[UILabel alloc] initWithFrame:CGRectMake(240, 537, 300, 300)];
     [dot4 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
     [dot4 setBackgroundColor:[UIColor clearColor]];
     [dot4 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];

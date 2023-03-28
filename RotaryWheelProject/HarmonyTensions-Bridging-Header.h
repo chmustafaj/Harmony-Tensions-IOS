@@ -6,3 +6,5 @@
 #import "HarmonyWheelViewController.h"
 #import "SMRotaryProtocol.h"
 #import "HarmonyWheelViewController.m"
+#import "SMAppDelegate.h"
+#import "SMAppDelegate.m"

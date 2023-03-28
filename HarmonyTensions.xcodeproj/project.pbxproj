@@ -112,6 +112,11 @@
 		1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03AE29B9B8BC00411901 /* Utils.swift */; };
 		1CAD03B129BF8A0100411901 /* simple_hw.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03B029BF8A0100411901 /* simple_hw.png */; };
 		1CAD03B429D17C4100411901 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03B329D17C4100411901 /* click.mp3 */; };
+		1CAD03BB29D1B8A000411901 /* ViewControllerSaveSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */; };
+		1CAD03BC29D1B8A000411901 /* ViewControllerSaveSong.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */; };
+		1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */; };
+		1CAD03C129D2C9A700411901 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03C029D2C9A700411901 /* Song.swift */; };
+		1CAD03C329D339BA00411901 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03C229D339BA00411901 /* DataManager.swift */; };
 		1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */; };
 		1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC72299A6FAC00250820 /* PagingViewController.swift */; };
 		1CEBEC75299A70A300250820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CEBEC74299A70A300250820 /* Main.storyboard */; };
@@ -236,6 +241,11 @@
 		1CAD03AE29B9B8BC00411901 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1CAD03B029BF8A0100411901 /* simple_hw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = simple_hw.png; path = "../../../../Documents/Android Projects/Harmony_Tensions-master/app/src/main/res/drawable-v24/simple_hw.png"; sourceTree = "<group>"; };
 		1CAD03B329D17C4100411901 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
+		1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSaveSong.swift; sourceTree = "<group>"; };
+		1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewControllerSaveSong.xib; sourceTree = "<group>"; };
+		1CAD03BE29D2C8D500411901 /* HarmonyTensions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HarmonyTensions.xcdatamodel; sourceTree = "<group>"; };
+		1CAD03C029D2C9A700411901 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		1CAD03C229D339BA00411901 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtension.swift; sourceTree = "<group>"; };
 		1CEBEC72299A6FAC00250820 /* PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
 		1CEBEC74299A70A300250820 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -433,6 +443,11 @@
 			children = (
 				BD683C5214EAB964005EF069 /* assets */,
 				BDF438AF14E5638700A27135 /* SMAppDelegate.h */,
+				1CAD03C229D339BA00411901 /* DataManager.swift */,
+				1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */,
+				1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */,
+				1CAD03C029D2C9A700411901 /* Song.swift */,
+				1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */,
 				BDF438B014E5638700A27135 /* SMAppDelegate.m */,
 				1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */,
 				1C625B1A299BC261009F4205 /* HarmonyWheelViewController.h */,
@@ -546,6 +561,7 @@
 				1C16475C298BFA360036EF8D /* e.PNG in Resources */,
 				1C1647CF298BFA740036EF8D /* hw1.png in Resources */,
 				BDF438B714E5638700A27135 /* SMViewController.xib in Resources */,
+				1CAD03BC29D1B8A000411901 /* ViewControllerSaveSong.xib in Resources */,
 				1C1647C1298BFA740036EF8D /* v76_green.png in Resources */,
 				1CAD03B429D17C4100411901 /* click.mp3 in Resources */,
 				1C1647CB298BFA740036EF8D /* hw4.png in Resources */,
@@ -686,13 +702,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CAD03C129D2C9A700411901 /* Song.swift in Sources */,
 				BDF438AD14E5638700A27135 /* main.m in Sources */,
 				1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */,
+				1CAD03C329D339BA00411901 /* DataManager.swift in Sources */,
 				BDF438B114E5638700A27135 /* SMAppDelegate.m in Sources */,
 				1C625B1C299BC261009F4205 /* HarmonyWheelViewController.m in Sources */,
 				1CEBEC77299A76B400250820 /* GameViewController.swift in Sources */,
+				1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */,
 				1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */,
 				BDF438BF14E5641000A27135 /* SMRotaryWheel.m in Sources */,
+				1CAD03BB29D1B8A000411901 /* ViewControllerSaveSong.swift in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,
 				1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */,
@@ -881,6 +901,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1CAD03BE29D2C8D500411901 /* HarmonyTensions.xcdatamodel */,
+			);
+			currentVersion = 1CAD03BE29D2C8D500411901 /* HarmonyTensions.xcdatamodel */;
+			path = HarmonyTensions.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BDF4389314E5638700A27135 /* Project object */;
 }
