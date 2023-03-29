@@ -108,6 +108,8 @@
 		1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B14299AA2DB009F4205 /* SceneDelegate.m */; };
 		1C625B19299AB3CD009F4205 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */; };
 		1C625B1C299BC261009F4205 /* HarmonyWheelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */; };
+		1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */; };
+		1CA93A9629D44AB4008A02EF /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA93A9529D44AB4008A02EF /* SongCell.swift */; };
 		1CAD03AB29B8E73700411901 /* circle_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03AA29B8E73700411901 /* circle_border.png */; };
 		1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03AE29B9B8BC00411901 /* Utils.swift */; };
 		1CAD03B129BF8A0100411901 /* simple_hw.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03B029BF8A0100411901 /* simple_hw.png */; };
@@ -237,6 +239,8 @@
 		1C625B1A299BC261009F4205 /* HarmonyWheelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarmonyWheelViewController.h; sourceTree = "<group>"; };
 		1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarmonyWheelViewController.m; sourceTree = "<group>"; };
 		1C8E28BE29942C6B00CF01B7 /* HarmonyTensions-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarmonyTensions-Bridging-Header.h"; sourceTree = "<group>"; };
+		1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSavedSongs.swift; sourceTree = "<group>"; };
+		1CA93A9529D44AB4008A02EF /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		1CAD03AA29B8E73700411901 /* circle_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle_border.png; path = ../../../circle_border.png; sourceTree = "<group>"; };
 		1CAD03AE29B9B8BC00411901 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1CAD03B029BF8A0100411901 /* simple_hw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = simple_hw.png; path = "../../../../Documents/Android Projects/Harmony_Tensions-master/app/src/main/res/drawable-v24/simple_hw.png"; sourceTree = "<group>"; };
@@ -445,6 +449,8 @@
 				BDF438AF14E5638700A27135 /* SMAppDelegate.h */,
 				1CAD03C229D339BA00411901 /* DataManager.swift */,
 				1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */,
+				1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */,
+				1CA93A9529D44AB4008A02EF /* SongCell.swift */,
 				1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */,
 				1CAD03C029D2C9A700411901 /* Song.swift */,
 				1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */,
@@ -702,6 +708,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CA93A9629D44AB4008A02EF /* SongCell.swift in Sources */,
 				1CAD03C129D2C9A700411901 /* Song.swift in Sources */,
 				BDF438AD14E5638700A27135 /* main.m in Sources */,
 				1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */,
@@ -714,6 +721,7 @@
 				BDF438BF14E5641000A27135 /* SMRotaryWheel.m in Sources */,
 				1CAD03BB29D1B8A000411901 /* ViewControllerSaveSong.swift in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
+				1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,
 				1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */,
 			);

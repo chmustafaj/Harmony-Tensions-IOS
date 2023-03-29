@@ -199,9 +199,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initUI()
         let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
         metronomeClick = try! AVAudioPlayer(contentsOf: url!)
-        var songs: [Song] = DataManager.shared.getSongs()
-        print("Songs: ")
-        print(songs)
+       
         
        
   
@@ -1220,40 +1218,40 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     func selectKey(){
         switch(key){
-        case "c":
+        case "C":
             circleView.transform=circleView.transform.rotated(by: CGFloat(0))
             break;
-        case "g":
+        case "G":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*11)/180))
             break;
-        case "d":
+        case "D":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*10)/180))
             break;
-        case "a":
+        case "A":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*9)/180))
             break;
-        case "e":
+        case "E":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*8)/180))
             break;
-        case "b":
+        case "B":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*7)/180))
             break;
-        case "fs":
+        case "F#":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*6)/180))
             break;
-        case "db":
+        case "Db":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*5)/180))
             break;
-        case "ab":
+        case "Ab":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*4)/180))
             break;
-        case "eb":
+        case "Eb":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*3)/180))
             break;
-        case "bb":
+        case "Bb":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*2)/180))
             break;
-        case "f":
+        case "F":
             circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30)/180))
             break;
         default:
