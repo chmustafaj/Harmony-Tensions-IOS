@@ -61,7 +61,7 @@
         <!--Game View Controller-->
         <scene sceneID="GQ0-yp-UBJ">
             <objects>
-                <viewController storyboardIdentifier="GameViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8HR-tR-r9D" customClass="GameViewController" customModule="HarmonyTensions" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" definesPresentationContext="YES" providesPresentationContextTransitionStyle="YES" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8HR-tR-r9D" customClass="GameViewController" customModule="HarmonyTensions" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UBm-wM-sVw">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,13 +129,14 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Saved"/>
                                 <connections>
-                                    <segue destination="soC-Ad-ZBG" kind="show" id="jym-Te-2lS"/>
+                                    <action selector="btnSavedPressed:" destination="8HR-tR-r9D" eventType="touchUpInside" id="uHf-af-mM2"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddA-aj-76K"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="uSH-Dr-3Kq"/>
                     <connections>
                         <outlet property="beatLabel" destination="rdL-wY-WL1" id="YFr-En-7VD"/>
                         <outlet property="btnLevel" destination="wI1-Gz-i3j" id="C1s-2C-EPY"/>
@@ -153,13 +154,13 @@
         <!--View Controller Saved Songs-->
         <scene sceneID="Fj1-r4-xZh">
             <objects>
-                <viewController id="soC-Ad-ZBG" customClass="ViewControllerSavedSongs" customModule="HarmonyTensions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SavedSongs" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="soC-Ad-ZBG" customClass="ViewControllerSavedSongs" customModule="HarmonyTensions" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Par-bD-UER">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="863"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4mV-9N-0cc">
-                                <rect key="frame" x="0.0" y="29.666666666666682" width="430" height="863"/>
+                                <rect key="frame" x="0.0" y="12.666666666666686" width="430" height="932"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableViewCellID" rowHeight="100" id="Qj9-g7-7uC" customClass="SongCell" customModule="HarmonyTensions" customModuleProvider="target">

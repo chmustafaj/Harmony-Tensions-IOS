@@ -8,12 +8,13 @@
 import UIKit
 
 class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var delegate: isAbleToReceiveData?
 
- 
     var songs: [Song] = []
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         songs = DataManager.shared.getSongs()
 
 
@@ -28,6 +29,25 @@ class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITable
         tableViewCell.labelSongName.text = thisSong.name
         return tableViewCell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        GameViewController().setSelectedSong(s: songs[indexPath.row])
+     
+//        let gameView = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+//        self.present(gameView, animated: true, completion: nil)
+        let gameViewController = GameViewController()
+        delegate?.pass(data: songs[indexPath.row])
+//
+//        GameViewController().selectedSong = songs[indexPath.row]
+        self.dismiss(animated: true, completion: nil)
+//
+//        self.performSegue(withIdentifier: "loadGame", sender: self)
+        
+
+
+
+    }
+   
+    
     
    
     

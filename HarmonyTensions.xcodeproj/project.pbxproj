@@ -117,7 +117,6 @@
 		1CAD03BB29D1B8A000411901 /* ViewControllerSaveSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */; };
 		1CAD03BC29D1B8A000411901 /* ViewControllerSaveSong.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */; };
 		1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */; };
-		1CAD03C129D2C9A700411901 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03C029D2C9A700411901 /* Song.swift */; };
 		1CAD03C329D339BA00411901 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03C229D339BA00411901 /* DataManager.swift */; };
 		1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */; };
 		1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC72299A6FAC00250820 /* PagingViewController.swift */; };
@@ -248,7 +247,6 @@
 		1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSaveSong.swift; sourceTree = "<group>"; };
 		1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewControllerSaveSong.xib; sourceTree = "<group>"; };
 		1CAD03BE29D2C8D500411901 /* HarmonyTensions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HarmonyTensions.xcdatamodel; sourceTree = "<group>"; };
-		1CAD03C029D2C9A700411901 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		1CAD03C229D339BA00411901 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtension.swift; sourceTree = "<group>"; };
 		1CEBEC72299A6FAC00250820 /* PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
@@ -452,7 +450,6 @@
 				1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */,
 				1CA93A9529D44AB4008A02EF /* SongCell.swift */,
 				1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */,
-				1CAD03C029D2C9A700411901 /* Song.swift */,
 				1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */,
 				BDF438B014E5638700A27135 /* SMAppDelegate.m */,
 				1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */,
@@ -709,7 +706,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CA93A9629D44AB4008A02EF /* SongCell.swift in Sources */,
-				1CAD03C129D2C9A700411901 /* Song.swift in Sources */,
 				BDF438AD14E5638700A27135 /* main.m in Sources */,
 				1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */,
 				1CAD03C329D339BA00411901 /* DataManager.swift in Sources */,

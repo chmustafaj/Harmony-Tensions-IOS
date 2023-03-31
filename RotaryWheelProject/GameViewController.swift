@@ -9,7 +9,14 @@ import UIKit
 import SwiftUI
 import AVFoundation
 
-class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, isAbleToReceiveData {
+    
+    func pass(data: Song) {
+        selectedSong = data
+        NSLog((selectedSong?.name)!)
+    }
+    
+    var selectedSong : Song?
     var metronomeClick : AVAudioPlayer!
     private var difficultySelection = Int()
     let circleView = UIImageView()
@@ -138,6 +145,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
     }
     
+    @IBAction func btnSavedPressed(_ sender: Any) {
+        NSLog("Button")
+
+        let viewController:ViewControllerSavedSongs = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SavedSongs") as! ViewControllerSavedSongs
+        viewController.delegate = self
+        self.present(viewController, animated: true, completion: nil)
+
+    }
+  
     @IBAction func btnLevelPressed(_ sender: Any) {
         btnLevel.isHidden=true
         btnSave.isHidden = true
@@ -147,6 +163,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     @IBOutlet weak var difficultyPicker: UIPickerView!
     @IBOutlet weak var btnLevel: UIButton!
+    func setSelectedSong(song: Song){
+        selectedSong = song
+        NSLog("Setting song")
+        NSLog(song.name!)
+    }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -199,6 +220,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initUI()
         let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
         metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+        NSLog("View did load")
        
         
        
@@ -501,7 +523,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 //        btnSave.setVisibility(View.VISIBLE)
         }
         //todo selected song
-//        HomeScreen.selectedSong = nil
+        selectedSong = nil
     }
     func resetWheel(){
         note0.image = UIImage(named: "note0")
@@ -779,9 +801,101 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
 
     override func viewWillAppear(_ animated: Bool) {
+        NSLog("View did appear")
+
         circleView.transform=CGAffineTransformIdentity
         selectKey()
-        NSLog("key"+key)
+        if (selectedSong != nil) {
+            // These lines of code will be called when a song is selected from the saved songs activity
+            NSLog((selectedSong?.name)!)
+            savedProgression = selectedSong!.progression!.components(separatedBy: "-")
+            randomSecDom = Int(selectedSong!.secondaryDominant)
+            goToDiminished = Int(selectedSong!.diminished)
+            turnaroundRandom = Int(selectedSong!.turnaround)
+            difficultySelection = Int(selectedSong!.level)
+            NSLog("difficulty")
+            NSLog(String(difficultySelection))
+    
+          
+            switch (Int(selectedSong!.level)) {
+            // The correct level will be selected corresponding to the saved song
+            case 1:
+                difficultyPicker.selectRow(0, inComponent: 0, animated: false)
+                btnLevel.setTitle("Level 1", for: .normal)
+                makeSecondaryDominantsVisible(false);
+                makeDiminishedNotesVisible(false)
+                break;
+            case 2:
+                difficultyPicker.selectRow(1, inComponent: 0, animated: false)
+                btnLevel.setTitle("Level 2", for: .normal)
+                makeSecondaryDominantsVisible(true);
+                makeDiminishedNotesVisible(false);
+
+                break;
+            case 3:
+                difficultyPicker.selectRow(2, inComponent: 0, animated: false)
+                btnLevel.setTitle("Level 3", for: .normal)
+                makeDiminishedNotesVisible(true);
+                makeSecondaryDominantsVisible(true);
+                break;
+            default:
+                makeSecondaryDominantsVisible(false);
+                makeDiminishedNotesVisible(false)
+                break
+            }
+            noteOn = selectedSong!.key!
+
+            print("onCreateView: saved progression \(savedProgression)")
+            replayGame = true
+            gameStarted = true
+            btnStart.setTitle("Stop", for: .normal)
+            let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+            selectKey() // The key of the saved song could be different from the current selected key
+            replayIndex = 0
+            startGame()
+        }
+
+    }
+    func setSelectedSong(s: Song){
+        selectedSong = s
+        NSLog("Selecteed song ")
+        NSLog(s.name!)
+//        viewDidLoad()
+        selectSong()
+    }
+    func selectSong(){
+
+        if (selectedSong != nil) {
+            // These lines of code will be called when a song is selected from the saved songs activity
+            savedProgression = selectedSong!.progression!.components(separatedBy: "-")
+            randomSecDom = Int(selectedSong!.secondaryDominant)
+            goToDiminished = Int(selectedSong!.diminished)
+            turnaroundRandom = Int(selectedSong!.turnaround)
+            switch Int(selectedSong!.level) {
+            // The correct level will be selected corresponding to the saved song
+            case 1:
+                difficultyPicker.selectRow(0, inComponent: 0, animated: false)
+            case 2:
+                difficultyPicker.selectRow(1, inComponent: 0, animated: false)
+            case 3:
+                difficultyPicker.selectRow(2, inComponent: 0, animated: false)
+            default:
+                break
+            }
+            difficultySelection = Int(selectedSong!.level)
+            noteOn = selectedSong!.key!
+
+            print("onCreateView: saved progression \(savedProgression)")
+            replayGame = true
+            gameStarted = true
+            btnStart.setTitle("Stop", for: .normal)
+            let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+            selectKey() // The key of the saved song could be different from the current selected key
+            replayIndex = 0
+            startGame()
+        }
     }
     private func changeColorSecondaryDom(secDomNum: Int, color: Character) {
         switch secDomNum {
@@ -1331,7 +1445,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         turnaroundRandom = r
     }
 
-
    
+   
+}
+protocol isAbleToReceiveData {
+  func pass(data: Song)  //data: string is an example parameter
 }
 
