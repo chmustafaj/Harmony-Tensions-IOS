@@ -137,7 +137,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             btnStart.setTitle("Stop", for: .normal)
             gameStarted=true
             savedProgression.removeAll()
-//            btnSave.isHidden=true
+            btnSave.isHidden=true
             startGame()
             
         }else{
@@ -520,7 +520,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             changeColorDiminished(ranDiminished, "w")
         }
         if savedProgression.count > 0 {
-//        btnSave.setVisibility(View.VISIBLE)
+        btnSave.isHidden = false
         }
         //todo selected song
         selectedSong = nil
@@ -1053,6 +1053,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     func initUI(){
         view.backgroundColor = .white
+        btnSave.isHidden = true
         let ring = UIImageView(image: UIImage(named: "circle_border"))
         view.addSubview(ring)
         ring.translatesAutoresizingMaskIntoConstraints=false

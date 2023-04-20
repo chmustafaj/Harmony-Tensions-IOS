@@ -11,6 +11,9 @@ class ViewControllerSaveSong: UIViewController {
     var songs: [Song] = []
     @IBOutlet weak var txtSongName: UITextField!
     
+    @IBAction func btnDismissPressed(_ sender: Any) {
+        hide()
+    }
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var backView: UIView!
     var difficulty:Int?

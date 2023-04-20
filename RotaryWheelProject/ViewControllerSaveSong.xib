@@ -60,6 +60,15 @@
                                 <action selector="actionSave:" destination="-1" eventType="touchUpInside" id="jDL-zL-ESb"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VL-vE-GmK">
+                            <rect key="frame" x="158" y="176" width="84" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Dismiss"/>
+                            <connections>
+                                <action selector="btnDismissPressed:" destination="-1" eventType="touchUpInside" id="iLC-QK-t3v"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="nhd-I3-Rhn"/>
                     <color key="backgroundColor" systemColor="systemGray2Color"/>

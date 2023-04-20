@@ -122,6 +122,11 @@
 		1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC72299A6FAC00250820 /* PagingViewController.swift */; };
 		1CEBEC75299A70A300250820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CEBEC74299A70A300250820 /* Main.storyboard */; };
 		1CEBEC77299A76B400250820 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC76299A76B400250820 /* GameViewController.swift */; };
+		1CEC985929F07F1F00FA370A /* onBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC985829F07F1F00FA370A /* onBoardingViewController.swift */; };
+		1CEC985C29F0810600FA370A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC985B29F0810600FA370A /* UIView+Extension.swift */; };
+		1CEC985E29F081EE00FA370A /* onboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC985D29F081EE00FA370A /* onboardingSlide.swift */; };
+		1CEC986229F0833300FA370A /* onBoardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */; };
+		1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC986329F13B7100FA370A /* StartingViewController.swift */; };
 		BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD8AD3514EA8A1B002425D6 /* SMCLove.m */; };
 		BDF438A114E5638700A27135 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF438A014E5638700A27135 /* UIKit.framework */; };
 		BDF438A314E5638700A27135 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF438A214E5638700A27135 /* Foundation.framework */; };
@@ -252,6 +257,11 @@
 		1CEBEC72299A6FAC00250820 /* PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
 		1CEBEC74299A70A300250820 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1CEBEC76299A76B400250820 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		1CEC985829F07F1F00FA370A /* onBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onBoardingViewController.swift; sourceTree = "<group>"; };
+		1CEC985B29F0810600FA370A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		1CEC985D29F081EE00FA370A /* onboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onboardingSlide.swift; sourceTree = "<group>"; };
+		1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onBoardingCollectionViewCell.swift; sourceTree = "<group>"; };
+		1CEC986329F13B7100FA370A /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		3D5C5C0B103CC78F63C0A256 /* Pods-HarmonyTensions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyTensions.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.debug.xcconfig"; sourceTree = "<group>"; };
 		8DB413B28B2B2337EFEE50BF /* Pods-HarmonyTensions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyTensions.release.xcconfig"; path = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.release.xcconfig"; sourceTree = "<group>"; };
 		BDD8AD3414EA8A1B002425D6 /* SMCLove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCLove.h; sourceTree = "<group>"; };
@@ -303,6 +313,39 @@
 				1CAD03B329D17C4100411901 /* click.mp3 */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		1CEC985529F07EA200FA370A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1CEC985D29F081EE00FA370A /* onboardingSlide.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1CEC985629F07EE000FA370A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1CEC985729F07EF700FA370A /* Onboarding */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1CEC985729F07EF700FA370A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1CEC985829F07F1F00FA370A /* onBoardingViewController.swift */,
+				1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		1CEC985A29F080E500FA370A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1CEC985B29F0810600FA370A /* UIView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BD683C5214EAB964005EF069 /* assets */ = {
@@ -443,10 +486,14 @@
 		BDF438A614E5638700A27135 /* RotaryWheelProject */ = {
 			isa = PBXGroup;
 			children = (
+				1CEC985A29F080E500FA370A /* Extensions */,
+				1CEC985629F07EE000FA370A /* Views */,
+				1CEC985529F07EA200FA370A /* Models */,
 				BD683C5214EAB964005EF069 /* assets */,
 				BDF438AF14E5638700A27135 /* SMAppDelegate.h */,
 				1CAD03C229D339BA00411901 /* DataManager.swift */,
 				1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */,
+				1CEC986329F13B7100FA370A /* StartingViewController.swift */,
 				1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */,
 				1CA93A9529D44AB4008A02EF /* SongCell.swift */,
 				1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */,
@@ -517,6 +564,7 @@
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					BDF4389B14E5638700A27135 = {
+						DevelopmentTeam = RAAZ9A398U;
 						LastSwiftMigration = 1420;
 					};
 				};
@@ -712,13 +760,18 @@
 				BDF438B114E5638700A27135 /* SMAppDelegate.m in Sources */,
 				1C625B1C299BC261009F4205 /* HarmonyWheelViewController.m in Sources */,
 				1CEBEC77299A76B400250820 /* GameViewController.swift in Sources */,
+				1CEC985C29F0810600FA370A /* UIView+Extension.swift in Sources */,
 				1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */,
+				1CEC986229F0833300FA370A /* onBoardingCollectionViewCell.swift in Sources */,
 				1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */,
 				BDF438BF14E5641000A27135 /* SMRotaryWheel.m in Sources */,
 				1CAD03BB29D1B8A000411901 /* ViewControllerSaveSong.swift in Sources */,
+				1CEC985929F07F1F00FA370A /* onBoardingViewController.swift in Sources */,
+				1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
 				1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,
+				1CEC985E29F081EE00FA370A /* onboardingSlide.swift in Sources */,
 				1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -848,6 +901,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = RAAZ9A398U;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotaryWheelProject/HarmonyTensions-Prefix.pch";
 				INFOPLIST_FILE = "RotaryWheelProject/HarmonyTensions-Info.plist";
@@ -869,6 +923,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = RAAZ9A398U;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotaryWheelProject/HarmonyTensions-Prefix.pch";
 				INFOPLIST_FILE = "RotaryWheelProject/HarmonyTensions-Info.plist";
