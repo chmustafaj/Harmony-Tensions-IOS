@@ -17,9 +17,10 @@
 @property CGAffineTransform startTransform;
 @property (nonatomic, strong) NSMutableArray *cloves;
 @property int currentValue;
+@property int wheelWidth;
 
 
-- (id) initWithFrame:(CGRect)frame andDelegate:(id)del withSections:(int)sectionsNumber;
+- (id) initWithFrame:(CGRect)frame andDelegate:(id)del withSections:(int)sectionsNumber wheelSize:(int)size;
 
 
 @end

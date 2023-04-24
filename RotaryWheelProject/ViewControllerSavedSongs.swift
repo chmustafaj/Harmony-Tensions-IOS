@@ -10,6 +10,10 @@ import UIKit
 class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var delegate: isAbleToReceiveData?
 
+    @IBAction func close(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     var songs: [Song] = []
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -29,6 +33,19 @@ class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITable
         tableViewCell.labelSongName.text = thisSong.name
         return tableViewCell
     }
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete){
+            tableView.beginUpdates()
+            DataManager.shared.delete(song: songs[indexPath.row])
+            songs.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        GameViewController().setSelectedSong(s: songs[indexPath.row])
      

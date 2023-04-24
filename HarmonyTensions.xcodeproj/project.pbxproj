@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -104,7 +104,6 @@
 		1C1647F8298BFA740036EF8D /* a_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1647B6298BFA740036EF8D /* a_green.png */; };
 		1C1647F9298BFA740036EF8D /* v76_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1647B7298BFA740036EF8D /* v76_yellow.png */; };
 		1C3B72A729A246F200E663B8 /* letters.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1C3B72A629A246F200E663B8 /* letters.jpeg */; };
-		1C625AEE299A90BD009F4205 /* HarmonyTensions-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDF438A814E5638700A27135 /* HarmonyTensions-Info.plist */; };
 		1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B14299AA2DB009F4205 /* SceneDelegate.m */; };
 		1C625B19299AB3CD009F4205 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */; };
 		1C625B1C299BC261009F4205 /* HarmonyWheelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */; };
@@ -127,6 +126,7 @@
 		1CEC985E29F081EE00FA370A /* onboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC985D29F081EE00FA370A /* onboardingSlide.swift */; };
 		1CEC986229F0833300FA370A /* onBoardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */; };
 		1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC986329F13B7100FA370A /* StartingViewController.swift */; };
+		1CEC988729F1454800FA370A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CEC988629F1454800FA370A /* Media.xcassets */; };
 		BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD8AD3514EA8A1B002425D6 /* SMCLove.m */; };
 		BDF438A114E5638700A27135 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF438A014E5638700A27135 /* UIKit.framework */; };
 		BDF438A314E5638700A27135 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDF438A214E5638700A27135 /* Foundation.framework */; };
@@ -262,6 +262,7 @@
 		1CEC985D29F081EE00FA370A /* onboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onboardingSlide.swift; sourceTree = "<group>"; };
 		1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onBoardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		1CEC986329F13B7100FA370A /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
+		1CEC988629F1454800FA370A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		3D5C5C0B103CC78F63C0A256 /* Pods-HarmonyTensions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyTensions.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.debug.xcconfig"; sourceTree = "<group>"; };
 		8DB413B28B2B2337EFEE50BF /* Pods-HarmonyTensions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyTensions.release.xcconfig"; path = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.release.xcconfig"; sourceTree = "<group>"; };
 		BDD8AD3414EA8A1B002425D6 /* SMCLove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCLove.h; sourceTree = "<group>"; };
@@ -353,6 +354,7 @@
 			children = (
 				1CAD03AA29B8E73700411901 /* circle_border.png */,
 				1CAD03B029BF8A0100411901 /* simple_hw.png */,
+				1CEC988629F1454800FA370A /* Media.xcassets */,
 				1C1647B6298BFA740036EF8D /* a_green.png */,
 				1C164782298BFA720036EF8D /* note3.png */,
 				1C164790298BFA720036EF8D /* a_yellow.png */,
@@ -561,10 +563,10 @@
 		BDF4389314E5638700A27135 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1420;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					BDF4389B14E5638700A27135 = {
-						DevelopmentTeam = RAAZ9A398U;
 						LastSwiftMigration = 1420;
 					};
 				};
@@ -576,6 +578,7 @@
 			knownRegions = (
 				English,
 				en,
+				Base,
 			);
 			mainGroup = BDF4389114E5638700A27135;
 			productRefGroup = BDF4389D14E5638700A27135 /* Products */;
@@ -631,6 +634,7 @@
 				1C164767298BFA360036EF8D /* facebook_logo.jpg in Resources */,
 				1C1647D4298BFA740036EF8D /* v71_yellow.png in Resources */,
 				1C1647D7298BFA740036EF8D /* v75_green.png in Resources */,
+				1CEC988729F1454800FA370A /* Media.xcassets in Resources */,
 				1C1647EE298BFA740036EF8D /* note11.png in Resources */,
 				1C16475D298BFA360036EF8D /* dimiyellow.png in Resources */,
 				1C1647C6298BFA740036EF8D /* v73_white.png in Resources */,
@@ -696,7 +700,6 @@
 				1C16476C298BFA360036EF8D /* dimiigreen.png in Resources */,
 				1C1647F4298BFA740036EF8D /* hw2.png in Resources */,
 				1C164757298BFA360036EF8D /* ic_launcher_background.xml in Resources */,
-				1C625AEE299A90BD009F4205 /* HarmonyTensions-Info.plist in Resources */,
 				1C1647C8298BFA740036EF8D /* f_yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -890,6 +893,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -900,13 +904,18 @@
 			baseConfigurationReference = 3D5C5C0B103CC78F63C0A256 /* Pods-HarmonyTensions.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = RAAZ9A398U;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotaryWheelProject/HarmonyTensions-Prefix.pch";
 				INFOPLIST_FILE = "RotaryWheelProject/HarmonyTensions-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Harmony Tensions";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mustafa.--PRODUCT-NAME-rfc1034identifier-";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.mustafa.HarmonyTensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -922,13 +931,18 @@
 			baseConfigurationReference = 8DB413B28B2B2337EFEE50BF /* Pods-HarmonyTensions.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = RAAZ9A398U;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RotaryWheelProject/HarmonyTensions-Prefix.pch";
 				INFOPLIST_FILE = "RotaryWheelProject/HarmonyTensions-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Harmony Tensions";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mustafa.--PRODUCT-NAME-rfc1034identifier-";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.mustafa.HarmonyTensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";

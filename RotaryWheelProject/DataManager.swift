@@ -75,6 +75,11 @@ class DataManager {
             }
         }
     }
+    func delete (song : Song) {
+        let context = persistentContainer.viewContext
+            context.delete(song)
+            save()
+            }
 
     
    

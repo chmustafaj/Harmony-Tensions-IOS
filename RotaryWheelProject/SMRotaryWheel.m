@@ -25,16 +25,17 @@ static float maxAlphavalue = 10.0;
 
 @implementation SMRotaryWheel
 
-@synthesize delegate, container, numberOfSections, startTransform, cloves, currentValue;
+@synthesize delegate, container, numberOfSections, startTransform, cloves, currentValue, wheelWidth;
 
 
-- (id) initWithFrame:(CGRect)frame andDelegate:(id)del withSections:(int)sectionsNumber {
+- (id) initWithFrame:(CGRect)frame andDelegate:(id)del withSections:(int)sectionsNumber wheelSize:(int) size {
     
     if ((self = [super initWithFrame:frame])) {
 		
         self.currentValue = 0;
         self.numberOfSections = sectionsNumber;
         self.delegate = del;
+        self.wheelWidth = size;
 		[self drawWheel];
         
 	}
@@ -64,7 +65,7 @@ static float maxAlphavalue = 10.0;
             im.alpha = maxAlphavalue;
         }
         
-        UIImageView *cloveImage = [[UIImageView alloc] initWithFrame:CGRectMake(40, 140, 50, 50)];
+        UIImageView *cloveImage = [[UIImageView alloc] initWithFrame:CGRectMake(40, wheelWidth, 50, 50)];
         cloveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"note%i.png", i]];
         cloveImage.transform = CGAffineTransformMakeRotation(M_PI*2.86); //rotation in radians
 

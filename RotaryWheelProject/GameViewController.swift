@@ -1056,14 +1056,16 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         btnSave.isHidden = true
         let ring = UIImageView(image: UIImage(named: "circle_border"))
         view.addSubview(ring)
-        ring.translatesAutoresizingMaskIntoConstraints=false
-        ring.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
-        NSLayoutConstraint.activate([
-            ring.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            ring.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
-            ring.widthAnchor.constraint(equalToConstant: 410),
-            ring.heightAnchor.constraint(equalToConstant: 410)
-        ])
+//        ring.translatesAutoresizingMaskIntoConstraints=false
+        ring.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
+//        NSLayoutConstraint.activate([
+//            ring.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            ring.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+//            ring.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+//            ring.heightAnchor.constraint(equalToConstant: self.view.frame.width)
+//        ])
+        ring.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+
         difficultyPicker.dataSource = self
         difficultyPicker.delegate = self
         difficultyPicker.isHidden=true
@@ -1071,13 +1073,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
         
         view.addSubview(circleView)
-        circleView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            circleView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            circleView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
-            circleView.widthAnchor.constraint(equalToConstant: 400),
-            circleView.heightAnchor.constraint(equalToConstant: 400)
-        ])
+        circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
+        circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+
+//        NSLayoutConstraint.activate([
+//            circleView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            circleView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40),
+//            circleView.widthAnchor.constraint(equalToConstant: 400),
+//            circleView.heightAnchor.constraint(equalToConstant: 400)
+//        ])
        
 
 //        txtBarOn.translatesAutoresizingMaskIntoConstraints = false
@@ -1090,16 +1094,17 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
         view.addSubview(lettersView)
         lettersView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            lettersView.centerXAnchor.constraint(equalTo: view.centerXAnchor,constant: -11),
-            lettersView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -160),
-            lettersView.widthAnchor.constraint(equalToConstant: 400),
-            lettersView.heightAnchor.constraint(equalToConstant: 400)
-        ])
-        
+//        NSLayoutConstraint.activate([
+//            lettersView.centerXAnchor.constraint(equalTo: self.view.center.x),
+//            lettersView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -184),
+//            lettersView.widthAnchor.constraint(equalToConstant: 400),
+//            lettersView.heightAnchor.constraint(equalToConstant: 400)
+//        ])
+        lettersView.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
+
         
         let imageNames = ["note0", "note1", "note2", "note3", "note4", "note5", "note6", "note7", "note8", "note9","note10","note11"]
-            let radius: CGFloat = 170  // Adjust this value to change the size of the ring
+        let radius: CGFloat = 0.42*self.view.frame.width  // Adjust this value to change the size of the ring
             var imageViews = [UIImageView]()
         
         // Calculate the center of the view
@@ -1195,7 +1200,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
 //        adding rotation to the images accordingly
         for i in 0...11{
-            var index=(i+9)%12
+            let index=(i+9)%12
             imageViews[index].transform=imageViews[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
            
         }
@@ -1323,7 +1328,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         ])
         makeSecondaryDominantsVisible(false)
         makeDiminishedNotesVisible(false)
-        txtBarOn.center = CGPoint(x: centerX, y: centerY)
+        txtBarOn.center = CGPoint(x: centerX, y: centerY-30)
             txtBarOn.textAlignment = .center
         self.view.addSubview(txtBarOn)
        

@@ -8,5 +8,8 @@
 import Foundation
 class SongCell: UITableViewCell{
     
+    @IBAction func deletePressed(_ sender: Any) {
+        
+    }
     @IBOutlet weak public var labelSongName: UILabel!
 }
