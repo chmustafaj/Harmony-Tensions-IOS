@@ -16,6 +16,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         NSLog((selectedSong?.name)!)
     }
     
+    @IBOutlet weak var buttonsView: UIView!
+    @IBOutlet weak var btnUnlock: UIButton!
+    @IBOutlet weak var freeVersionView: UIView!
     var selectedSong : Song?
     var metronomeClick : AVAudioPlayer!
     private var difficultySelection = Int()
@@ -70,6 +73,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let v72ImageView = UIImageView(image: UIImage(named: "v72_white"))
     let v76ImageView = UIImageView(image: UIImage(named: "v76_white"))
     let v73ImageView = UIImageView(image: UIImage(named: "v73_white"))
+    let ring = UIImageView(image: UIImage(named: "circle_border"))
+    let imageView = UIImageView(image: UIImage(named: "simple_hw"))
+    let centre = UIImageView(image: UIImage(named: "centre"))
+
+
     let note0 = UIImageView();
     let note1 = UIImageView();
     let note2 = UIImageView();
@@ -82,7 +90,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let note9 = UIImageView();
     let note10 = UIImageView();
     let note11 = UIImageView();
-
+    
+    @IBAction func btnUnlock(_ sender: Any) {
+        unlockPremiumVersion()
+    }
+    
     func makeDiminishedNotesVisible(_ isVisible:Bool){
         if isVisible{
             dimi.isHidden=false
@@ -802,59 +814,65 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     override func viewWillAppear(_ animated: Bool) {
         NSLog("View did appear")
+        noteOn = key
 
         circleView.transform=CGAffineTransformIdentity
-        selectKey()
-        if (selectedSong != nil) {
-            // These lines of code will be called when a song is selected from the saved songs activity
-            NSLog((selectedSong?.name)!)
-            savedProgression = selectedSong!.progression!.components(separatedBy: "-")
-            randomSecDom = Int(selectedSong!.secondaryDominant)
-            goToDiminished = Int(selectedSong!.diminished)
-            turnaroundRandom = Int(selectedSong!.turnaround)
-            difficultySelection = Int(selectedSong!.level)
-            NSLog("difficulty")
-            NSLog(String(difficultySelection))
-    
-          
-            switch (Int(selectedSong!.level)) {
-            // The correct level will be selected corresponding to the saved song
-            case 1:
-                difficultyPicker.selectRow(0, inComponent: 0, animated: false)
-                btnLevel.setTitle("Level 1", for: .normal)
-                makeSecondaryDominantsVisible(false);
-                makeDiminishedNotesVisible(false)
-                break;
-            case 2:
-                difficultyPicker.selectRow(1, inComponent: 0, animated: false)
-                btnLevel.setTitle("Level 2", for: .normal)
-                makeSecondaryDominantsVisible(true);
-                makeDiminishedNotesVisible(false);
-
-                break;
-            case 3:
-                difficultyPicker.selectRow(2, inComponent: 0, animated: false)
-                btnLevel.setTitle("Level 3", for: .normal)
-                makeDiminishedNotesVisible(true);
-                makeSecondaryDominantsVisible(true);
-                break;
-            default:
-                makeSecondaryDominantsVisible(false);
-                makeDiminishedNotesVisible(false)
-                break
-            }
-            noteOn = selectedSong!.key!
-
-            print("onCreateView: saved progression \(savedProgression)")
-            replayGame = true
-            gameStarted = true
-            btnStart.setTitle("Stop", for: .normal)
-            let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
-            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
-            selectKey() // The key of the saved song could be different from the current selected key
-            replayIndex = 0
-            startGame()
+        if(selectedSong != nil){
+            selectSong()
+        }else{
+            selectKey(songKey: key)
         }
+        
+//        if (selectedSong != nil) {
+//            // These lines of code will be called when a song is selected from the saved songs activity
+//            NSLog((selectedSong?.name)!)
+//            savedProgression = selectedSong!.progression!.components(separatedBy: "-")
+//            randomSecDom = Int(selectedSong!.secondaryDominant)
+//            goToDiminished = Int(selectedSong!.diminished)
+//            turnaroundRandom = Int(selectedSong!.turnaround)
+//            difficultySelection = Int(selectedSong!.level)
+//            NSLog("difficulty")
+//            NSLog(String(difficultySelection))
+//
+//
+//            switch (Int(selectedSong!.level)) {
+//            // The correct level will be selected corresponding to the saved song
+//            case 1:
+//                difficultyPicker.selectRow(0, inComponent: 0, animated: false)
+//                btnLevel.setTitle("Level 1", for: .normal)
+//                makeSecondaryDominantsVisible(false);
+//                makeDiminishedNotesVisible(false)
+//                break;
+//            case 2:
+//                difficultyPicker.selectRow(1, inComponent: 0, animated: false)
+//                btnLevel.setTitle("Level 2", for: .normal)
+//                makeSecondaryDominantsVisible(true);
+//                makeDiminishedNotesVisible(false);
+//
+//                break;
+//            case 3:
+//                difficultyPicker.selectRow(2, inComponent: 0, animated: false)
+//                btnLevel.setTitle("Level 3", for: .normal)
+//                makeDiminishedNotesVisible(true);
+//                makeSecondaryDominantsVisible(true);
+//                break;
+//            default:
+//                makeSecondaryDominantsVisible(false);
+//                makeDiminishedNotesVisible(false)
+//                break
+//            }
+//            noteOn = selectedSong!.key!
+//
+//            print("onCreateView: saved progression \(savedProgression)")
+//            replayGame = true
+//            gameStarted = true
+//            btnStart.setTitle("Stop", for: .normal)
+//            let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+//            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+//            selectKey() // The key of the saved song could be different from the current selected key
+//            replayIndex = 0
+//            startGame()
+//        }
 
     }
     func setSelectedSong(s: Song){
@@ -862,7 +880,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         NSLog("Selecteed song ")
         NSLog(s.name!)
 //        viewDidLoad()
-        selectSong()
+//        selectSong()
     }
     func selectSong(){
 
@@ -872,27 +890,45 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             randomSecDom = Int(selectedSong!.secondaryDominant)
             goToDiminished = Int(selectedSong!.diminished)
             turnaroundRandom = Int(selectedSong!.turnaround)
-            switch Int(selectedSong!.level) {
-            // The correct level will be selected corresponding to the saved song
-            case 1:
-                difficultyPicker.selectRow(0, inComponent: 0, animated: false)
-            case 2:
-                difficultyPicker.selectRow(1, inComponent: 0, animated: false)
-            case 3:
-                difficultyPicker.selectRow(2, inComponent: 0, animated: false)
-            default:
-                break
-            }
-            difficultySelection = Int(selectedSong!.level)
-            noteOn = selectedSong!.key!
+            
+            switch (Int(selectedSong!.level)) {
+                        // The correct level will be selected corresponding to the saved song
+                        case 1:
+                            difficultyPicker.selectRow(0, inComponent: 0, animated: false)
+                            btnLevel.setTitle("Level 1", for: .normal)
+                            makeSecondaryDominantsVisible(false);
+                            makeDiminishedNotesVisible(false)
+                            break;
+                        case 2:
+                            difficultyPicker.selectRow(1, inComponent: 0, animated: false)
+                            btnLevel.setTitle("Level 2", for: .normal)
+                            makeSecondaryDominantsVisible(true);
+                            makeDiminishedNotesVisible(false);
+            
+                            break;
+                        case 3:
+                            difficultyPicker.selectRow(2, inComponent: 0, animated: false)
+                            btnLevel.setTitle("Level 3", for: .normal)
+                            makeDiminishedNotesVisible(true);
+                            makeSecondaryDominantsVisible(true);
+                            break;
+                        default:
+                            makeSecondaryDominantsVisible(false);
+                            makeDiminishedNotesVisible(false)
+                            break
+                        }
+                        noteOn = selectedSong!.key!
 
             print("onCreateView: saved progression \(savedProgression)")
+            NSLog("Saved song key: ")
+            NSLog(selectedSong!.key!)
             replayGame = true
             gameStarted = true
             btnStart.setTitle("Stop", for: .normal)
             let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
             metronomeClick = try! AVAudioPlayer(contentsOf: url!)
-            selectKey() // The key of the saved song could be different from the current selected key
+            circleView.transform=CGAffineTransformIdentity
+            selectKey(songKey: (selectedSong?.key)!) // The key of the saved song could be different from the current selected key
             replayIndex = 0
             startGame()
         }
@@ -1054,8 +1090,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     func initUI(){
         view.backgroundColor = .white
         btnSave.isHidden = true
-        let ring = UIImageView(image: UIImage(named: "circle_border"))
         view.addSubview(ring)
+        btnUnlock.titleLabel?.adjustsFontForContentSizeCategory = true
+
 //        ring.translatesAutoresizingMaskIntoConstraints=false
         ring.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
 //        NSLayoutConstraint.activate([
@@ -1065,6 +1102,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 //            ring.heightAnchor.constraint(equalToConstant: self.view.frame.width)
 //        ])
         ring.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+        ring.isHidden = true
 
         difficultyPicker.dataSource = self
         difficultyPicker.delegate = self
@@ -1075,6 +1113,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         view.addSubview(circleView)
         circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
         circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+        circleView.isHidden = true
 
 //        NSLayoutConstraint.activate([
 //            circleView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -1206,7 +1245,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
         circleView.addSubview(lettersView)
 
-        let imageView = UIImageView(image: UIImage(named: "simple_hw"))
+        imageView.isHidden = true
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         view.addSubview(imageView)
@@ -1218,7 +1257,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             imageView.heightAnchor.constraint(equalToConstant: 250)
         ])
         
-        let centre = UIImageView(image: UIImage(named: "centre"))
+        centre.isHidden = true
         imageView.addSubview(centre)
         centre.translatesAutoresizingMaskIntoConstraints=false
         centre.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
@@ -1334,10 +1373,25 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
        
 
     }
+    func unlockPremiumVersion(){
+        freeVersionView.isHidden = true
+        btnLevel.isHidden = false
+        buttonsView.isHidden = false
+        labelBPM.isHidden = false
+        slider.isHidden = false
+        ring.isHidden = false
+        circleView.isHidden = false
+        imageView.isHidden = false
+        centre.isHidden = false
+        
+        
+        
+    }
 
 
-    func selectKey(){
-        switch(key){
+    func selectKey(songKey: String){
+        NSLog("Key "+songKey)
+        switch(songKey){
         case "C":
             circleView.transform=circleView.transform.rotated(by: CGFloat(0))
             break;

@@ -10,9 +10,25 @@
 #import "SMRotaryWheel.h"
 //#import "HarmonyTensions-Swift.h"
 @interface HarmonyWheelViewController()
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @end
 @implementation HarmonyWheelViewController
+- (IBAction)btnPreviousPressed:(id)sender {
+    if(hwNo>1){
+        hwNo--;
+    }
+    _pageControl.currentPage = hwNo-1;
+    mask.image =[UIImage imageNamed:[NSMutableString stringWithFormat:@"hw%d", hwNo]];
+}
 
+- (IBAction)btnNextPressed:(id)sender {
+    if(hwNo<noOfHarmonywheels){
+        hwNo++;
+    }
+    _pageControl.currentPage = hwNo-1;
+    mask.image =[UIImage imageNamed:[NSMutableString stringWithFormat:@"hw%d", hwNo]];
+    
+}
 @synthesize  valueLabel;
 
 - (void)didReceiveMemoryWarning
@@ -26,42 +42,7 @@ int hwNo=1;
 int noOfHarmonywheels=4;
 NSString *key;
 UIImageView *mask;
-UILabel *dot1;
-UILabel *dot2;
-UILabel *dot3;
-UILabel *dot4;
-- (void) changeDots:(int ) n{
-    switch(n){
-        case 1:
-            [dot1 setTextColor:[UIColor colorWithRed:(80.0/255.f) green:(194.0/255.f) blue:(201.0/255.f) alpha:1]];
-            [dot2 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot3 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot4 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            break;
-        case 2:
-            [dot1 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot2 setTextColor:[UIColor colorWithRed:(80.0/255.f) green:(194.0/255.f) blue:(201.0/255.f) alpha:1]];
-            [dot3 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot4 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            break;
-        case 3:
-            [dot1 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot2 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot3 setTextColor:[UIColor colorWithRed:(80.0/255.f) green:(194.0/255.f) blue:(201.0/255.f) alpha:1]];
-            [dot4 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            break;
-        case 4:
-            [dot1 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot2 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot3 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-            [dot4 setTextColor:[UIColor colorWithRed:(80.0/255.f) green:(194.0/255.f) blue:(201.0/255.f) alpha:1]];
-            break;
 
-
-
-            
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -105,69 +86,31 @@ UILabel *dot4;
                               );
     [self.view addSubview:mask];
 
-    UIButton *next = [UIButton buttonWithType:UIButtonTypeSystem];
-        [next setTitle:@"Next" forState:UIControlStateNormal];
-        [next sizeToFit];
-        [self.view addSubview:next];
-    [next addTarget:self action:@selector(nextPressed:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [next setFrame:CGRectMake(self.view.frame.size.width/2 +30, 680, 130, 44)];
-
-    UIButton *prev = [UIButton buttonWithType:UIButtonTypeSystem];
-        [prev setTitle:@"Previous" forState:UIControlStateNormal];
-        [prev sizeToFit];
-        [self.view addSubview:prev];
-    [prev addTarget:self action:@selector(prevPressed:)
-      forControlEvents:UIControlEventTouchUpInside];
-    [prev setFrame:CGRectMake(self.view.frame.size.width/2 -150, 680, 130, 44)];
+//    UIButton *next = [UIButton buttonWithType:UIButtonTypeSystem];
+//        [next setTitle:@"Next" forState:UIControlStateNormal];
+//        [next sizeToFit];
+//        [self.view addSubview:next];
+//    [next addTarget:self action:@selector(nextPressed:)
+//      forControlEvents:UIControlEventTouchUpInside];
+//    [next setFrame:CGRectMake(self.view.frame.size.width/2 +30, 680, 130, 44)];
+//
+//    UIButton *prev = [UIButton buttonWithType:UIButtonTypeSystem];
+//        [prev setTitle:@"Previous" forState:UIControlStateNormal];
+//        [prev sizeToFit];
+//        [self.view addSubview:prev];
+//    [prev addTarget:self action:@selector(prevPressed:)
+//      forControlEvents:UIControlEventTouchUpInside];
+//    [prev setFrame:CGRectMake(self.view.frame.size.width/2 -150, 680, 130, 44)];
     
-    dot1 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 -30, 537, 300, 300)];
-
-    [dot1 setTextColor:[UIColor colorWithRed:(80.0/255.f) green:(194.0/255.f) blue:(201.0/255.f) alpha:1]];
-    [dot1 setBackgroundColor:[UIColor clearColor]];
-    [dot1 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];
-    dot1.text=@".";
-    [self.view addSubview:dot1];
-    
-    dot2 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 -10, 537, 300, 300)];
-    [dot2 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-    [dot2 setBackgroundColor:[UIColor clearColor]];
-    [dot2 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];
-    dot2.text=@".";
-    [self.view addSubview:dot2];
-    
-    dot3 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 +10, 537, 300, 300)];
-    [dot3 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-    [dot3 setBackgroundColor:[UIColor clearColor]];
-    [dot3 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];
-    dot3.text=@".";
-    [self.view addSubview:dot3];
-    
-    dot4 = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 +30, 537, 300, 300)];
-    [dot4 setTextColor:[UIColor colorWithRed:(196.0/255.f) green:(196.0/255.f) blue:(196.0/255.f) alpha:1]];
-    [dot4 setBackgroundColor:[UIColor clearColor]];
-    [dot4 setFont:[UIFont fontWithName: @"Trebuchet MS" size: 50.0f]];
-    dot4.text=@".";
-    [self.view addSubview:dot4];
-    
-    
+   
 
     
 }
 - (void)nextPressed:(UIButton *)next {
-    if(hwNo<noOfHarmonywheels){
-        hwNo++;
-    }
-    mask.image =[UIImage imageNamed:[NSMutableString stringWithFormat:@"hw%d", hwNo]];
-    [self changeDots:hwNo];
-    
+  
 }
 - (void)prevPressed:(UIButton *)prev {
-    if(hwNo>1){
-        hwNo--;
-    }
-    mask.image =[UIImage imageNamed:[NSMutableString stringWithFormat:@"hw%d", hwNo]];
-    [self changeDots:hwNo];
+   
 }
 
 - (void) wheelDidChangeValue:(NSString *)newValue {

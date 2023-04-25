@@ -8,9 +8,10 @@
 import UIKit
 
 class onBoardingCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var slideImageView: UIImageView!
     static let identifier = String(describing: onBoardingCollectionViewCell.self)
     
-    @IBOutlet weak var slideImageView: UIImageView!
+   
     func setup(_ slide: onBoardingSlide){
         slideImageView.image = slide.image
     }
