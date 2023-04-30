@@ -70,7 +70,7 @@ UIImageView *mask;
 
     SMRotaryWheel *wheel = [[SMRotaryWheel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width)
                                                     andDelegate:self
-                                                   withSections:12 wheelSize: 0.33*self.view.frame.size.width];
+                                                   withSections:12 wheelSize: 0.32*self.view.frame.size.width];
 
     wheel.center = CGPointMake(self.view.center.x, self.view.center.y -80);
 

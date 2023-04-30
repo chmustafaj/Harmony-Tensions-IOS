@@ -8,14 +8,63 @@
 import UIKit
 import SwiftUI
 import AVFoundation
+import StoreKit
 
-class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, isAbleToReceiveData {
+
+class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver, isAbleToReceiveData {
+    @IBAction func btnUnlock(_ sender: Any) {
+        if SKPaymentQueue.canMakePayments(){
+            print("Starting")
+            let set :  Set<String> = [Product.premiumVersion.rawValue]
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+        }else{
+            print("Cannot make payment")
+        }
+//        unlockPremiumVersion()
+    }
     
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        print(response.products.first)
+        if let oProduct = response.products.first{
+            print("Product available")
+            self.purchase(aproduct: oProduct )
+        }else{
+            print("Products not available")
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("purchased")
+                unlockPremiumVersion()
+            case .failed:
+                print("Purchase failed")
+            default: break
+                
+            }
+        }
+    }
+    func purchase(aproduct: SKProduct ){
+        printContent("Purchase")
+        let payment = SKPayment(product: aproduct)
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().add(payment)
+        
+    }
+    enum Product: String, CaseIterable
+    {
+        case premiumVersion = "premium_version"
+    }
     func pass(data: Song) {
         selectedSong = data
         NSLog((selectedSong?.name)!)
     }
-    
+   
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var btnUnlock: UIButton!
     @IBOutlet weak var freeVersionView: UIView!
@@ -91,10 +140,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let note10 = UIImageView();
     let note11 = UIImageView();
     
-    @IBAction func btnUnlock(_ sender: Any) {
-        unlockPremiumVersion()
-    }
-    
+   
     func makeDiminishedNotesVisible(_ isVisible:Bool){
         if isVisible{
             dimi.isHidden=false
@@ -1139,8 +1185,20 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 //            lettersView.widthAnchor.constraint(equalToConstant: 400),
 //            lettersView.heightAnchor.constraint(equalToConstant: 400)
 //        ])
-        lettersView.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
+        NSLog("Height")
+        NSLog(self.view.frame.height.description)
+        if(self.view.frame.height>800){       //Different transformations for different screen sizes
+            lettersView.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
+        }else if (self.view.frame.height == 736){
+            lettersView.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
+            ring.transform = CGAffineTransform(translationX: 0, y: 40)
 
+        }
+        else if(self.view.frame.height == 667 ){
+            lettersView.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
+            ring.transform = CGAffineTransform(translationX: 0, y: 40)
+        }
+    
         
         let imageNames = ["note0", "note1", "note2", "note3", "note4", "note5", "note6", "note7", "note8", "note9","note10","note11"]
         let radius: CGFloat = 0.42*self.view.frame.width  // Adjust this value to change the size of the ring
@@ -1246,8 +1304,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         circleView.addSubview(lettersView)
 
         imageView.isHidden = true
+        imageView.isHidden = true
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        if(self.view.frame.height<800){
+            imageView.transform = CGAffineTransform(translationX: 0, y: 40)
+
+        }
         view.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -1369,6 +1432,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         makeDiminishedNotesVisible(false)
         txtBarOn.center = CGPoint(x: centerX, y: centerY-30)
             txtBarOn.textAlignment = .center
+        if(self.view.frame.height<800)
+        {
+            txtBarOn.transform = CGAffineTransform(translationX: 0, y: 40)
+
+        }
         self.view.addSubview(txtBarOn)
        
 

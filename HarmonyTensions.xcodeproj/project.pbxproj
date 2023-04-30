@@ -237,6 +237,7 @@
 		1C1647B6298BFA740036EF8D /* a_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = a_green.png; path = "../../../../Documents/Android Projects/Harmony Tensions With Accounts/app/src/main/res/drawable-v24/a_green.png"; sourceTree = "<group>"; };
 		1C1647B7298BFA740036EF8D /* v76_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = v76_yellow.png; path = "../../../../Documents/Android Projects/Harmony Tensions With Accounts/app/src/main/res/drawable-v24/v76_yellow.png"; sourceTree = "<group>"; };
 		1C3B72A629A246F200E663B8 /* letters.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = letters.jpeg; sourceTree = "<group>"; };
+		1C48612B29FE7AF3001DE8C0 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		1C625B13299AA2DB009F4205 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		1C625B14299AA2DB009F4205 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -507,6 +508,7 @@
 				1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */,
 				1CEBEC72299A6FAC00250820 /* PagingViewController.swift */,
 				1CEBEC76299A76B400250820 /* GameViewController.swift */,
+				1C48612B29FE7AF3001DE8C0 /* Configuration.storekit */,
 				1CEBEC74299A70A300250820 /* Main.storyboard */,
 				BDF438B514E5638700A27135 /* SMViewController.xib */,
 				BDF438BD14E5641000A27135 /* SMRotaryWheel.h */,
@@ -911,6 +913,7 @@
 				INFOPLIST_FILE = "RotaryWheelProject/HarmonyTensions-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Harmony Tensions";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -918,9 +921,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mustafa.--PRODUCT-NAME-rfc1034identifier-";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.mustafa.HarmonyTensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "RotaryWheelProject/HarmonyTensions-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -938,6 +945,7 @@
 				INFOPLIST_FILE = "RotaryWheelProject/HarmonyTensions-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Harmony Tensions";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -945,8 +953,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mustafa.--PRODUCT-NAME-rfc1034identifier-";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.mustafa.HarmonyTensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "RotaryWheelProject/HarmonyTensions-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
