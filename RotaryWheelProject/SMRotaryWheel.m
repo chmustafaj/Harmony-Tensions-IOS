@@ -66,7 +66,7 @@ static float maxAlphavalue = 10.0;
         }
         
         UIImageView *cloveImage = [[UIImageView alloc] initWithFrame:CGRectMake(40, wheelWidth, 50, 50)];
-        cloveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"note%i.png", i]];
+        cloveImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"note%i%w.png", i]];
         cloveImage.transform = CGAffineTransformMakeRotation(M_PI*2.86); //rotation in radians
 
         [im addSubview:cloveImage];

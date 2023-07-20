@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		0998A5C5CB4456212D46E955C7E61D74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
 		13699D2FCFFF52327374C2E3AE4D9B75 /* ConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECF106EF2DEC4022A301B9436936F35 /* ConstraintItem.swift */; };
 		13AC3F0C8F384200E9DE7D051D42A633 /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BA5B532FCAE20CE9363153F3FB2E98 /* ConstraintDescription.swift */; };
+		1CEA4BA92A5B05F600965B05 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1CEA4BA82A5B05F600965B05 /* AudioKit */; };
 		1EC079C2F5BE3F6299EC3621A095FCCB /* Pods-HarmonyTensions-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2067F2A5FF351366E94F0F99FC37F0AF /* Pods-HarmonyTensions-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A65B21F651BE3FA9FB89EF34E07E312 /* ConstraintDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F3F42DEA3EA4525A1D64B74C61C5DF /* ConstraintDSL.swift */; };
 		2D91D9394314972E36B75A04798250DF /* Pods-HarmonyTensions-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D49D0D90742DDC996B472043E58570CB /* Pods-HarmonyTensions-dummy.m */; };
@@ -167,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CEA4BA92A5B05F600965B05 /* AudioKit in Frameworks */,
 				806D0C060003365F469B42A88D6B6DCB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +424,9 @@
 				91281DBB405F42BAC48DA5A1409746C1 /* PBXTargetDependency */,
 			);
 			name = "Pods-HarmonyTensions";
+			packageProductDependencies = (
+				1CEA4BA82A5B05F600965B05 /* AudioKit */,
+			);
 			productName = Pods_HarmonyTensions;
 			productReference = 7963E4F82A3D8108FFE96192E7B39207 /* Pods_HarmonyTensions.framework */;
 			productType = "com.apple.product-type.framework";
@@ -444,6 +449,9 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			packageReferences = (
+				1CEA4BA72A5B05F600965B05 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = 2D6F11AD2AFFC012B1F595150FC5BBAF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -584,7 +592,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.modulemap";
 				OTHER_LDFLAGS = "";
@@ -618,7 +630,11 @@
 				INFOPLIST_FILE = "Target Support Files/LZViewPager/LZViewPager-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/LZViewPager/LZViewPager.modulemap";
 				PRODUCT_MODULE_NAME = LZViewPager;
 				PRODUCT_NAME = LZViewPager;
@@ -650,7 +666,11 @@
 				INFOPLIST_FILE = "Target Support Files/SnapKit/SnapKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/SnapKit/SnapKit.modulemap";
 				PRODUCT_MODULE_NAME = SnapKit;
 				PRODUCT_NAME = SnapKit;
@@ -681,7 +701,11 @@
 				INFOPLIST_FILE = "Target Support Files/LZViewPager/LZViewPager-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/LZViewPager/LZViewPager.modulemap";
 				PRODUCT_MODULE_NAME = LZViewPager;
 				PRODUCT_NAME = LZViewPager;
@@ -779,7 +803,11 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.modulemap";
 				OTHER_LDFLAGS = "";
@@ -851,7 +879,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -874,7 +903,11 @@
 				INFOPLIST_FILE = "Target Support Files/SnapKit/SnapKit-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/SnapKit/SnapKit.modulemap";
 				PRODUCT_MODULE_NAME = SnapKit;
 				PRODUCT_NAME = SnapKit;
@@ -929,6 +962,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1CEA4BA72A5B05F600965B05 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1CEA4BA82A5B05F600965B05 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CEA4BA72A5B05F600965B05 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }

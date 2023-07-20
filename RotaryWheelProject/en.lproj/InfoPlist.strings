@@ -1,4 +1,5 @@
-/* Localized versions of Info.plist keys */
+// Localized versions of Info.plist keys
 //<key>UIMainStoryBoardFile</key>
 //<string>Storyboard</string>
-
+//<key>UIUserInterfaceStyle</key>
+//<string>Light</string>

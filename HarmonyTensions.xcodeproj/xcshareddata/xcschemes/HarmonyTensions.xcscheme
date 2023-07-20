@@ -51,7 +51,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../RotaryWheelProject/Configuration.storekit">
+         identifier = "../Harmony Tensions.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
