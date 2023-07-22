@@ -7,7 +7,8 @@
 
 import UIKit
 import SwiftUI
-import AVFoundation
+//import AVFoundation
+import AudioToolbox
 import StoreKit
 
 
@@ -84,12 +85,14 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         selectedSong = data
         NSLog((selectedSong?.name)!)
     }
-   
+    var soundID: SystemSoundID = 0
+    var timeInterval: TimeInterval = 1 // Initial time interval
+    var timer: Timer? // Declare timer as an instance variable
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var btnUnlock: UIButton!
     @IBOutlet weak var freeVersionView: UIView!
     var selectedSong : Song?
-    var metronomeClick : AVAudioPlayer!
+//    var metronomeClick : AVAudioPlayer!
     private var difficultySelection = Int()
     let circleView = UIImageView()
     let lettersViewG = UIView()
@@ -245,7 +248,8 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             gameStarted=true
             savedProgression.removeAll()
             btnSave.isHidden=true
-            startGame()
+//            startGame()
+            createTimer()
             
         }else{
             stopGame()
@@ -329,9 +333,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initProbabilityList()
         initTurnAroundLists()
         initUI()
- //        unlockPremiumVersion()
+        //todo
+//         unlockPremiumVersion()
         let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
-        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+        let cfSoundURL = url as! CFURL
+        AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
+
+//        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
         NSLog("View did load")
      
         if(!storekit.purchasedProducts.isEmpty){     //Should change later if more paid products are added
@@ -346,15 +354,20 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
        
   
     }
+    func createTimer(){
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true)
+        timer?.tolerance = 0
+    }
 
-    func startGame(){
+    @objc func startGame(){
             loopEnded = false
             DispatchQueue.global(qos: .background).async { [self] in
-                metronomeClick!.play()
+                AudioServicesPlaySystemSound(soundID)
+                NSLog("Note on "+noteOn)
                 if beat == 1 {
                     DispatchQueue.main.async { [self] in
                         txtBarOn.text = "\(barOn)"
-                        NSLog("Note on "+noteOn)
+//                        NSLog("Note on "+noteOn)
 
                     }
                     if onSecondaryDominant {
@@ -367,7 +380,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     DispatchQueue.main.sync { [self] in
                         self.resetWheel()
                         self.changeColor(note: self.utils.getFirst(self.noteOn), c: "g")
-                        NSLog("Turning note " + String(self.noteOn) + "green")
+//                        NSLog("Turning note " + String(self.noteOn) + "green")
                     }
                     switch difficultySelection {
                     case 1:
@@ -418,12 +431,12 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                 }
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + (60.0 / Double(bpmText))) {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + (60.0 / Double(bpmText))) {
                 self.loopEnded = true
-                if self.gameStarted {
-                    self.startGame()
-                }
-            }
+//                if self.gameStarted {
+//                    self.startGame()
+//                }
+//            }
 
             
         }
@@ -620,13 +633,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
 
     func stopGame(){
+        timer?.invalidate()
         if difficultySelection == -1 {
         // B is the temporary difficulty for the intermediate section. If the game is stopped during the temporary beginner difficulty part of the intermediate section, the difficulty will again be set to intermediate
         difficultySelection = 2
         }
         replayGame = false
         gameStarted = false
-        metronomeClick!.stop();   //todo make metronome click work
+//        metronomeClick!.stop();   //todo make metronome click work
+        
 //        metronomeClick.release()
         btnStart.setTitle("Start", for: .normal)
         DispatchQueue.main.async { [self] in
@@ -1197,7 +1212,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             gameStarted = true
             btnStart.setTitle("Stop", for: .normal)
             let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
-            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+            let cfSoundURL = url as! CFURL
+            var soundID: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
+
+//            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
             circleView.transform=CGAffineTransformIdentity
             selectKey(songKey: (selectedSong?.key)!) // The key of the saved song could be different from the current selected key
             replayIndex = 0
@@ -2014,7 +2033,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         sliderValue=sliderValue*100
         bpmText=Int(sliderValue)
         labelBPM.text=String(Int(sliderValue))
-        // Set the metronome tempo (replace `bpmText` with your actual BPM value)
+        timeInterval = 60.0 / Double(bpmText)
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true) // Recreate the timer with the updated time interval
         NSLog("slider " + String(sliderValue))
     }
     private func initTurnAroundLists() {
