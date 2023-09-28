@@ -8,8 +8,11 @@
 
 #import "HarmonyWheelViewController.h"
 #import "SMRotaryWheel.h"
-//#import "HarmonyTensions-Swift.h"
+//#import "ViewControllerBuyPDF.h"
+#import "HarmonyTensions-Swift.h"
+
 @interface HarmonyWheelViewController()
+@property (weak, nonatomic) IBOutlet UIButton *btnEbook;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @end
 @implementation HarmonyWheelViewController
@@ -20,8 +23,23 @@
     _pageControl.currentPage = hwNo-1;
     mask.image =[UIImage imageNamed:[NSMutableString stringWithFormat:@"hw%d", hwNo]];
 }
+- (IBAction)btnEbookPressed:(id)sender {
+    DataManager *dataManager = [DataManager shared];
+    if([NSNumber numberWithBool:[dataManager getPremiumStatus]]>0){
+        NSURL *url = [NSURL URLWithString:urlPDF];
+        if (url) {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    }else{
+        
+        ViewControllerBuyPDF *overLayer = [[ViewControllerBuyPDF alloc] init];
+        [overLayer appearWithSender:self];
+    }
+    
+}
 
 - (IBAction)btnNextPressed:(id)sender {
+    
     if(hwNo<noOfHarmonywheels){
         hwNo++;
     }
@@ -42,6 +60,8 @@ int hwNo=1;
 int noOfHarmonywheels=4;
 NSString *key;
 UIImageView *mask;
+bool isPurchased = false;
+NSString *urlPDF = @"[[URL]]";
 
 
 - (void)viewDidLoad
@@ -51,13 +71,6 @@ UIImageView *mask;
 
     self.view.backgroundColor = [UIColor whiteColor];
     key=@"C";
-
-//    valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 750, 120, 30)];
-//    valueLabel.textAlignment = UITextAlignmentCenter;
-//    valueLabel.backgroundColor = [UIColor whiteColor];
-//
-//    [self.view addSubview:valueLabel];
-
     UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width)];
     imageHolder.center=CGPointMake(self.view.center.x, self.view.center.y -80);
     UIImage *image = [UIImage imageNamed:@"circle_border.png"];
@@ -76,7 +89,6 @@ UIImageView *mask;
 
 
     wheel.transform = CGAffineTransformMakeRotation(1.135*M_PI); //rotation in radians
-//    wheel.transform = CGAffineTransformMakeRotation(-0.1); //rotation in radians
 
 
     [self.view addSubview:wheel];
@@ -85,27 +97,21 @@ UIImageView *mask;
     mask.center = CGPointMake(self.view.center.x, self.view.center.y - 80
                               );
     [self.view addSubview:mask];
+    DataManager *dataManager = [DataManager shared];
+    if([NSNumber numberWithBool:[dataManager getPremiumStatus]]>0){
+        [_btnEbook setTitle:@"View PDF" forState:UIControlStateNormal];
+    }else{
+        [_btnEbook setTitle:@"Buy PDF" forState:UIControlStateNormal];
+    }
+    NSLog(@"Premium status: %@", [NSString stringWithFormat:@"%@", [NSNumber numberWithBool:[dataManager getPremiumStatus]]]);
 
-//    UIButton *next = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [next setTitle:@"Next" forState:UIControlStateNormal];
-//        [next sizeToFit];
-//        [self.view addSubview:next];
-//    [next addTarget:self action:@selector(nextPressed:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//    [next setFrame:CGRectMake(self.view.frame.size.width/2 +30, 680, 130, 44)];
-//
-//    UIButton *prev = [UIButton buttonWithType:UIButtonTypeSystem];
-//        [prev setTitle:@"Previous" forState:UIControlStateNormal];
-//        [prev sizeToFit];
-//        [self.view addSubview:prev];
-//    [prev addTarget:self action:@selector(prevPressed:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//    [prev setFrame:CGRectMake(self.view.frame.size.width/2 -150, 680, 130, 44)];
-    
+
+
    
 
     
 }
+
 - (void)nextPressed:(UIButton *)next {
   
 }
@@ -118,6 +124,7 @@ UIImageView *mask;
     key=newValue;
 
 }
+
 
 
 

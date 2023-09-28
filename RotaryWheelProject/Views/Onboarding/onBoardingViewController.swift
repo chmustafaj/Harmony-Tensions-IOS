@@ -52,20 +52,10 @@ class onBoardingViewController: UIViewController {
     override func viewDidLoad() {
    
         super.viewDidLoad()
-        slides = [onBoardingSlide(image: UIImage(named: "page_1.png")!), onBoardingSlide(image: UIImage(named: "page_2.jpg")!),onBoardingSlide(image: UIImage(named: "page_3.jpg")!), onBoardingSlide(image: UIImage(named: "page_4.jpg")!)]
+        slides = [onBoardingSlide(image: UIImage(named: "screen_1.jpg")!, title: "Harmony Tensions", description: "Explore the art of musical improvisation with Harmony Tensions, an engaging platform designed for solo or group play."), onBoardingSlide(image: UIImage(named: "screen_2.jpg")!, title: "Select a Key", description: "Use the harmony wheel to select a key for the chord progression"),onBoardingSlide(image: UIImage(named: "screen_3.jpg")!, title: "Start game",description: "Pick a level of difficulty for the chord progression, a tempo, and press start" ), onBoardingSlide(image: UIImage(named: "screen_4.jpg")!, title: "Play along", description: "Get your instrument and start jamming with the chords displayed. Green notes are current;yellow are next"), onBoardingSlide(image: UIImage(named: "screen_5.jpg")!, title: "Increase level", description: "Level up difficulty with added chords like secondary dominants in level two and include diminished notes in level three.")]
       
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 extension onBoardingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{

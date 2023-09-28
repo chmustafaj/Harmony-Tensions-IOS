@@ -409,7 +409,7 @@ public class Utils{
             case "B":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "G":
             switch note {
@@ -426,7 +426,7 @@ public class Utils{
             case "F#":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "D":
             switch note {
@@ -441,7 +441,7 @@ public class Utils{
             case "Db":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "A":
             switch note {
@@ -458,7 +458,7 @@ public class Utils{
             case "Ab":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "E":
             switch note {
@@ -475,7 +475,7 @@ public class Utils{
             case "Eb":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "B":
             switch note {
@@ -492,7 +492,7 @@ public class Utils{
             case "Bb":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "F#":
             switch note {
@@ -509,7 +509,7 @@ public class Utils{
             case "F":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "Db":
             switch note {
@@ -526,7 +526,7 @@ public class Utils{
             case "C":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "Ab":
             switch note {
@@ -543,7 +543,7 @@ public class Utils{
             case "G":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "Eb":
             switch note {
@@ -560,7 +560,7 @@ public class Utils{
             case "D":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "Bb":
             switch note {
@@ -577,7 +577,7 @@ public class Utils{
             case "A":
                 return 7
             default:
-                return 0
+                return 1
             }
         case "F":
             switch note {
@@ -594,10 +594,10 @@ public class Utils{
             case "E":
                 return 7
             default:
-                return 0
+                return 1
             }
         default:
-            return 0
+            return 1
         }
     }
 

@@ -9,4 +9,6 @@ import Foundation
 import UIKit
 struct onBoardingSlide{
     let image : UIImage
+    let title: String
+    let description: String
 }

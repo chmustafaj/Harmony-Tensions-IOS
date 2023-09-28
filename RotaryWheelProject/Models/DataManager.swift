@@ -9,7 +9,7 @@ import CoreData
 import Foundation
 
 
-class DataManager {
+@objc @objcMembers class DataManager: NSObject {
     static let shared = DataManager()
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -39,6 +39,36 @@ class DataManager {
     }()
 
     // MARK: - Core Data Saving support
+    func savePremiumStatus(isPremium: Bool) {
+            let context = persistentContainer.viewContext
+
+            if let entity = NSEntityDescription.entity(forEntityName: "PremiumVersionPurchased", in: context),
+               let newObject = NSManagedObject(entity: entity, insertInto: context) as? PremiumVersionPurchased {
+                newObject.isPremium = isPremium
+
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed to save context: \(error)")
+                }
+            }
+        }
+    func getPremiumStatus() -> Bool {
+            let context = persistentContainer.viewContext
+
+            let fetchRequest: NSFetchRequest<PremiumVersionPurchased> = PremiumVersionPurchased.fetchRequest()
+
+            do {
+                let result = try context.fetch(fetchRequest)
+                if let firstObject = result.first {
+                    return firstObject.isPremium
+                }
+            } catch {
+                print("Failed to fetch premium status: \(error)")
+            }
+
+            return false // Default value if status is not found or an error occurs
+        }
     func song(name: String, progression: String, diminished:Int, gotoDiminished: Int, key:String, level: Int, secondaryDominant: Int, turnaround: Int) -> Song {
         let s = Song(context: persistentContainer.viewContext)
         s.name = name

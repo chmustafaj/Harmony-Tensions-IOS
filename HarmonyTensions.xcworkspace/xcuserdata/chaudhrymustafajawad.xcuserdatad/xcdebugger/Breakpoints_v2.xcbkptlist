@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "C61B0BB2-8B07-42B2-A3B4-952B59DF5CFB"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2049"
+            endingLineNumber = "2049"
+            landmarkName = "startGame()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - f99311d4d0252e96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () -&gt; () in HarmonyTensions.GameViewController.gameLoop() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2085"
+                  endingLineNumber = "2085"
+                  offsetFromSymbolStart = "1232">
+               </Location>
+               <Location
+                  uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - 339a71e3d49c1b09"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 () -&gt; () in closure #1 @Sendable () -&gt; () in HarmonyTensions.GameViewController.gameLoop() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2086"
+                  endingLineNumber = "2086"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - fabfde35130f4955"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () -&gt; () in HarmonyTensions.GameViewController.startGame() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2083"
+                  endingLineNumber = "2083"
+                  offsetFromSymbolStart = "1220">
+               </Location>
+               <Location
+                  uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - 6d4574d10b605c37"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #4 () -&gt; () in closure #1 @Sendable () -&gt; () in HarmonyTensions.GameViewController.startGame() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2084"
+                  endingLineNumber = "2084"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3B1CB2D2-3CD6-4C65-A3D6-C870BB655BB5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1975"
+            endingLineNumber = "1975"
+            landmarkName = "createTimer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2016"
+            endingLineNumber = "2016"
+            landmarkName = "createTimer()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f34c3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2026"
+                  endingLineNumber = "2026"
+                  offsetFromSymbolStart = "1940">
+               </Location>
+               <Location
+                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f3915"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2008"
+                  endingLineNumber = "2008"
+                  offsetFromSymbolStart = "1496">
+               </Location>
+               <Location
+                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f3934"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2007"
+                  endingLineNumber = "2007"
+                  offsetFromSymbolStart = "1508">
+               </Location>
+               <Location
+                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f3934"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2007"
+                  endingLineNumber = "2007"
+                  offsetFromSymbolStart = "1484">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F7B6894A-31DB-4A69-9A8C-39345A989C20"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1995"
+            endingLineNumber = "1995"
+            landmarkName = "createTimer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "534CE000-2068-435B-87F1-66F2BA7E7715"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1819"
+            endingLineNumber = "1819"
+            landmarkName = "intermediateDifficulty(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

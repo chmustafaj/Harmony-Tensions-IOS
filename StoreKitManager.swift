@@ -23,6 +23,7 @@ class StoreKitManager: ObservableObject {
     //maintain a plist of products
     private let productDict: [String : String]
     init() {
+        NSLog("Init storekit")
         //check the path for the plist
         if let plistPath = Bundle.main.path(forResource: "PropertyList", ofType: "plist"),
            //get the list of products
@@ -75,7 +76,9 @@ class StoreKitManager: ObservableObject {
     func requestProducts() async {
         do {
             //using the Product static method products to retrieve the list of products
+            NSLog("Requesting products")
             storeProducts = try await Product.products(for: productDict.values)
+            NSLog("Received products: "+String(describing: storeProducts.first))
             
             // iterate the "type" if there are multiple product types.
         } catch {
@@ -125,6 +128,7 @@ class StoreKitManager: ObservableObject {
     // call the product purchase and returns an optional transaction
     func purchase(_ product: Product) async throws -> Transaction? {
         //make a purchase request - optional parameters available
+        NSLog("Purchasing")
         let result = try await product.purchase()
         
         // check the results

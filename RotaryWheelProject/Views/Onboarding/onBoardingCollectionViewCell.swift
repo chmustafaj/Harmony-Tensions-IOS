@@ -9,10 +9,14 @@ import UIKit
 
 class onBoardingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var slideImageView: UIImageView!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var subtitle: UILabel!
     static let identifier = String(describing: onBoardingCollectionViewCell.self)
     
    
     func setup(_ slide: onBoardingSlide){
         slideImageView.image = slide.image
+        title.text = slide.title
+        subtitle.text = slide.description
     }
 }

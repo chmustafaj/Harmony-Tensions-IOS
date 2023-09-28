@@ -7,84 +7,47 @@
 
 import UIKit
 import SwiftUI
-//import AVFoundation
 import AudioToolbox
 import StoreKit
-
+import MultipeerConnectivity
+import AVFoundation
 
 
 class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, isAbleToReceiveData {
-    var storekit = StoreKitManager()
+    var peerId: MCPeerID!
+    var session: MCSession!
+    
+    var nearbyServiceAdvertiser : MCNearbyServiceAdvertiser?
+    func advertise(){
+        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer:  peerId, discoveryInfo: nil, serviceType: harmonyTensionsServiceType)
+        nearbyServiceAdvertiser?.delegate = self
+        nearbyServiceAdvertiser?.startAdvertisingPeer()
+    }
+    
+    func invite(){
+        let browser = MCBrowserViewController(serviceType: harmonyTensionsServiceType, session: session)
+        browser.delegate = self
+        present(browser, animated: true, completion: nil)
+        isController = true
+        isPeer = false
+
+    }
+ 
+    
     var premiumVersionPurchased : Bool = false
+    var storekit = StoreKitManager()
+
     @IBAction func btnUnlock(_ sender: Any) {
-        NSLog("Products: "+String(describing: storekit.purchasedProducts.first))
-        Task{
-            if let product = storekit.storeProducts.first {
-                do {
-                    let transaction = try await storekit.purchase(product)
-                    NSLog("Transaction: "+String(describing: transaction))
-                    if(transaction?.productID=="com.mustafa.paidversion"){
-                        premiumVersionPurchased=true
-                        unlockPremiumVersion()
-                    }
-                } catch {
-                    // Handle any errors that occurred during the purchase
-                }
-            }
-        }
-        
-//        if SKPaymentQueue.canMakePayments(){
-//            print("Starting")
-//            let set :  Set<String> = [Product.premiumVersion.rawValue]
-//            let productRequest = SKProductsRequest(productIdentifiers: set)
-//            productRequest.delegate = self
-//            productRequest.start()
-//        }else{
-//            print("Cannot make payment")
-//        }
-//        unlockPremiumVersion()
     }
         
-//
-//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-//        print(response.products.first)
-//        if let oProduct = response.products.first{
-//            print("Product available")
-//            self.purchase(aproduct: oProduct )
-//        }else{
-//            print("Products not available")
-//        }
-//    }
-//
-//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-//        for transaction in transactions {
-//            switch transaction.transactionState {
-//            case .purchased:
-//                SKPaymentQueue.default().finishTransaction(transaction)
-//                print("purchased")
-//                unlockPremiumVersion()
-//            case .failed:
-//                print("Purchase failed")
-//            default: break
-//
-//            }
-//        }
-//    }
-//    func purchase(aproduct: SKProduct ){
-//        printContent("Purchase")
-//        let payment = SKPayment(product: aproduct)
-//        SKPaymentQueue.default().add(self)
-//        SKPaymentQueue.default().add(payment)
-//
-//    }
-//    enum Product: String, CaseIterable
-//    {
-//        case premiumVersion = "com.mustafa.paidversion"
-//    }
+
     func pass(data: Song) {
         selectedSong = data
         NSLog((selectedSong?.name)!)
     }
+    var isFirstLoop :Bool = true
+    var songKey : String = ""
+    let harmonyTensionsServiceType = "gt-game"
     var soundID: SystemSoundID = 0
     var timeInterval: TimeInterval = 1 // Initial time interval
     var timer: Timer? // Declare timer as an instance variable
@@ -92,13 +55,12 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     @IBOutlet weak var btnUnlock: UIButton!
     @IBOutlet weak var freeVersionView: UIView!
     var selectedSong : Song?
-//    var metronomeClick : AVAudioPlayer!
+    var metronomeClick : AVAudioPlayer!
     private var difficultySelection = Int()
-    let circleView = UIImageView()
+    let circleView = UIView()
     let lettersViewG = UIView()
     let lettersViewW = UIView()
     let lettersViewY = UIView()
-
     let txtBarOn = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     let utils = Utils()
     let difficulties = ["Level 1","Level 2","Level 3"]
@@ -107,6 +69,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     var bpm = Int()
     var beatOn = 1
     var barOn = 1
+    var isPeer = false
+    var isController = false
+    
     var replayIndex = 0 //This integer will tell the algorithm which note the user is on when replaying a progression
     //A separate probability list for being on each note
     var probabilityList1 = [Int]()
@@ -191,6 +156,8 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let note9g = UIImageView();
     let note10g = UIImageView();
     let note11g = UIImageView();
+    var dataToSend: [String: Any] = [:]
+
     
    
     func makeDiminishedNotesVisible(_ isVisible:Bool){
@@ -225,7 +192,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
     }
     
-    @IBAction func btnSavePushed(_ sender: Any) {
+    @IBAction func  Pushed(_ sender: Any) {
         let overLayer = ViewControllerSaveSong()
         overLayer.difficulty=difficultySelection
         overLayer.goToDiminished=goToDiminished
@@ -233,7 +200,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         overLayer.randomSecDom=randomSecDom
         overLayer.turnaroundRandom=turnaroundRandom
         overLayer.savedProgression=savedProgression
-        overLayer.key=key
+        overLayer.key=songKey
         overLayer.appear(sender: self)
     }
     @IBOutlet weak var labelBPM: UILabel!
@@ -242,6 +209,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     @IBOutlet weak var btnSave: UIButton!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var btnStart: UIButton!
+    func sendData(data: Data){
+        if session.connectedPeers.count > 0 {
+            do {
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error sending data: \(error)")
+            }
+        }
+    }
     @IBAction func btnStartPressed(_ sender: Any) {
         if(!gameStarted && loopEnded){
             btnStart.setTitle("Stop", for: .normal)
@@ -249,6 +225,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             savedProgression.removeAll()
             btnSave.isHidden=true
 //            startGame()
+            if(isController){
+                // Sending the key to the other device for multiplayer mode
+//               sendNote(key)
+            }
+           
             createTimer()
             
         }else{
@@ -265,6 +246,10 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     }
   
+    @IBAction func btnConnectPressed(_ sender: Any) {
+        NSLog("connect")
+        invite()
+    }
     @IBAction func btnLevelPressed(_ sender: Any) {
         btnLevel.isHidden=true
         btnSave.isHidden = true
@@ -323,28 +308,31 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        
-
+        UIApplication.shared.isIdleTimerDisabled = true
+        songKey = key
+        peerId = MCPeerID(displayName:  UIDevice.current.name)
+        session = MCSession(peer: self.peerId, securityIdentity: nil, encryptionPreference: .required)
+        session.delegate = self
+        advertise()
+        NSLog("Peer id: \(peerId.displayName)")
         bpm = 60;  //default value
         difficultySelection=1
         bpmText = bpm;
-        noteOn = key
+        noteOn = songKey
         initProbabilityList()
         initTurnAroundLists()
         initUI()
         //todo
-//         unlockPremiumVersion()
+         unlockPremiumVersion()
         let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
         let cfSoundURL = url as! CFURL
-        AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
+//        AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
 
-//        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
         NSLog("View did load")
      
         if(!storekit.purchasedProducts.isEmpty){     //Should change later if more paid products are added
             premiumVersionPurchased=true
-            
             unlockPremiumVersion()
         }
         
@@ -354,285 +342,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
        
   
     }
-    func createTimer(){
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true)
-        timer?.tolerance = 0
-    }
-
-    @objc func startGame(){
-            loopEnded = false
-            DispatchQueue.global(qos: .background).async { [self] in
-                AudioServicesPlaySystemSound(soundID)
-                NSLog("Note on "+noteOn)
-                if beat == 1 {
-                    DispatchQueue.main.async { [self] in
-                        txtBarOn.text = "\(barOn)"
-//                        NSLog("Note on "+noteOn)
-
-                    }
-                    if onSecondaryDominant {
-                        DispatchQueue.main.async {
-                            self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
-                        }
-                    }
-                }
-                if self.beat == 1 {
-                    DispatchQueue.main.sync { [self] in
-                        self.resetWheel()
-                        self.changeColor(note: self.utils.getFirst(self.noteOn), c: "g")
-//                        NSLog("Turning note " + String(self.noteOn) + "green")
-                    }
-                    switch difficultySelection {
-                    case 1:
-                        beginnerDifficulty()
-                    case 2:
-                        intermediateDifficulty()
-                    case -1:   //This is the modified case in the advanced difficulty, which works like the beginner difficulty for the first few bars
-                        if barOn >= 5 {
-                            difficultySelection = 2
-                        }
-                        beginnerDifficulty()
-                    case 3:
-                        advancedDifficulty()
-                        if barOn == 2 {
-                            if !replayGame {
-                                ranDiminished = Int.random(in: 0..<3)
-                                goToDiminished = Int.random(in: 0..<3)
-                            }
-                            if goToDiminished == 0 {
-                                goToDiminishedNote(ranDiminished: ranDiminished)
-                            }
-                        } else if barOn == 3 {
-                            DispatchQueue.main.async { [self] in
-                                changeColorDiminished(ranDiminished, "w")
-                            }
-                        }
-                    default:
-                        break
-                    }
-                } else {
-                    if difficultySelection == 3 && barOn == 2 {
-                        goToDiminishedNote(ranDiminished: ranDiminished)
-                    }
-                }
-                if beat >= 4 {
-                    beat = 1
-                } else {
-                    beat += 1
-                }
-                beatOn += 1
-                if beatOn > 4 {
-                    barOn += 1
-                    beatOn = 1
-                }
-                noteOn = nextNote
-                DispatchQueue.main.sync {
-                    changeColor(note: utils.getFirst(nextNote), c: "y")
-                }
-            }
-
-//            DispatchQueue.main.asyncAfter(deadline: .now() + (60.0 / Double(bpmText))) {
-                self.loopEnded = true
-//                if self.gameStarted {
-//                    self.startGame()
-//                }
-//            }
-
-            
-        }
-  
-  
-
    
-    func intermediateDifficulty(){
-        if !replayGame {
-            if barOn < 2 {
-                onSecondaryDominant = false
-                DispatchQueue.main.async { [self] in
-                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")
-                }
-                let random1 = Int.random(in: 0...2)    // There is an equal chance for it to go either to the first, third, or sixth
-                switch random1 {
-                case 0:
-                    nextNote = noteFromNumber(n: Utils().getFirst(key))
-                    savedProgression.append(nextNote)
-                    break;
-                case 1:
-                    nextNote = noteFromNumber(n: Utils().getThird(key))
-                    savedProgression.append(nextNote)
-                    break;
-                case 2:
-                    nextNote = noteFromNumber(n: Utils().getSixth(key))
-                    savedProgression.append(nextNote)
-                    break;
-                default:
-                    break;
-                }
-            } else if barOn == 2 {
-                randomSecDom = Int.random(in: 0...5)      // One of 6 secondary dominants will be chosen
-                DispatchQueue.main.async { [self] in
-                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")
-                }
-                nextNote = noteFromNumber(n: Utils().getSecondaryDominant(secondaryDominantNumber: randomSecDom, key: key))
-                savedProgression.append(nextNote)
-            } else if barOn == 3 {
-                onSecondaryDominant = true
-                DispatchQueue.main.async { [self] in
-                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "g")
-                }
-                nextNote = noteFromNumber(n: Utils().getDominant(secondaryDominant: randomSecDom, key: key))
-                onSecondaryDominant = false
-                savedProgression.append(nextNote)
-                difficultySelection = -1 // -1 is a temporary difficulty for the intermediate section. The fifth and sixth bars in the intermediate section will be identical to the beginner section
-            } else if barOn >= 6 {    // We will check from the 6 note onwards as the turn around starts on bar 7. We will decide the next note here
-                if turnaroundRandom == 0 {    // the first turn around list has 4 elements, so we check for it separately
-                    if turnaroundListCounter >= 4 {
-                        replayGame = true
-                        restartGame()
-                        return
-                    }
-                } else {
-                    if turnaroundListCounter >= 2 {
-                        replayGame = true
-                        restartGame()
-                        return
-                    }
-                }
-                switch turnaroundRandom {
-                case 0:
-                    nextNote = getNoteFromInterval(interval: turnaroundList1[turnaroundListCounter])
-                    savedProgression.append(nextNote)
-                    break;
-                case 1:
-                    nextNote = getNoteFromInterval(interval: turnaroundList2[turnaroundListCounter])
-                    savedProgression.append(nextNote)
-                    break;
-                case 2:
-                    nextNote = getNoteFromInterval(interval: turnaroundList3[turnaroundListCounter])
-                    savedProgression.append(nextNote)
-                    break;
-                case 3:
-                    nextNote = getNoteFromInterval(interval: turnaroundList4[turnaroundListCounter])
-                    savedProgression.append(nextNote)
-                    break;
-                default:
-                    break;
-                }
-                turnaroundListCounter += 1
-//                NSLog("intermediateDifficulty: next note" + String(nextNote))
-            }
-        } else {
-            if replayIndex < savedProgression.count {
-                if barOn < 2 {
-                    onSecondaryDominant = false
-                    DispatchQueue.main.async { [self] in
-                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")
-                    }
-                } else if barOn == 2 {
-                    DispatchQueue.main.async { [self] in
-                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")
-                    }
-                } else if barOn == 3 {
-                    onSecondaryDominant = true
-                    DispatchQueue.main.async { [self] in
-                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "g")
-                    }
-                    nextNote = noteFromNumber(n: Utils().getDominant(secondaryDominant: randomSecDom, key: key))
-                    onSecondaryDominant = false
-                    difficultySelection = -1
-                    replayIndex += 1
-                    return
-                }
-                nextNote = savedProgression[replayIndex]
-                replayIndex += 1
-            } else {
-                restartGame()
-                replayGame = true
-            }
-            
-            if replayIndex >= savedProgression.count + 1 { // adding 1 as the tonic is not in the array
-                replayGame = true
-                restartGame()
-            }
-        }
 
-    }
-    private func advancedDifficulty() {
-        if !replayGame {
-            if barOn < 2 {
-                onSecondaryDominant = false
-                DispatchQueue.main.async { [self] in
-                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")}
-                let random1 = Int.random(in: 0...2) // There is an equal chance for it to go either to the first, third, or sixth
-                switch random1 {
-                case 0:
-                    nextNote = noteFromNumber(n: utils.getFirst(key))
-                    savedProgression.append(nextNote)
-                    break;
-                case 1:
-                    nextNote = noteFromNumber(n: utils.getThird(key))
-                    savedProgression.append(nextNote)
-                    break;
-                case 2:
-                    nextNote = noteFromNumber(n: utils.getSixth(key))
-                    savedProgression.append(nextNote)
-                    break;
-                default:
-                    break;
-                }
-
-            } else if barOn == 2 {
-                randomSecDom = Int.random(in: 0...5) // One of 6 secondary dominants will be chosen
-                DispatchQueue.main.async { [self] in
-                    changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")}
-                nextNote = noteFromNumber(n: utils.getSecondaryDominant(secondaryDominantNumber: randomSecDom, key: key))
-                savedProgression.append(nextNote)
-            } else if barOn == 3 {
-                onSecondaryDominant = true
-                DispatchQueue.main.async {
-                    self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
-                }
-                nextNote = noteFromNumber(n: utils.getDominant(secondaryDominant: randomSecDom, key: key))
-                onSecondaryDominant = false
-                savedProgression.append(nextNote)
-
-            } else {
-                replayGame = true
-                restartGame()
-            }
-        } else {
-            if replayIndex < savedProgression.count {
-                if barOn < 2 {
-                    onSecondaryDominant = false
-                    DispatchQueue.main.async { [self] in
-                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")}
-                } else if barOn == 2 {
-                    DispatchQueue.main.async { [self] in
-                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")}
-                } else if barOn == 3 {
-                    onSecondaryDominant = true
-                    DispatchQueue.main.async {
-                        self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
-                    }
-                    onSecondaryDominant = false
-                }
-                nextNote = savedProgression[replayIndex]
-                replayIndex += 1
-
-            } else {
-                restartGame()
-                replayGame = true
-
-            }
-            if replayIndex >= savedProgression.count + 1 { // adding 1 as the tonic is not in the array
-                replayGame = true
-                restartGame()
-
-            }
-        }
-    }
-
+    
+  
+  
     func stopGame(){
+        isFirstLoop = true
         timer?.invalidate()
         if difficultySelection == -1 {
         // B is the temporary difficulty for the intermediate section. If the game is stopped during the temporary beginner difficulty part of the intermediate section, the difficulty will again be set to intermediate
@@ -640,14 +356,17 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
         replayGame = false
         gameStarted = false
-//        metronomeClick!.stop();   //todo make metronome click work
-        
-//        metronomeClick.release()
-        btnStart.setTitle("Start", for: .normal)
         DispatchQueue.main.async { [self] in
+            btnStart.setTitle("Start", for: .normal)
             resetWheel()
+            txtBarOn.text = ""
+            changeColorDiminished(ranDiminished, "w")
+            if savedProgression.count > 0 {
+            btnSave.isHidden = false
+            }
+
         }
-        noteOn = key
+        noteOn = songKey
         beatOn = 1
         beat = 1
         barOn = 1
@@ -655,14 +374,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         nextStep = 0
         turnaroundListCounter = 0
         turnaroundRandom = Int.random(in: 0...2)
-        txtBarOn.text = ""
-        DispatchQueue.main.async { [self] in
-            changeColorDiminished(ranDiminished, "w")
-        }
-        if savedProgression.count > 0 {
-        btnSave.isHidden = false
-        }
+       
+        
         selectedSong = nil
+        if(isController){
+            let stopGameSignal = true
+            let dataToSend = Data([stopGameSignal ? 1 : 0]) // Convert boolean to Data
+            sendData(data: dataToSend)
+        }
+            
     }
     func resetWheel(){
         note0g.isHidden = true
@@ -988,74 +708,28 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
 
     }
-    private func beginnerDifficulty() {
-        if nextNote == "" {
-            nextNote = key  //initializing
-        }
-        if !replayGame {
-//            NSLog("Next note "+nextNote)
-//            NSLog("Key "+key)
-            let step = Utils().getStepFromNote(key: key, note: nextNote)   //The step is either a first, second, third, fourth, fifth, sixth of seventh. We need to find if the note we are on is which 'step' of the key
-//            NSLog("step " + String(step))
-            var nextStep = 0
-            switch step {
-                case 1:
-                nextStep = probabilityList1.randomElement()!
-                case 2:
-                nextStep = probabilityList2.randomElement()!
-                case 3:
-                nextStep = probabilityList3.randomElement()!
-                case 4:
-                nextStep = probabilityList4.randomElement()!
-                case 5:
-                nextStep = probabilityList5.randomElement()!
-                case 6:
-                nextStep = probabilityList6.randomElement()!
-                case 7:
-                nextStep = probabilityList7.randomElement()!
-                default:
-                    break
-            }
-//            NSLog("Next step "+String(nextStep))
-
-            nextNote = getNoteFromInterval(interval: nextStep)
-            savedProgression.append(nextNote)
-        } else {
-            if replayIndex < savedProgression.count {
-                nextNote = savedProgression[replayIndex]
-                replayIndex += 1
-            } else {
-                restartGame()
-                replayGame = true
-            }
-        }
-        if replayIndex >= savedProgression.count + 1 {  //adding 1 as the tonic is not in the array
-            restartGame()
-            replayGame = true
-        }
-        if barOn == 12 {
-            restartGame()
-            replayGame = true
-        }
-    }
+  
     func getNoteFromInterval(interval: Int) -> String {
+        print("interval: \(interval)")
         switch interval {
             case 1:
-            return noteFromNumber(n: utils.getFirst(key))
+            return noteFromNumber(n: utils.getFirst(songKey))
             case 2:
-            return noteFromNumber(n: utils.getSecond(key))
+            return noteFromNumber(n: utils.getSecond(songKey))
             case 3:
-            return noteFromNumber(n: utils.getThird(key))
+            return noteFromNumber(n: utils.getThird(songKey))
             case 4:
-            return noteFromNumber(n: utils.getFourth(key))
+            return noteFromNumber(n: utils.getFourth(songKey))
             case 5:
-            return noteFromNumber(n: utils.getFifth(key))
+            return noteFromNumber(n: utils.getFifth(songKey))
             case 6:
-            return noteFromNumber(n: utils.getSixth(key))
+            return noteFromNumber(n: utils.getSixth(songKey))
             case 7:
-            return noteFromNumber(n: utils.getSeventh(key))
+            return noteFromNumber(n: utils.getSeventh(songKey))
             default:
-                return ""
+            print("DEFAULT CASE")
+            return noteFromNumber(n: utils.getSecond(songKey))
+
         }
     }
     func noteFromNumber(n: Int) -> String {
@@ -1089,78 +763,19 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
     }
     private func restartGame() {
-        barOn = 0  // Restart game
+//        if(isController && !isPeer){
+            barOn = 1  // Restart game
+//        }
         turnaroundListCounter = 0
         replayIndex = 0
+    
         turnaroundRandom = Int.random(in: 0..<3)
-        nextNote = key
+        nextNote = songKey
     }
 
 
 
-    override func viewWillAppear(_ animated: Bool) {
-        NSLog("View did appear")
-        noteOn = key
-
-        circleView.transform=CGAffineTransformIdentity
-        if(selectedSong != nil){
-            selectSong()
-        }else{
-            selectKey(songKey: key)
-        }
-        
-//        if (selectedSong != nil) {
-//            // These lines of code will be called when a song is selected from the saved songs activity
-//            NSLog((selectedSong?.name)!)
-//            savedProgression = selectedSong!.progression!.components(separatedBy: "-")
-//            randomSecDom = Int(selectedSong!.secondaryDominant)
-//            goToDiminished = Int(selectedSong!.diminished)
-//            turnaroundRandom = Int(selectedSong!.turnaround)
-//            difficultySelection = Int(selectedSong!.level)
-//            NSLog("difficulty")
-//            NSLog(String(difficultySelection))
-//
-//
-//            switch (Int(selectedSong!.level)) {
-//            // The correct level will be selected corresponding to the saved song
-//            case 1:
-//                difficultyPicker.selectRow(0, inComponent: 0, animated: false)
-//                btnLevel.setTitle("Level 1", for: .normal)
-//                makeSecondaryDominantsVisible(false);
-//                makeDiminishedNotesVisible(false)
-//                break;
-//            case 2:
-//                difficultyPicker.selectRow(1, inComponent: 0, animated: false)
-//                btnLevel.setTitle("Level 2", for: .normal)
-//                makeSecondaryDominantsVisible(true);
-//                makeDiminishedNotesVisible(false);
-//
-//                break;
-//            case 3:
-//                difficultyPicker.selectRow(2, inComponent: 0, animated: false)
-//                btnLevel.setTitle("Level 3", for: .normal)
-//                makeDiminishedNotesVisible(true);
-//                makeSecondaryDominantsVisible(true);
-//                break;
-//            default:
-//                makeSecondaryDominantsVisible(false);
-//                makeDiminishedNotesVisible(false)
-//                break
-//            }
-//            noteOn = selectedSong!.key!
-//
-//            print("onCreateView: saved progression \(savedProgression)")
-//            replayGame = true
-//            gameStarted = true
-//            btnStart.setTitle("Stop", for: .normal)
-//            let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
-//            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
-//            selectKey() // The key of the saved song could be different from the current selected key
-//            replayIndex = 0
-//            startGame()
-//        }
-
-    }
+   
     func setSelectedSong(s: Song){
         selectedSong = s
         NSLog("Selecteed song ")
@@ -1214,13 +829,12 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
             let cfSoundURL = url as! CFURL
             var soundID: SystemSoundID = 0
-            AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
+//            AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
 
 //            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
-            circleView.transform=CGAffineTransformIdentity
             selectKey(songKey: (selectedSong?.key)!) // The key of the saved song could be different from the current selected key
-            replayIndex = 0
-            startGame()
+            replayIndex = 0  
+            createTimer()
         }
     }
     private func changeColorSecondaryDom(secDomNum: Int, color: Character) {
@@ -1316,11 +930,12 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     private func goToDiminishedNote(ranDiminished: Int) {
         if beatOn <= 2 {
             DispatchQueue.main.async { [self] in
-                changeColor(note: utils.getDiminished(ranDiminished, key), c: "y")
+                changeColor(note: utils.getDiminished(ranDiminished, songKey), c: "y")
                 changeColorDiminished(ranDiminished, "y")}
         } else {
             DispatchQueue.main.async { [self] in
-                changeColor(note: utils.getDiminished(ranDiminished, key), c: "g")
+                print("Dim variables: \(ranDiminished) \(key)")
+                changeColor(note: utils.getDiminished(ranDiminished, songKey), c: "g")
                 changeColorDiminished(ranDiminished, "g")}
         }
     }
@@ -1378,551 +993,656 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
 
     func initUI(){
-        view.backgroundColor = .white
-        btnSave.isHidden = true
-        view.addSubview(ring)
-        btnUnlock.titleLabel?.adjustsFontForContentSizeCategory = true
-        
-        //        ring.translatesAutoresizingMaskIntoConstraints=false
-        ring.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
-        
-        ring.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
-        ring.isHidden = true
-        
-        difficultyPicker.dataSource = self
-        difficultyPicker.delegate = self
-        difficultyPicker.isHidden=true
-        
-        
-        
-        view.addSubview(circleView)
-        circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
-        circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
-        circleView.isHidden = true
-        
-        view.addSubview(lettersViewG)
-        lettersViewG.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(lettersViewY)
-        lettersViewY.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(lettersViewW)
-        lettersViewW.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLog("Height")
-        NSLog(self.view.frame.height.description)
-        if(self.view.frame.height>800){       //Different transformations for different screen sizes
-            lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
-            lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
-            lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
-
-
-        }else if (self.view.frame.height == 736){
-            lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
-            lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
-            lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
-
-            ring.transform = CGAffineTransform(translationX: 0, y: 40)
+            view.backgroundColor = .white
+            btnSave.isHidden = true
+            view.addSubview(ring)
+            btnUnlock.titleLabel?.adjustsFontForContentSizeCategory = true
             
-        }
-        else if(self.view.frame.height == 667 ){
-            lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
-            lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
-            lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
+            //        ring.translatesAutoresizingMaskIntoConstraints=false
+            ring.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
+            
+            ring.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+            
+            difficultyPicker.dataSource = self
+            difficultyPicker.delegate = self
+            difficultyPicker.isHidden=true
+            
+            
+            
+            view.addSubview(circleView)
+            circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
+            circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+            circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+            
+            if(self.view.frame.height>800){       //Different transformations for different screen sizes
+                lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
+                lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
+                lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
 
-            ring.transform = CGAffineTransform(translationX: 0, y: 40)
-        }
-        
-        
-        let imageNames = ["note0", "note1", "note2", "note3", "note4", "note5", "note6", "note7", "note8", "note9","note10","note11"]
-        let radius: CGFloat = 0.42*self.view.frame.width  // Adjust this value to change the size of the ring
-        var imageViewsG = [UIImageView]()
-        var imageViewsW = [UIImageView]()
-        var imageViewsY = [UIImageView]()
-        
-        //Putting three layers of the letters on the screen. One for the color white, another for yellow and another for green
-        
-        // Calculate the center of the view
-        let centerX = view.bounds.midX
-        let centerY = view.bounds.midY-70
-        // Create image views and position them in a ring around the center
-        for i in 0..<imageNames.count {
-            let note=(i+3)%12   //adjusting the index as the notes are added from the right
-            let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
-            let x = centerX + radius * cos(angle)
-            let y = centerY + radius * sin(angle)
-            let imageName = imageNames[note] + "g"
 
-            switch(note){
-            case 0:
-                note0g.image = UIImage(named: imageName)
-                note0g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note0g)
-                imageViewsG.append(note0g)
-                break;
-            case 1:
-                note1g.image = UIImage(named: imageName)
-                note1g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note1g)
-                imageViewsG.append(note1g)
-                break;
-            case 2:
-                note2g.image = UIImage(named: imageName)
-                note2g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note2g)
-                imageViewsG.append(note2g)
-                break;
-            case 3:
-                note3g.image = UIImage(named: imageName)
-                note3g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note3g)
-                imageViewsG.append(note3g)
-                break;
-            case 4:
-                note4g.image = UIImage(named: imageName)
-                note4g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note4g)
-                imageViewsG.append(note4g)
-                break;
-            case 5:
-                note5g.image = UIImage(named: imageName)
-                note5g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note5g)
-                imageViewsG.append(note5g)
-                break;
-            case 6:
-                note6g.image = UIImage(named: imageName)
-                note6g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note6g)
-                imageViewsG.append(note6g)
-                break;
-            case 7:
-                note7g.image = UIImage(named: imageName)
-                note7g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note7g)
-                imageViewsG.append(note7g)
-                break;
-            case 8:
-                note8g.image = UIImage(named: imageName)
-                note8g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note8g)
-                imageViewsG.append(note8g)
-                break;
-            case 9:
-                note9g.image = UIImage(named: imageName)
-                note9g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note9g)
-                imageViewsG.append(note9g)
-                break;
-            case 10:
-                note10g.image = UIImage(named: imageName)
-                note10g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note10g)
-                imageViewsG.append(note10g)
-                break;
-            case 11:
-                note11g.image = UIImage(named: imageName)
-                note11g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note11g)
-                imageViewsG.append(note11g)
-                break;
-            default:
-                note0g.image = UIImage(named: imageName)
-                note0g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                lettersViewG.addSubview(note0g)
-                imageViewsG.append(note0g)
+            }else if (self.view.frame.height == 736){
+                lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
+                lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
+                lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
+
+                ring.transform = CGAffineTransform(translationX: 0, y: 40)
+                
             }
-        }
-        
-        for i in 0..<imageNames.count {
-            let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
-            let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
-            let x = centerX + radius * cos(angle)
-            let y = centerY + radius * sin(angle)
-            let imageView = UIImageView(frame: CGRect(x: x - 25, y: y - 25, width: 50, height: 50)) // Adjust the size of the images as needed
-            let imageName = imageNames[note] + "y"
+            else if(self.view.frame.height == 667 ){
+                lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
+                lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
+                lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.057)
 
-            
+                ring.transform = CGAffineTransform(translationX: 0, y: 40)
+            }
+            circleView.isHidden = true
+            ring.isHidden = true
          
-
-            switch note {
-            case 0:
-                note0y.image = UIImage(named: imageName)
-                note0y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note0y)
-                imageViewsY.append(note0y)
-                break;
-            case 1:
-                note1y.image = UIImage(named: imageName)
-                note1y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note1y)
-                imageViewsY.append(note1y)
-                break;
-                
-            case 2:
-                note2y.image = UIImage(named: imageName)
-                note2y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note2y)
-                imageViewsY.append(note2y)
-                break;
-                
-            case 3:
-                note3y.image = UIImage(named: imageName)
-                note3y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note3y)
-                imageViewsY.append(note3y)
-                break;
-                
-            case 4:
-                note4y.image = UIImage(named: imageName)
-                note4y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note4y)
-                imageViewsY.append(note4y)
-                break;
-                
-            case 5:
-                note5y.image = UIImage(named: imageName)
-                note5y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note5y)
-                imageViewsY.append(note5y)
-                break;
-                
-            case 6:
-                note6y.image = UIImage(named: imageName)
-                note6y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note6y)
-                imageViewsY.append(note6y)
-                break;
-                
-            case 7:
-                note7y.image = UIImage(named: imageName)
-                note7y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note7y)
-                imageViewsY.append(note7y)
-                break;
-                
-            case 8:
-                note8y.image = UIImage(named: imageName)
-                note8y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note8y)
-                imageViewsY.append(note8y)
-                break;
-                
-            case 9:
-                note9y.image = UIImage(named: imageName)
-                note9y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note9y)
-                imageViewsY.append(note9y)
-                break;
-                
-            case 10:
-                note10y.image = UIImage(named: imageName)
-                note10y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note10y)
-                imageViewsY.append(note10y)
-                break;
-                
-            case 11:
-                note11y.image = UIImage(named: imageName)
-                note11y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note11y)
-                imageViewsY.append(note11y)
-                break;
-            default:
-                note0y.image = UIImage(named: imageName)
-                note0y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewY.addSubview(note0y)
-                imageViewsY.append(note0y)
-            }
-        }
-        
-        for i in 0..<imageNames.count {
-            let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
-            let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
-            let x = centerX + radius * cos(angle)
-            let y = centerY + radius * sin(angle)
-            let imageView = UIImageView(frame: CGRect(x: x - 25, y: y - 25, width: 50, height: 50)) // Adjust the size of the images as needed
-            let imageName = imageNames[note] + "w"
-
-
-            switch note {
-            case 0:
-                note0w.image = UIImage(named: imageName)
-                note0w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note0w)
-                imageViewsW.append(note0w)
-                break;
-            case 1:
-                note1w.image = UIImage(named: imageName)
-                note1w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note1w)
-                imageViewsW.append(note1w)
-                break;
-
-            case 2:
-                note2w.image = UIImage(named: imageName)
-                note2w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note2w)
-                imageViewsW.append(note2w)
-                break;
-
-            case 3:
-                note3w.image = UIImage(named: imageName)
-                note3w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note3w)
-                imageViewsW.append(note3w)
-                break;
-
-            case 4:
-                note4w.image = UIImage(named: imageName)
-                note4w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note4w)
-                imageViewsW.append(note4w)
-                break;
-
-            case 5:
-                note5w.image = UIImage(named: imageName)
-                note5w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note5w)
-                imageViewsW.append(note5y)
-                break;
-
-            case 6:
-                note6w.image = UIImage(named: imageName)
-                note6w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note6w)
-                imageViewsW.append(note6w)
-                break;
-
-            case 7:
-                note7w.image = UIImage(named: imageName)
-                note7w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note7w)
-                imageViewsW.append(note7w)
-                break;
-
-            case 8:
-                note8w.image = UIImage(named: imageName)
-                note8w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note8w)
-                imageViewsW.append(note8w)
-                break;
-
-            case 9:
-                note9w.image = UIImage(named: imageName)
-                note9w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note9w)
-                imageViewsW.append(note9w)
-                break;
-
-            case 10:
-                note10w.image = UIImage(named: imageName)
-                note10w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note10w)
-                imageViewsW.append(note10w)
-                break;
-
-            case 11:
-                note11w.image = UIImage(named: imageName)
-                note11w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note11w)
-                imageViewsW.append(note11w)
-                break;
-            default:
-                note0w.image = UIImage(named: imageName)
-                note0w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                lettersViewW.addSubview(note0w)
-                imageViewsW.append(note0w)
-            }
-        }
-
-    
-        //        adding rotation to the images accordingly
-        
-        for i in 0...11{
-            let index=(i+9)%12
-            imageViewsG[index].transform=imageViewsG[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
             
-        }
-        for i in 0...11{
-            let index=(i+9)%12
-            imageViewsY[index].transform=imageViewsY[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
+            
+            let imageNames = ["note0", "note1", "note2", "note3", "note4", "note5", "note6", "note7", "note8", "note9","note10","note11"]
+            let radius: CGFloat = 0.42*self.view.frame.width  // Adjust this value to change the size of the ring
+            var imageViewsG = [UIImageView]()
+            var imageViewsW = [UIImageView]()
+            var imageViewsY = [UIImageView]()
+            
+            //Putting three layers of the letters on the screen. One for the color white, another for yellow and another for green
+            
+            // Calculate the center of the view
+            let centerX = view.bounds.midX
+            let centerY = view.bounds.midY-70
+            // Create image views and position them in a ring around the center
+            for i in 0..<imageNames.count {
+                let note=(i+3)%12   //adjusting the index as the notes are added from the right
+                let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                let imageName = imageNames[note] + "g"
 
-        }
-        for i in 0...11{
-            let index=(i+9)%12
-            imageViewsW[index].transform=imageViewsW[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
+                switch(note){
+                case 0:
+                    note0g.image = UIImage(named: imageName)
+                    note0g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note0g)
+                    imageViewsG.append(note0g)
+                    break;
+                case 1:
+                    note1g.image = UIImage(named: imageName)
+                    note1g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note1g)
+                    imageViewsG.append(note1g)
+                    break;
+                case 2:
+                    note2g.image = UIImage(named: imageName)
+                    note2g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note2g)
+                    imageViewsG.append(note2g)
+                    break;
+                case 3:
+                    note3g.image = UIImage(named: imageName)
+                    note3g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note3g)
+                    imageViewsG.append(note3g)
+                    break;
+                case 4:
+                    note4g.image = UIImage(named: imageName)
+                    note4g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note4g)
+                    imageViewsG.append(note4g)
+                    break;
+                case 5:
+                    note5g.image = UIImage(named: imageName)
+                    note5g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note5g)
+                    imageViewsG.append(note5g)
+                    break;
+                case 6:
+                    note6g.image = UIImage(named: imageName)
+                    note6g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note6g)
+                    imageViewsG.append(note6g)
+                    break;
+                case 7:
+                    note7g.image = UIImage(named: imageName)
+                    note7g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note7g)
+                    imageViewsG.append(note7g)
+                    break;
+                case 8:
+                    note8g.image = UIImage(named: imageName)
+                    note8g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note8g)
+                    imageViewsG.append(note8g)
+                    break;
+                case 9:
+                    note9g.image = UIImage(named: imageName)
+                    note9g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note9g)
+                    imageViewsG.append(note9g)
+                    break;
+                case 10:
+                    note10g.image = UIImage(named: imageName)
+                    note10g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note10g)
+                    imageViewsG.append(note10g)
+                    break;
+                case 11:
+                    note11g.image = UIImage(named: imageName)
+                    note11g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note11g)
+                    imageViewsG.append(note11g)
+                    break;
+                default:
+                    note0g.image = UIImage(named: imageName)
+                    note0g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
+                    lettersViewG.addSubview(note0g)
+                    imageViewsG.append(note0g)
+                }
+            }
+            
+            for i in 0..<imageNames.count {
+                let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
+                let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                let imageView = UIImageView(frame: CGRect(x: x - 25, y: y - 25, width: 50, height: 50)) // Adjust the size of the images as needed
+                let imageName = imageNames[note] + "y"
 
-        }
-    
+                
+             
 
-        circleView.addSubview(lettersViewG)
-        circleView.addSubview(lettersViewY)
-        circleView.addSubview(lettersViewW)
+                switch note {
+                case 0:
+                    note0y.image = UIImage(named: imageName)
+                    note0y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note0y)
+                    imageViewsY.append(note0y)
+                    break;
+                case 1:
+                    note1y.image = UIImage(named: imageName)
+                    note1y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note1y)
+                    imageViewsY.append(note1y)
+                    break;
+                    
+                case 2:
+                    note2y.image = UIImage(named: imageName)
+                    note2y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note2y)
+                    imageViewsY.append(note2y)
+                    break;
+                    
+                case 3:
+                    note3y.image = UIImage(named: imageName)
+                    note3y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note3y)
+                    imageViewsY.append(note3y)
+                    break;
+                    
+                case 4:
+                    note4y.image = UIImage(named: imageName)
+                    note4y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note4y)
+                    imageViewsY.append(note4y)
+                    break;
+                    
+                case 5:
+                    note5y.image = UIImage(named: imageName)
+                    note5y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note5y)
+                    imageViewsY.append(note5y)
+                    break;
+                    
+                case 6:
+                    note6y.image = UIImage(named: imageName)
+                    note6y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note6y)
+                    imageViewsY.append(note6y)
+                    break;
+                    
+                case 7:
+                    note7y.image = UIImage(named: imageName)
+                    note7y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note7y)
+                    imageViewsY.append(note7y)
+                    break;
+                    
+                case 8:
+                    note8y.image = UIImage(named: imageName)
+                    note8y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note8y)
+                    imageViewsY.append(note8y)
+                    break;
+                    
+                case 9:
+                    note9y.image = UIImage(named: imageName)
+                    note9y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note9y)
+                    imageViewsY.append(note9y)
+                    break;
+                    
+                case 10:
+                    note10y.image = UIImage(named: imageName)
+                    note10y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note10y)
+                    imageViewsY.append(note10y)
+                    break;
+                    
+                case 11:
+                    note11y.image = UIImage(named: imageName)
+                    note11y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note11y)
+                    imageViewsY.append(note11y)
+                    break;
+                default:
+                    note0y.image = UIImage(named: imageName)
+                    note0y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewY.addSubview(note0y)
+                    imageViewsY.append(note0y)
+                }
+            }
+            
+            for i in 0..<imageNames.count {
+                let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
+                let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
+                let x = centerX + radius * cos(angle)
+                let y = centerY + radius * sin(angle)
+                let imageView = UIImageView(frame: CGRect(x: x - 25, y: y - 25, width: 50, height: 50)) // Adjust the size of the images as needed
+                let imageName = imageNames[note] + "w"
+
+
+                switch note {
+                case 0:
+                    note0w.image = UIImage(named: imageName)
+                    note0w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note0w)
+                    imageViewsW.append(note0w)
+                    break;
+                case 1:
+                    note1w.image = UIImage(named: imageName)
+                    note1w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note1w)
+                    imageViewsW.append(note1w)
+                    break;
+
+                case 2:
+                    note2w.image = UIImage(named: imageName)
+                    note2w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note2w)
+                    imageViewsW.append(note2w)
+                    break;
+
+                case 3:
+                    note3w.image = UIImage(named: imageName)
+                    note3w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note3w)
+                    imageViewsW.append(note3w)
+                    break;
+
+                case 4:
+                    note4w.image = UIImage(named: imageName)
+                    note4w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note4w)
+                    imageViewsW.append(note4w)
+                    break;
+
+                case 5:
+                    note5w.image = UIImage(named: imageName)
+                    note5w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note5w)
+                    imageViewsW.append(note5w)
+                    break;
+
+                case 6:
+                    note6w.image = UIImage(named: imageName)
+                    note6w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note6w)
+                    imageViewsW.append(note6w)
+                    break;
+
+                case 7:
+                    note7w.image = UIImage(named: imageName)
+                    note7w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note7w)
+                    imageViewsW.append(note7w)
+                    break;
+
+                case 8:
+                    note8w.image = UIImage(named: imageName)
+                    note8w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note8w)
+                    imageViewsW.append(note8w)
+                    break;
+
+                case 9:
+                    note9w.image = UIImage(named: imageName)
+                    note9w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note9w)
+                    imageViewsW.append(note9w)
+                    break;
+
+                case 10:
+                    note10w.image = UIImage(named: imageName)
+                    note10w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note10w)
+                    imageViewsW.append(note10w)
+                    break;
+
+                case 11:
+                    note11w.image = UIImage(named: imageName)
+                    note11w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note11w)
+                    imageViewsW.append(note11w)
+                    break;
+                default:
+                    note0w.image = UIImage(named: imageName)
+                    note0w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
+                    lettersViewW.addSubview(note0w)
+                    imageViewsW.append(note0w)
+                }
+            }
+
         
-        note0g.isHidden = true
-        note1g.isHidden = true
-        note2g.isHidden = true
-        note3g.isHidden = true
-        note4g.isHidden = true
-        note5g.isHidden = true
-        note6g.isHidden = true
-        note7g.isHidden = true
-        note8g.isHidden = true
-        note9g.isHidden = true
-        note10g.isHidden = true
-        note11g.isHidden = true
+            //        adding rotation to the images accordingly
+            
+            for i in 0...11{
+                let index=(i+9)%12
+                imageViewsG[index].transform=imageViewsG[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
+                
+            }
+            for i in 0...11{
+                let index=(i+9)%12
+                imageViewsY[index].transform=imageViewsY[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
+
+            }
+            for i in 0...11{
+                let index=(i+9)%12
+                imageViewsW[index].transform=imageViewsW[index].transform.rotated(by: CGFloat(CGFloat(i)*CGFloat.pi/CGFloat(6)))
+
+            }
         
-        note0y.isHidden = true
-        note1y.isHidden = true
-        note2y.isHidden = true
-        note3y.isHidden = true
-        note4y.isHidden = true
-        note5y.isHidden = true
-        note6y.isHidden = true
-        note7y.isHidden = true
-        note8y.isHidden = true
-        note9y.isHidden = true
-        note10y.isHidden = true
-        note11y.isHidden = true
+
+            circleView.addSubview(lettersViewG)
+            circleView.addSubview(lettersViewY)
+            circleView.addSubview(lettersViewW)
+            
+            note0g.isHidden = true
+            note1g.isHidden = true
+            note2g.isHidden = true
+            note3g.isHidden = true
+            note4g.isHidden = true
+            note5g.isHidden = true
+            note6g.isHidden = true
+            note7g.isHidden = true
+            note8g.isHidden = true
+            note9g.isHidden = true
+            note10g.isHidden = true
+            note11g.isHidden = true
+            
+            note0y.isHidden = true
+            note1y.isHidden = true
+            note2y.isHidden = true
+            note3y.isHidden = true
+            note4y.isHidden = true
+            note5y.isHidden = true
+            note6y.isHidden = true
+            note7y.isHidden = true
+            note8y.isHidden = true
+            note9y.isHidden = true
+            note10y.isHidden = true
+            note11y.isHidden = true
 
 
-        imageView.isHidden = true
-        imageView.isHidden = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        if(self.view.frame.height<800){
-            imageView.transform = CGAffineTransform(translationX: 0, y: 40)
+            imageView.isHidden = true
+            imageView.isHidden = true
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            if(self.view.frame.height<800){
+                imageView.transform = CGAffineTransform(translationX: 0, y: 40)
+
+            }
+            view.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                imageView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
+                imageView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
+                imageView.widthAnchor.constraint(equalToConstant: 250),
+                imageView.heightAnchor.constraint(equalToConstant: 250)
+            ])
+            
+            imageView.addSubview(centre)
+            centre.translatesAutoresizingMaskIntoConstraints=false
+            centre.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            NSLayoutConstraint.activate([
+                centre.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                centre.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                centre.widthAnchor.constraint(equalToConstant: 100),
+                centre.heightAnchor.constraint(equalToConstant: 100)
+            ])
+
+            NSLayoutConstraint.activate([
+                centre.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                centre.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                centre.widthAnchor.constraint(equalToConstant: 100),
+                centre.heightAnchor.constraint(equalToConstant: 100)
+            ])
+
+            imageView.addSubview(v71ImageView)
+            v71ImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                v71ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 40),
+                v71ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -65),
+                v71ImageView.widthAnchor.constraint(equalToConstant: 35),
+                v71ImageView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //v71ImageView.alpha = 0
+            imageView.addSubview(v75ImageView)
+            v75ImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                v75ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 60),
+                v75ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -35),
+                v75ImageView.widthAnchor.constraint(equalToConstant: 35),
+                v75ImageView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //v74ImageView.alpha = 0
+            imageView.addSubview(v74ImageView)
+            v74ImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                v74ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                v74ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -70),
+                v74ImageView.widthAnchor.constraint(equalToConstant: 35),
+                v74ImageView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //v72ImageView.alpha = 0
+            imageView.addSubview(v72ImageView)
+            v72ImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                v72ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 70),
+                v72ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+                v72ImageView.widthAnchor.constraint(equalToConstant: 35),
+                v72ImageView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //v76ImageView.alpha = 0
+            imageView.addSubview(v76ImageView)
+            v76ImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                v76ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 60),
+                v76ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 35),
+                v76ImageView.widthAnchor.constraint(equalToConstant: 35),
+                v76ImageView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //v73ImageView.alpha = 0
+            imageView.addSubview(v73ImageView)
+            v73ImageView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                v73ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 40),
+                v73ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 65),
+                v73ImageView.widthAnchor.constraint(equalToConstant: 35),
+                v73ImageView.heightAnchor.constraint(equalToConstant: 35)
+            ])
+
+            //dimii.alpha = 0
+            imageView.addSubview(dimii)
+            dimii.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                dimii.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: -70),
+                dimii.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -17),
+                dimii.widthAnchor.constraint(equalToConstant: 35),
+                dimii.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //dimv.alpha = 0
+            imageView.addSubview(dimv)
+            dimv.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                dimv.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: -65),
+                dimv.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 23),
+                dimv.widthAnchor.constraint(equalToConstant: 35),
+                dimv.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //dimi.alpha = 0
+            imageView.addSubview(dimi)
+            dimi.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                dimi.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: -40),
+                dimi.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 60),
+                dimi.widthAnchor.constraint(equalToConstant: 35),
+                dimi.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            //dimii.alpha = 0
+            imageView.addSubview(dimiv)
+            dimiv.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                dimiv.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+                dimiv.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 80),
+                dimiv.widthAnchor.constraint(equalToConstant: 35),
+                dimiv.heightAnchor.constraint(equalToConstant: 35)
+            ])
+            makeSecondaryDominantsVisible(false)
+            makeDiminishedNotesVisible(false)
+            txtBarOn.center = CGPoint(x: centerX, y: centerY-30)
+                txtBarOn.textAlignment = .center
+            if(self.view.frame.height<800)
+            {
+                txtBarOn.transform = CGAffineTransform(translationX: 0, y: 40)
+
+            }
+            self.view.addSubview(txtBarOn)
+            
+           
 
         }
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 250),
-            imageView.heightAnchor.constraint(equalToConstant: 250)
-        ])
+    override func viewWillAppear(_ animated: Bool) {
+        NSLog("View did appear")
         
-        centre.isHidden = true
-        imageView.addSubview(centre)
-        centre.translatesAutoresizingMaskIntoConstraints=false
-        centre.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        NSLayoutConstraint.activate([
-            centre.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            centre.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-            centre.widthAnchor.constraint(equalToConstant: 100),
-            centre.heightAnchor.constraint(equalToConstant: 100)
-        ])
+        noteOn = songKey
 
-        NSLayoutConstraint.activate([
-            centre.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            centre.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-            centre.widthAnchor.constraint(equalToConstant: 100),
-            centre.heightAnchor.constraint(equalToConstant: 100)
-        ])
-
-        imageView.addSubview(v71ImageView)
-        v71ImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v71ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 40),
-            v71ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -65),
-            v71ImageView.widthAnchor.constraint(equalToConstant: 35),
-            v71ImageView.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //v71ImageView.alpha = 0
-        imageView.addSubview(v75ImageView)
-        v75ImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v75ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 60),
-            v75ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -35),
-            v75ImageView.widthAnchor.constraint(equalToConstant: 35),
-            v75ImageView.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //v74ImageView.alpha = 0
-        imageView.addSubview(v74ImageView)
-        v74ImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v74ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            v74ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -70),
-            v74ImageView.widthAnchor.constraint(equalToConstant: 35),
-            v74ImageView.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //v72ImageView.alpha = 0
-        imageView.addSubview(v72ImageView)
-        v72ImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v72ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 70),
-            v72ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
-            v72ImageView.widthAnchor.constraint(equalToConstant: 35),
-            v72ImageView.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //v76ImageView.alpha = 0
-        imageView.addSubview(v76ImageView)
-        v76ImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v76ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 60),
-            v76ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 35),
-            v76ImageView.widthAnchor.constraint(equalToConstant: 35),
-            v76ImageView.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //v73ImageView.alpha = 0
-        imageView.addSubview(v73ImageView)
-        v73ImageView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            v73ImageView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: 40),
-            v73ImageView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 65),
-            v73ImageView.widthAnchor.constraint(equalToConstant: 35),
-            v73ImageView.heightAnchor.constraint(equalToConstant: 35)
-        ])
-
-        //dimii.alpha = 0
-        imageView.addSubview(dimii)
-        dimii.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dimii.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: -70),
-            dimii.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: -17),
-            dimii.widthAnchor.constraint(equalToConstant: 35),
-            dimii.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //dimv.alpha = 0
-        imageView.addSubview(dimv)
-        dimv.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dimv.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: -65),
-            dimv.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 23),
-            dimv.widthAnchor.constraint(equalToConstant: 35),
-            dimv.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //dimi.alpha = 0
-        imageView.addSubview(dimi)
-        dimi.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dimi.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: -40),
-            dimi.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 60),
-            dimi.widthAnchor.constraint(equalToConstant: 35),
-            dimi.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        //dimii.alpha = 0
-        imageView.addSubview(dimiv)
-        dimiv.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dimiv.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            dimiv.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 80),
-            dimiv.widthAnchor.constraint(equalToConstant: 35),
-            dimiv.heightAnchor.constraint(equalToConstant: 35)
-        ])
-        makeSecondaryDominantsVisible(false)
-        makeDiminishedNotesVisible(false)
-        txtBarOn.center = CGPoint(x: centerX, y: centerY-30)
-            txtBarOn.textAlignment = .center
-        if(self.view.frame.height<800)
-        {
-            txtBarOn.transform = CGAffineTransform(translationX: 0, y: 40)
+        if(selectedSong != nil){
+            selectSong()
+        }else{
+            songKey = key
+            selectKey(songKey: songKey)
 
         }
-        self.view.addSubview(txtBarOn)
-       
+        
 
     }
+       
+
+    func selectKey(songKey: String) {
+        circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+
+        circleView.transform = CGAffineTransform.identity
+
+        let rotationAngle: CGFloat
+        switch songKey {
+        case "C":
+            rotationAngle = 0
+        case "G":
+            rotationAngle = CGFloat.pi * (30 * 11) / 180
+        case "D":
+            rotationAngle = CGFloat.pi * (30 * 10) / 180
+        case "A":
+            rotationAngle = CGFloat.pi * (30 * 9) / 180
+        case "E":
+            rotationAngle = CGFloat.pi * (30 * 8) / 180
+        case "B":
+            rotationAngle = CGFloat.pi * (30 * 7) / 180
+        case "F#":
+            rotationAngle = CGFloat.pi * (30 * 6) / 180
+        case "Db":
+            rotationAngle = CGFloat.pi * (30 * 5) / 180
+        case "Ab":
+            rotationAngle = CGFloat.pi * (30 * 4) / 180
+        case "Eb":
+            rotationAngle = CGFloat.pi * (30 * 3) / 180
+        case "Bb":
+            rotationAngle = CGFloat.pi * (30 * 2) / 180
+        case "F":
+            rotationAngle = CGFloat.pi * 30 / 180
+        default:
+            rotationAngle = 0
+        }
+        NSLog("Height: \(self.view.frame.height)")
+        // Correcting a bug where letters got translated on smaller screen sizes
+        if(self.view.frame.height<750){
+            print("Translating")
+
+            var translationx: CGFloat
+            var translationy: CGFloat
+            switch songKey {
+            case "C":
+                translationx = 0
+                translationy = 0
+            case "G":
+                translationx = -3*rotationAngle
+                translationy = 1.5*rotationAngle
+            case "D":
+                translationx = -6*rotationAngle
+                translationy = 4*rotationAngle
+            case "A":
+                translationx = -8*rotationAngle
+                translationy = 8*rotationAngle
+            case "E":
+                translationx = -8*rotationAngle
+                translationy = 14*rotationAngle
+            case "B":
+                translationx = -6*rotationAngle
+                translationy = 20*rotationAngle
+            case "F#":
+                translationx = -0.5*rotationAngle
+                translationy = 25*rotationAngle
+            case "Db":
+                translationx = 7*rotationAngle
+                translationy = 29*rotationAngle
+            case "Ab":
+                translationx = 15*rotationAngle
+                translationy = 30*rotationAngle
+            case "Eb":
+                translationx = 24*rotationAngle
+                translationy = 25*rotationAngle
+            case "Bb":
+                translationx = 30*rotationAngle
+                translationy = 20*rotationAngle
+            case "F":
+                translationx = 35*rotationAngle
+                translationy = 17*rotationAngle
+            default:
+                translationx = 0
+                translationy=0
+            }
+            self.circleView.transform = CGAffineTransform(translationX: translationx, y: translationy)
+        }
+
+        // Apply the rotation transform to the circleView
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.circleView.transform = .identity
+
+            self?.circleView.transform = self?.circleView.transform.rotated(by: rotationAngle) ?? .identity
+        }
+    
+    }
+
     func unlockPremiumVersion(){
         freeVersionView.isHidden = true
         btnLevel.isHidden = false
@@ -1935,54 +1655,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         centre.isHidden = false
         
         
-        
-    }
-
-
-    func selectKey(songKey: String){
-        NSLog("Key "+songKey)
-        switch(songKey){
-        case "C":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(0))
-            break;
-        case "G":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*11)/180))
-            break;
-        case "D":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*10)/180))
-            break;
-        case "A":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*9)/180))
-            break;
-        case "E":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*8)/180))
-            break;
-        case "B":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*7)/180))
-            break;
-        case "F#":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*6)/180))
-            break;
-        case "Db":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*5)/180))
-            break;
-        case "Ab":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*4)/180))
-            break;
-        case "Eb":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*3)/180))
-            break;
-        case "Bb":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30*2)/180))
-            break;
-        case "F":
-            circleView.transform=circleView.transform.rotated(by: CGFloat(Double.pi * (30)/180))
-            break;
-        default:
-            circleView.transform.rotated(by: 0)
-            
-        }
-       
         
     }
     
@@ -2034,8 +1706,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         bpmText=Int(sliderValue)
         labelBPM.text=String(Int(sliderValue))
         timeInterval = 60.0 / Double(bpmText)
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true) // Recreate the timer with the updated time interval
+//        if(isController){
+//           let bpmData = Data(Data(bytes: &timeInterval, count: MemoryLayout<Float>.size))
+//            sendData(data: bpmData)
+//        }
+        if(gameStarted){
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true) // Recreate the timer with the updated time interval
+        }
+      
         NSLog("slider " + String(sliderValue))
     }
     private func initTurnAroundLists() {
@@ -2057,7 +1736,388 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         let r = Int.random(in: 0..<3)
         turnaroundRandom = r
     }
+    private func beginnerDifficulty(_ bar :Int) {
+        if nextNote == "" {
+            nextNote = songKey  //initializing
+        }
+        if !isPeer {
+            if !replayGame {
+                //todo the default (1) gets returned sometimes here. Fix!
+                let step = Utils().getStepFromNote(key: songKey, note: nextNote)   //The step is either a first, second, third, fourth, fifth, sixth of seventh. We need to find if the note we are on is which 'step' of the key
+    //            NSLog("step " + String(step))
+                var nextStep = 0
+                switch step {
+                    case 1:
+                    nextStep = probabilityList1.randomElement()!
+                    case 2:
+                    nextStep = probabilityList2.randomElement()!
+                    case 3:
+                    nextStep = probabilityList3.randomElement()!
+                    case 4:
+                    nextStep = probabilityList4.randomElement()!
+                    case 5:
+                    nextStep = probabilityList5.randomElement()!
+                    case 6:
+                    nextStep = probabilityList6.randomElement()!
+                    case 7:
+                    nextStep = probabilityList7.randomElement()!
+                    default:
+                        break
+                }
+    //            NSLog("Next step "+String(nextStep))
+                if bar == 1 || bar == 5  || bar == 9{
+                    nextNote = getNoteFromInterval(interval: nextStep)
+                }
+                savedProgression.append(nextNote)
+            } else {
+                if replayIndex < savedProgression.count {
+                    nextNote = savedProgression[replayIndex]
+                    replayIndex += 1
+                } else {
+                    restartGame()
+                    replayGame = true
+                }
+            }
+            if replayIndex >= savedProgression.count + 1 {  //adding 1 as the tonic is not in the array
+                restartGame()
+                replayGame = true
+            }
+          
+            
+        }
+       print("Next note from beginner difficulty: \(nextNote)")
+    }
+   
+    func intermediateDifficulty(_ bar: Int){
+        if !replayGame {
+            print("Random sec dom: \(randomSecDom)")
+            print("Bar on: \(barOn)")
+            if bar < 2 {
+            
+                    let random1 = Int.random(in: 0...2)    // There is an equal chance for it to go either to the first, third, or sixth
+                    switch random1 {
+                    case 0:
+                        nextNote = noteFromNumber(n: Utils().getFirst(songKey))
+                        savedProgression.append(nextNote)
+                        break;
+                    case 1:
+                        nextNote = noteFromNumber(n: Utils().getThird(songKey))
+                        savedProgression.append(nextNote)
+                        break;
+                    case 2:
+                        nextNote = noteFromNumber(n: Utils().getSixth(songKey))
+                        savedProgression.append(nextNote)
+                        break;
+                    default:
+                        break;
+                    }
+                
+            } else if bar == 2 {
+                if(!isPeer){
+                    randomSecDom = Int.random(in: 0...5)      // One of 6 secondary dominants will be chosen
+                }
+                print("random sec dom: \(randomSecDom)")
 
+                if(!isPeer){
+                    nextNote = noteFromNumber(n: Utils().getSecondaryDominant(secondaryDominantNumber: randomSecDom, key: songKey))
+                    savedProgression.append(nextNote)
+                }
+               
+            } else if bar == 3 {
+                if(!isPeer){
+                    nextNote = noteFromNumber(n: Utils().getDominant(secondaryDominant: randomSecDom, key: songKey))
+                    savedProgression.append(nextNote)
+                    difficultySelection = -1 // -1 is a temporary difficulty for the intermediate section. The fifth and sixth bars in the intermediate section will be identical to the beginner section
+                }
+               
+            } else if bar >= 6 {    // We will check from the 6 note onwards as the turn around starts on bar 7. We will decide the next note here
+                if turnaroundRandom == 0 {    // the first turn around list has 4 elements, so we check for it separately
+                    if turnaroundListCounter >= 4 {
+                        return
+                    }
+                } else {
+                    if turnaroundListCounter >= 2 {
+                
+                        return
+                    }
+                }
+
+                if(!isPeer){
+                    switch turnaroundRandom {
+                    case 0:
+                        nextNote = getNoteFromInterval(interval: turnaroundList1[turnaroundListCounter])
+                        savedProgression.append(nextNote)
+                        break;
+                    case 1:
+                        nextNote = getNoteFromInterval(interval: turnaroundList2[turnaroundListCounter])
+                        savedProgression.append(nextNote)
+                        break;
+                    case 2:
+                        nextNote = getNoteFromInterval(interval: turnaroundList3[turnaroundListCounter])
+                        savedProgression.append(nextNote)
+                        break;
+                    case 3:
+                        nextNote = getNoteFromInterval(interval: turnaroundList4[turnaroundListCounter])
+                        savedProgression.append(nextNote)
+                        break;
+                    default:
+                        break;
+                    }
+                    turnaroundListCounter += 1
+                }
+                
+//                NSLog("intermediateDifficulty: next note" + String(nextNote))
+            }
+        } else {
+            if replayIndex < savedProgression.count {
+                if barOn < 2 {
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")
+                    }
+                } else if barOn == 2 {
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")
+                    }
+                } else if barOn == 3 {
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "g")
+                    }
+                    nextNote = noteFromNumber(n: Utils().getDominant(secondaryDominant: randomSecDom, key: songKey))
+                    difficultySelection = -1
+                    replayIndex += 1
+                    return
+                }
+                nextNote = savedProgression[replayIndex]
+                replayIndex += 1
+            }
+            
+        }
+
+    }
+    private func advancedDifficulty(_ bar: Int) {
+        if !replayGame {
+            if bar < 2 {
+        
+                if(!isPeer){
+                    let random1 = Int.random(in: 0...2) // There is an equal chance for it to go either to the first, third, or sixth
+                    switch random1 {
+                    case 0:
+                        nextNote = noteFromNumber(n: utils.getFirst(songKey))
+                        savedProgression.append(nextNote)
+                        break;
+                    case 1:
+                        nextNote = noteFromNumber(n: utils.getThird(songKey))
+                        savedProgression.append(nextNote)
+                        break;
+                    case 2:
+                        nextNote = noteFromNumber(n: utils.getSixth(songKey))
+                        savedProgression.append(nextNote)
+                        break;
+                    default:
+                        break;
+                    }
+                }
+               
+
+            } else if bar == 2 {
+                if(!isPeer){
+                    randomSecDom = Int.random(in: 0...5) // One of 6 secondary dominants will be chosen
+                    nextNote = noteFromNumber(n: utils.getSecondaryDominant(secondaryDominantNumber: randomSecDom, key: songKey))
+                    savedProgression.append(nextNote)
+                }
+            } else if bar == 3 {
+                if(!isPeer){
+                    nextNote = noteFromNumber(n: utils.getDominant(secondaryDominant: randomSecDom, key: songKey))
+                    savedProgression.append(nextNote)
+                }
+
+            }
+        } else {
+            if replayIndex < savedProgression.count {
+                if bar < 2 {
+                    onSecondaryDominant = false
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "w")}
+                } else if barOn == 2 {
+                    DispatchQueue.main.async { [self] in
+                        changeColorSecondaryDom(secDomNum: randomSecDom, color: "y")}
+                } else if barOn == 3 {
+                    onSecondaryDominant = true
+                    DispatchQueue.main.async {
+                        self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
+                    }
+                    onSecondaryDominant = false
+                }
+                nextNote = savedProgression[replayIndex]
+                replayIndex += 1
+
+            } else {
+                restartGame()
+                replayGame = true
+
+            }
+            if replayIndex >= savedProgression.count + 1 { // adding 1 as the tonic is not in the array
+                replayGame = true
+                restartGame()
+
+            }
+        }
+    }
+    func createTimer(){
+        for bar in 1...12{
+            if (bar>=5 && difficultySelection == -1){  // The itermediate diffficluty will be similar to the beginner difficulty for bars 5 and 6
+                difficultySelection = 2
+            }
+            switch difficultySelection {
+            case 1:
+                beginnerDifficulty(bar)
+            case 2:
+                intermediateDifficulty(bar)
+            case -1:   //This is the modified case in the advanced difficulty, which works like the beginner difficulty for the first few bars
+                if barOn >= 5 {
+                    difficultySelection = 2
+                }
+                beginnerDifficulty(bar)
+            case 3:
+                advancedDifficulty(bar)
+                if bar == 2 {
+                    if !replayGame {
+                        if(!isPeer){
+                            ranDiminished = Int.random(in: 0..<3)
+                            goToDiminished = Int.random(in: 0..<3)
+                        }
+                    }
+                }
+               
+            default:
+                break
+            }
+        }
+    
+        if(isController){
+            dataToSend["key"] = songKey
+            NSLog("Sending key"+songKey)
+            dataToSend["progression"] = savedProgression.joined(separator: ",")
+            dataToSend["difficulty"] = difficultySelection
+            dataToSend["ranSecDom"] = randomSecDom
+            dataToSend["ranDim"] = ranDiminished
+            dataToSend["goToDim"] = goToDiminished
+            dataToSend["bpm"] = timeInterval
+            do {
+                let data = try NSKeyedArchiver.archivedData(withRootObject: dataToSend, requiringSecureCoding: false)
+                sendData(data: data)
+
+            } catch {
+                print("Error encoding data: \(error)")
+            }
+            
+
+        }
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true)
+        timer?.tolerance = 0.01
+       
+       
+    }
+
+    @objc func startGame(){
+    
+        NSLog("Start Game")
+        if (barOn == savedProgression.count+2) {
+            restartGame()
+            replayGame = true
+        }
+        print("beat on: \(beatOn)")
+            loopEnded = false
+            print("Bar on: \(barOn)")
+        metronomeClick.play()
+
+            DispatchQueue.global(qos: .background).async { [self] in
+//                AudioServicesPlaySystemSound(soundID)
+//                NSLog("Note on "+noteOn)
+             
+                if self.beat == 1 {
+                    DispatchQueue.main.async { [self] in
+                        txtBarOn.text = "\(barOn)"
+//                        NSLog("Note on "+noteOn)
+
+                    }
+                   
+                    DispatchQueue.main.async { [self] in
+                        self.resetWheel()
+                        //                        NSLog("Turning note " + String(self.noteOn) + "green")
+                    }
+                    DispatchQueue.main.async { [self] in
+                        if(self.barOn == 1){
+                            self.changeColor(note: self.utils.getFirst(self.songKey), c: "g")
+                            self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
+                        }else{
+                            if(self.barOn == savedProgression.count+1){
+                                self.changeColor(note: self.utils.getFirst(self.songKey), c: "y")
+                            }else{
+                                self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
+
+                            }
+                            self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-2]), c: "g")
+                        }
+                    }
+                    if(difficultySelection==2 || difficultySelection==3){
+
+                        if barOn==3 {
+                            DispatchQueue.main.async {
+                                self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
+                                
+                            }
+                        }
+                        if barOn == 2{
+                            DispatchQueue.main.async {
+                                self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "y")
+                            }
+                        }
+                        if(barOn<2 || barOn>3){
+                            DispatchQueue.main.async {
+                                self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "w")
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                
+                }
+                else {
+                    if difficultySelection == 3 && barOn == 2 {
+                        goToDiminishedNote(ranDiminished: ranDiminished)
+                    }
+                }
+                if barOn == 3 {
+                    DispatchQueue.main.async { [self] in
+                        self.changeColorDiminished(self.ranDiminished, "w")
+                    }
+                }
+                
+               
+                if beat >= 4 {
+                    beat = 1
+                } else {
+                    beat += 1
+                }
+                beatOn += 1
+                if beatOn > 4 {
+                    barOn += 1
+                    print("increasing bar on to :\(barOn)")
+                    beatOn = 1
+                }
+               
+                noteOn = nextNote
+            
+            }
+
+        self.loopEnded = true
+        isFirstLoop = false
+
+            
+        }
+  
    
    
 }
@@ -2065,3 +2125,119 @@ protocol isAbleToReceiveData {
   func pass(data: Song)  //data: string is an example parameter
 }
 
+
+// For game multiplayer capability
+extension GameViewController : MCSessionDelegate{
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        print("\(peerID) state: \(state)")
+        
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        isPeer = true
+        isController = false
+        // The stopGame signal has been sent
+        if(data.first == 1){
+            stopGame()
+        }
+//        var bpmData: Float = 0.0
+//        data.withUnsafeBytes { (pointer: UnsafeRawBufferPointer) in
+//            guard pointer.count == MemoryLayout<Float>.size else { return }
+//            withUnsafeMutableBytes(of: &bpmData) { extractedFloatBytes in
+//                extractedFloatBytes.copyMemory(from: pointer)
+//            }
+//        }
+       
+        do {
+            if let receivedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: Any] {
+                let songKeySent = receivedData["key"] as? String
+                let difficulty = receivedData["difficulty"] as? Int
+                let ranSecDom = receivedData["ranSecDom"] as? Int
+                let ranDim = receivedData["ranDim"] as? Int
+                let goToDim = receivedData["goToDim"] as? Int
+                let progression = receivedData["progression"] as? String
+                let bpm = receivedData["bpm"] as? Double
+                self.songKey = songKeySent!
+                self.timeInterval = bpm!
+                NSLog("Key sent: "+self.songKey)
+                DispatchQueue.main.async {
+                    self.selectKey(songKey: self.songKey)
+                }
+                if(barOn == 1 && beatOn == 1 && isFirstLoop == true){
+                    
+                    DispatchQueue.main.async {
+                        self.difficultyPicker.selectRow(difficulty!-1, inComponent: 0, animated: true)
+                        self.btnLevel.setTitle(self.difficulties[difficulty!-1], for: .normal)
+
+                        print("Setting difficulty: \(difficulty!-1)")
+                        self.difficultySelection = difficulty!
+
+                        switch(self.difficultySelection){
+                        case 1:
+                            self.makeSecondaryDominantsVisible(false);
+                            self.makeDiminishedNotesVisible(false)
+                            break
+                        case 2:
+                            self.makeSecondaryDominantsVisible(true);
+                            self.makeDiminishedNotesVisible(false);
+                            break
+                        case 3:
+                            self.makeDiminishedNotesVisible(true);
+                            self.makeSecondaryDominantsVisible(true);
+                            break
+                        default:
+                            self.makeSecondaryDominantsVisible(false);
+                            self.makeDiminishedNotesVisible(false)
+                            
+                        }
+                        print("Difficulty selection: \(self.difficultySelection)")
+                        print("Next note: \(self.nextNote)")
+                        self.randomSecDom = ranSecDom!
+                        self.ranDiminished = ranDim!
+                        self.goToDiminished = goToDim!
+                        self.savedProgression = (progression?.components(separatedBy: ","))!
+                        self.createTimer()
+
+                    }
+                }                // Access other variables using their keys
+            }
+        } catch {
+            print("Error decoding data: \(error)")
+        }
+
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        
+    }
+        
+}
+
+extension GameViewController:  MCNearbyServiceAdvertiserDelegate{
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        invitationHandler(true, session)
+        
+    }
+    
+}
+
+extension GameViewController: MCBrowserViewControllerDelegate{
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        browserViewController.dismiss(animated: true )
+
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        browserViewController.dismiss(animated: true )
+    }
+    
+    
+}

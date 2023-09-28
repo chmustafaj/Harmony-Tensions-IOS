@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SMRotaryProtocol.h"
 
+extern NSString *key;
+
 @interface HarmonyWheelViewController : UIViewController<SMRotaryProtocol>
 
 @property (nonatomic, strong) UILabel *valueLabel;
+
 
 @end
