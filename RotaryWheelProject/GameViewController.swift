@@ -192,17 +192,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
     }
     
-    @IBAction func  Pushed(_ sender: Any) {
-        let overLayer = ViewControllerSaveSong()
-        overLayer.difficulty=difficultySelection
-        overLayer.goToDiminished=goToDiminished
-        overLayer.ranDiminished=ranDiminished
-        overLayer.randomSecDom=randomSecDom
-        overLayer.turnaroundRandom=turnaroundRandom
-        overLayer.savedProgression=savedProgression
-        overLayer.key=songKey
-        overLayer.appear(sender: self)
-    }
     @IBOutlet weak var labelBPM: UILabel!
     @IBOutlet weak var beatLabel: UILabel!
     
@@ -245,7 +234,18 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         self.present(viewController, animated: true, completion: nil)
 
     }
-  
+    @IBAction func btnSavePushed(_ sender: Any) {
+        let overLayer = ViewControllerSaveSong()
+        overLayer.difficulty=difficultySelection
+        overLayer.goToDiminished=goToDiminished
+        overLayer.ranDiminished=ranDiminished
+        overLayer.randomSecDom=randomSecDom
+        overLayer.turnaroundRandom=turnaroundRandom
+        overLayer.savedProgression=savedProgression
+        overLayer.key=songKey
+        overLayer.appear(sender: self)
+    }
+    
     @IBAction func btnConnectPressed(_ sender: Any) {
         NSLog("connect")
         invite()
