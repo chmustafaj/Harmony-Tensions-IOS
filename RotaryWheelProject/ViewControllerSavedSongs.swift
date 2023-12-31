@@ -14,12 +14,21 @@ class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITable
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBOutlet weak var noSavedSongsLabel: UILabel!
     var songs: [Song] = []
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
        
         songs = DataManager.shared.getSongs()
+        if(songs.count == 0){
+            noSavedSongsLabel.isHidden = false
+            print("No saved songs")
+        }else{
+            noSavedSongsLabel.isHidden = true
+            print("Have saved songs")
+
+        }
 
 
         // Do any additional setup after loading the view.
