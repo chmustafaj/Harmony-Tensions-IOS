@@ -1011,14 +1011,24 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             
             view.addSubview(circleView)
             circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
-            circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
             circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
+        switch(self.view.frame.height){
+        case 932: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+            break
+        case 812: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 90)
+            break
+        default:
+            circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+
+
+        }
+    
             
             if(self.view.frame.height>800){       //Different transformations for different screen sizes
                 lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
                 lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
                 lettersViewW.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
+
 
 
             }else if (self.view.frame.height == 736){
@@ -1027,6 +1037,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                 lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.075)
 
                 ring.transform = CGAffineTransform(translationX: 0, y: 40)
+
                 
             }
             else if(self.view.frame.height == 667 ){
@@ -1794,6 +1805,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             print("Bar on: \(barOn)")
             if bar < 2 {
             
+                if(!isPeer){  //added without testing
                     let random1 = Int.random(in: 0...2)    // There is an equal chance for it to go either to the first, third, or sixth
                     switch random1 {
                     case 0:
@@ -1811,7 +1823,8 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     default:
                         break;
                     }
-                
+                }
+                   
             } else if bar == 2 {
                 if(!isPeer){
                     randomSecDom = Int.random(in: 0...5)      // One of 6 secondary dominants will be chosen
@@ -1965,7 +1978,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
     func createTimer(){
         for bar in 1...12{
-            if (bar>=5 && difficultySelection == -1){  // The itermediate diffficluty will be similar to the beginner difficulty for bars 5 and 6
+            if (bar>=5 && difficultySelection == -1){  // The intermediate diffficluty will be similar to the beginner difficulty for bars 5 and 6
                 difficultySelection = 2
             }
             switch difficultySelection {
@@ -2140,13 +2153,6 @@ extension GameViewController : MCSessionDelegate{
         if(data.first == 1){
             stopGame()
         }
-//        var bpmData: Float = 0.0
-//        data.withUnsafeBytes { (pointer: UnsafeRawBufferPointer) in
-//            guard pointer.count == MemoryLayout<Float>.size else { return }
-//            withUnsafeMutableBytes(of: &bpmData) { extractedFloatBytes in
-//                extractedFloatBytes.copyMemory(from: pointer)
-//            }
-//        }
        
         do {
             if let receivedData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: Any] {
