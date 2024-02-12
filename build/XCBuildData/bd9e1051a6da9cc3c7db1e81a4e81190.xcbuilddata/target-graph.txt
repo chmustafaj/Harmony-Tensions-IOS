@@ -1,0 +1,7 @@
+Target dependency graph (3 targets)
+Target 'HarmonyTensions' in project 'HarmonyTensions'
+➜ Implicit dependency on target 'LZViewPager' in project 'Pods' via options '-framework LZViewPager' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'SnapKit' in project 'Pods' via options '-framework SnapKit' in build setting 'OTHER_LDFLAGS'
+Target 'LZViewPager' in project 'Pods'
+➜ Explicit dependency on target 'SnapKit' in project 'Pods'
+Target 'SnapKit' in project 'Pods' (no dependencies)

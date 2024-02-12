@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C2791302B7A9298002E72CC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C27912F2B7A9298002E72CC /* AudioManager.swift */; };
 		1C3B72A729A246F200E663B8 /* letters.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1C3B72A629A246F200E663B8 /* letters.jpeg */; };
 		1C48612E2A20A921001DE8C0 /* PropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C48612D2A20A921001DE8C0 /* PropertyList.plist */; };
 		1C4861302A20AAD6001DE8C0 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C48612F2A20AAD6001DE8C0 /* StoreKitManager.swift */; };
@@ -137,6 +138,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C27912F2B7A9298002E72CC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		1C3B72A629A246F200E663B8 /* letters.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = letters.jpeg; sourceTree = "<group>"; };
 		1C48612C2A20A8C8001DE8C0 /* Harmony Tensions.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Harmony Tensions.storekit"; sourceTree = "<group>"; };
 		1C48612D2A20A921001DE8C0 /* PropertyList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PropertyList.plist; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				1CAD03B329D17C4100411901 /* click.mp3 */,
+				1C27912F2B7A9298002E72CC /* AudioManager.swift */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -781,6 +784,7 @@
 				1CEC985929F07F1F00FA370A /* onBoardingViewController.swift in Sources */,
 				1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */,
 				1C4861302A20AAD6001DE8C0 /* StoreKitManager.swift in Sources */,
+				1C2791302B7A9298002E72CC /* AudioManager.swift in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
 				1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,

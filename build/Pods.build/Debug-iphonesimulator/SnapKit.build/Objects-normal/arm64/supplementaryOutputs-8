@@ -1,0 +1,24 @@
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/SnapKit/Source/UILayoutSupport+Extensions.swift":
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/UILayoutSupport+Extensions.dia"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/UILayoutSupport+Extensions.o"
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/UILayoutSupport+Extensions.d"
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/UILayoutSupport+Extensions.swiftconstvalues"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/UILayoutSupport+Extensions.swiftdeps"
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/SnapKit/Source/LayoutConstraintItem.swift":
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraintItem.d"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraintItem.o"
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraintItem.dia"
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraintItem.swiftconstvalues"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraintItem.swiftdeps"
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/SnapKit/Source/Typealiases.swift":
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/Typealiases.swiftconstvalues"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/Typealiases.o"
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/Typealiases.d"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/Typealiases.swiftdeps"
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/Typealiases.dia"
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/SnapKit/Source/LayoutConstraint.swift":
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraint.d"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraint.o"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraint.swiftdeps"
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraint.swiftconstvalues"
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/SnapKit.build/Objects-normal/arm64/LayoutConstraint.dia"

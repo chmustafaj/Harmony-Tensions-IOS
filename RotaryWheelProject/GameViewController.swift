@@ -157,6 +157,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let note10g = UIImageView();
     let note11g = UIImageView();
     var dataToSend: [String: Any] = [:]
+    var initialHeight : CGFloat?
 
     
    
@@ -324,18 +325,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initUI()
         //todo
          unlockPremiumVersion()
-        let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
-        let cfSoundURL = url as! CFURL
+//        let cfSoundURL = url as! CFURL
 //        AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
-
-        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
+   
+//        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
         NSLog("View did load")
      
-        if(!storekit.purchasedProducts.isEmpty){     //Should change later if more paid products are added
-            premiumVersionPurchased=true
-            unlockPremiumVersion()
-        }
-        
+        adjustWheelPosition()
       
        
         
@@ -993,12 +989,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
 
     func initUI(){
+        initialHeight = self.view.frame.height
             view.backgroundColor = .white
             btnSave.isHidden = true
             view.addSubview(ring)
-            btnUnlock.titleLabel?.adjustsFontForContentSizeCategory = true
             
-            //        ring.translatesAutoresizingMaskIntoConstraints=false
             ring.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
             
             ring.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
@@ -1012,17 +1007,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             view.addSubview(circleView)
             circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
             circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        switch(self.view.frame.height){
-        case 932: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
-            break
-        case 812: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 90)
-            break
-        default:
-            circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
-
-
-        }
-    
+       
             
             if(self.view.frame.height>800){       //Different transformations for different screen sizes
                 lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
@@ -1063,296 +1048,239 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             // Calculate the center of the view
             let centerX = view.bounds.midX
             let centerY = view.bounds.midY-70
-            // Create image views and position them in a ring around the center
-            for i in 0..<imageNames.count {
-                let note=(i+3)%12   //adjusting the index as the notes are added from the right
-                let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
-                let x = centerX + radius * cos(angle)
-                let y = centerY + radius * sin(angle)
-                let imageName = imageNames[note] + "g"
+        let noteWidth = 50
+        let noteHeight = 50
 
-                switch(note){
-                case 0:
-                    note0g.image = UIImage(named: imageName)
-                    note0g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note0g)
-                    imageViewsG.append(note0g)
-                    break;
-                case 1:
-                    note1g.image = UIImage(named: imageName)
-                    note1g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note1g)
-                    imageViewsG.append(note1g)
-                    break;
-                case 2:
-                    note2g.image = UIImage(named: imageName)
-                    note2g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note2g)
-                    imageViewsG.append(note2g)
-                    break;
-                case 3:
-                    note3g.image = UIImage(named: imageName)
-                    note3g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note3g)
-                    imageViewsG.append(note3g)
-                    break;
-                case 4:
-                    note4g.image = UIImage(named: imageName)
-                    note4g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note4g)
-                    imageViewsG.append(note4g)
-                    break;
-                case 5:
-                    note5g.image = UIImage(named: imageName)
-                    note5g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note5g)
-                    imageViewsG.append(note5g)
-                    break;
-                case 6:
-                    note6g.image = UIImage(named: imageName)
-                    note6g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note6g)
-                    imageViewsG.append(note6g)
-                    break;
-                case 7:
-                    note7g.image = UIImage(named: imageName)
-                    note7g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note7g)
-                    imageViewsG.append(note7g)
-                    break;
-                case 8:
-                    note8g.image = UIImage(named: imageName)
-                    note8g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note8g)
-                    imageViewsG.append(note8g)
-                    break;
-                case 9:
-                    note9g.image = UIImage(named: imageName)
-                    note9g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note9g)
-                    imageViewsG.append(note9g)
-                    break;
-                case 10:
-                    note10g.image = UIImage(named: imageName)
-                    note10g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note10g)
-                    imageViewsG.append(note10g)
-                    break;
-                case 11:
-                    note11g.image = UIImage(named: imageName)
-                    note11g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note11g)
-                    imageViewsG.append(note11g)
-                    break;
-                default:
-                    note0g.image = UIImage(named: imageName)
-                    note0g.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)  // Adjust the size of the images as needed
-                    lettersViewG.addSubview(note0g)
-                    imageViewsG.append(note0g)
-                }
+        // Create image views and position them in a ring around the center for Green
+        for i in 0..<imageNames.count {
+            let note = (i + 3) % 12 //adjusting the index as the notes are added from the right
+            let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
+            let x = centerX + radius * cos(angle)
+            let y = centerY + radius * sin(angle)
+            let imageName = imageNames[note] + "g"
+
+            switch note {
+            case 0:
+                note0g.image = UIImage(named: imageName)
+                note0g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note0g)
+                imageViewsG.append(note0g)
+            case 1:
+                note1g.image = UIImage(named: imageName)
+                note1g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note1g)
+                imageViewsG.append(note1g)
+            case 2:
+                note2g.image = UIImage(named: imageName)
+                note2g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note2g)
+                imageViewsG.append(note2g)
+            case 3:
+                note3g.image = UIImage(named: imageName)
+                note3g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note3g)
+                imageViewsG.append(note3g)
+            case 4:
+                note4g.image = UIImage(named: imageName)
+                note4g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note4g)
+                imageViewsG.append(note4g)
+            case 5:
+                note5g.image = UIImage(named: imageName)
+                note5g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note5g)
+                imageViewsG.append(note5g)
+            case 6:
+                note6g.image = UIImage(named: imageName)
+                note6g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note6g)
+                imageViewsG.append(note6g)
+            case 7:
+                note7g.image = UIImage(named: imageName)
+                note7g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note7g)
+                imageViewsG.append(note7g)
+            case 8:
+                note8g.image = UIImage(named: imageName)
+                note8g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note8g)
+                imageViewsG.append(note8g)
+            case 9:
+                note9g.image = UIImage(named: imageName)
+                note9g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note9g)
+                imageViewsG.append(note9g)
+            case 10:
+                note10g.image = UIImage(named: imageName)
+                note10g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note10g)
+                imageViewsG.append(note10g)
+            case 11:
+                note11g.image = UIImage(named: imageName)
+                note11g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note11g)
+                imageViewsG.append(note11g)
+            default:
+                note0g.image = UIImage(named: imageName)
+                note0g.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewG.addSubview(note0g)
+                imageViewsG.append(note0g)
             }
-            
-            for i in 0..<imageNames.count {
-                let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
-                let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
-                let x = centerX + radius * cos(angle)
-                let y = centerY + radius * sin(angle)
-                let imageView = UIImageView(frame: CGRect(x: x - 25, y: y - 25, width: 50, height: 50)) // Adjust the size of the images as needed
-                let imageName = imageNames[note] + "y"
+        }
 
-                
-             
+        // Create image views and position them in a ring around the center for Yellow
+        for i in 0..<imageNames.count {
+            let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
+            let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
+            let x = centerX + radius * cos(angle)
+            let y = centerY + radius * sin(angle)
+            let imageName = imageNames[note] + "y"
 
-                switch note {
-                case 0:
-                    note0y.image = UIImage(named: imageName)
-                    note0y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note0y)
-                    imageViewsY.append(note0y)
-                    break;
-                case 1:
-                    note1y.image = UIImage(named: imageName)
-                    note1y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note1y)
-                    imageViewsY.append(note1y)
-                    break;
-                    
-                case 2:
-                    note2y.image = UIImage(named: imageName)
-                    note2y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note2y)
-                    imageViewsY.append(note2y)
-                    break;
-                    
-                case 3:
-                    note3y.image = UIImage(named: imageName)
-                    note3y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note3y)
-                    imageViewsY.append(note3y)
-                    break;
-                    
-                case 4:
-                    note4y.image = UIImage(named: imageName)
-                    note4y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note4y)
-                    imageViewsY.append(note4y)
-                    break;
-                    
-                case 5:
-                    note5y.image = UIImage(named: imageName)
-                    note5y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note5y)
-                    imageViewsY.append(note5y)
-                    break;
-                    
-                case 6:
-                    note6y.image = UIImage(named: imageName)
-                    note6y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note6y)
-                    imageViewsY.append(note6y)
-                    break;
-                    
-                case 7:
-                    note7y.image = UIImage(named: imageName)
-                    note7y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note7y)
-                    imageViewsY.append(note7y)
-                    break;
-                    
-                case 8:
-                    note8y.image = UIImage(named: imageName)
-                    note8y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note8y)
-                    imageViewsY.append(note8y)
-                    break;
-                    
-                case 9:
-                    note9y.image = UIImage(named: imageName)
-                    note9y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note9y)
-                    imageViewsY.append(note9y)
-                    break;
-                    
-                case 10:
-                    note10y.image = UIImage(named: imageName)
-                    note10y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note10y)
-                    imageViewsY.append(note10y)
-                    break;
-                    
-                case 11:
-                    note11y.image = UIImage(named: imageName)
-                    note11y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note11y)
-                    imageViewsY.append(note11y)
-                    break;
-                default:
-                    note0y.image = UIImage(named: imageName)
-                    note0y.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewY.addSubview(note0y)
-                    imageViewsY.append(note0y)
-                }
+            switch note {
+            case 0:
+                note0y.image = UIImage(named: imageName)
+                note0y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note0y)
+                imageViewsY.append(note0y)
+            case 1:
+                note1y.image = UIImage(named: imageName)
+                note1y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note1y)
+                imageViewsY.append(note1y)
+            case 2:
+                note2y.image = UIImage(named: imageName)
+                note2y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note2y)
+                imageViewsY.append(note2y)
+            case 3:
+                note3y.image = UIImage(named: imageName)
+                note3y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note3y)
+                imageViewsY.append(note3y)
+            case 4:
+                note4y.image = UIImage(named: imageName)
+                note4y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note4y)
+                imageViewsY.append(note4y)
+            case 5:
+                note5y.image = UIImage(named: imageName)
+                note5y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note5y)
+                imageViewsY.append(note5y)
+            case 6:
+                note6y.image = UIImage(named: imageName)
+                note6y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note6y)
+                imageViewsY.append(note6y)
+            case 7:
+                note7y.image = UIImage(named: imageName)
+                note7y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note7y)
+                imageViewsY.append(note7y)
+            case 8:
+                note8y.image = UIImage(named: imageName)
+                note8y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note8y)
+                imageViewsY.append(note8y)
+            case 9:
+                note9y.image = UIImage(named: imageName)
+                note9y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note9y)
+                imageViewsY.append(note9y)
+            case 10:
+                note10y.image = UIImage(named: imageName)
+                note10y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note10y)
+                imageViewsY.append(note10y)
+            case 11:
+                note11y.image = UIImage(named: imageName)
+                note11y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note11y)
+                imageViewsY.append(note11y)
+            default:
+                note0y.image = UIImage(named: imageName)
+                note0y.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewY.addSubview(note0y)
+                imageViewsY.append(note0y)
             }
-            
-            for i in 0..<imageNames.count {
-                let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
-                let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
-                let x = centerX + radius * cos(angle)
-                let y = centerY + radius * sin(angle)
-                let imageView = UIImageView(frame: CGRect(x: x - 25, y: y - 25, width: 50, height: 50)) // Adjust the size of the images as needed
-                let imageName = imageNames[note] + "w"
+        }
 
+        // Create image views and position them in a ring around the center for White
+        for i in 0..<imageNames.count {
+            let note = (i + 3) % 12 // adjusting the index as the notes are added from the right
+            let angle = CGFloat(i) * (CGFloat.pi * 2.0 / CGFloat(imageNames.count))
+            let x = centerX + radius * cos(angle)
+            let y = centerY + radius * sin(angle)
+            let imageName = imageNames[note] + "w"
 
-                switch note {
-                case 0:
-                    note0w.image = UIImage(named: imageName)
-                    note0w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note0w)
-                    imageViewsW.append(note0w)
-                    break;
-                case 1:
-                    note1w.image = UIImage(named: imageName)
-                    note1w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note1w)
-                    imageViewsW.append(note1w)
-                    break;
-
-                case 2:
-                    note2w.image = UIImage(named: imageName)
-                    note2w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note2w)
-                    imageViewsW.append(note2w)
-                    break;
-
-                case 3:
-                    note3w.image = UIImage(named: imageName)
-                    note3w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note3w)
-                    imageViewsW.append(note3w)
-                    break;
-
-                case 4:
-                    note4w.image = UIImage(named: imageName)
-                    note4w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note4w)
-                    imageViewsW.append(note4w)
-                    break;
-
-                case 5:
-                    note5w.image = UIImage(named: imageName)
-                    note5w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note5w)
-                    imageViewsW.append(note5w)
-                    break;
-
-                case 6:
-                    note6w.image = UIImage(named: imageName)
-                    note6w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note6w)
-                    imageViewsW.append(note6w)
-                    break;
-
-                case 7:
-                    note7w.image = UIImage(named: imageName)
-                    note7w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note7w)
-                    imageViewsW.append(note7w)
-                    break;
-
-                case 8:
-                    note8w.image = UIImage(named: imageName)
-                    note8w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note8w)
-                    imageViewsW.append(note8w)
-                    break;
-
-                case 9:
-                    note9w.image = UIImage(named: imageName)
-                    note9w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note9w)
-                    imageViewsW.append(note9w)
-                    break;
-
-                case 10:
-                    note10w.image = UIImage(named: imageName)
-                    note10w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note10w)
-                    imageViewsW.append(note10w)
-                    break;
-
-                case 11:
-                    note11w.image = UIImage(named: imageName)
-                    note11w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note11w)
-                    imageViewsW.append(note11w)
-                    break;
-                default:
-                    note0w.image = UIImage(named: imageName)
-                    note0w.frame = CGRect(x: x - 25, y: y - 25, width: 50, height: 50)
-                    lettersViewW.addSubview(note0w)
-                    imageViewsW.append(note0w)
-                }
+            switch note {
+            case 0:
+                note0w.image = UIImage(named: imageName)
+                note0w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note0w)
+                imageViewsW.append(note0w)
+            case 1:
+                note1w.image = UIImage(named: imageName)
+                note1w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note1w)
+                imageViewsW.append(note1w)
+            case 2:
+                note2w.image = UIImage(named: imageName)
+                note2w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note2w)
+                imageViewsW.append(note2w)
+            case 3:
+                note3w.image = UIImage(named: imageName)
+                note3w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note3w)
+                imageViewsW.append(note3w)
+            case 4:
+                note4w.image = UIImage(named: imageName)
+                note4w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note4w)
+                imageViewsW.append(note4w)
+            case 5:
+                note5w.image = UIImage(named: imageName)
+                note5w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note5w)
+                imageViewsW.append(note5w)
+            case 6:
+                note6w.image = UIImage(named: imageName)
+                note6w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note6w)
+                imageViewsW.append(note6w)
+            case 7:
+                note7w.image = UIImage(named: imageName)
+                note7w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note7w)
+                imageViewsW.append(note7w)
+            case 8:
+                note8w.image = UIImage(named: imageName)
+                note8w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note8w)
+                imageViewsW.append(note8w)
+            case 9:
+                note9w.image = UIImage(named: imageName)
+                note9w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note9w)
+                imageViewsW.append(note9w)
+            case 10:
+                note10w.image = UIImage(named: imageName)
+                note10w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note10w)
+                imageViewsW.append(note10w)
+            case 11:
+                note11w.image = UIImage(named: imageName)
+                note11w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note11w)
+                imageViewsW.append(note11w)
+            default:
+                note0w.image = UIImage(named: imageName)
+                note0w.frame = CGRect(x: x - 25, y: y - 25, width: CGFloat(noteWidth), height: CGFloat(noteHeight))
+                lettersViewW.addSubview(note0w)
+                imageViewsW.append(note0w)
             }
+        }
 
         
             //        adding rotation to the images accordingly
@@ -1539,13 +1467,14 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
             }
             self.view.addSubview(txtBarOn)
+
             
            
 
         }
     override func viewWillAppear(_ animated: Bool) {
         NSLog("View did appear")
-        
+
         noteOn = songKey
 
         if(selectedSong != nil){
@@ -1555,17 +1484,18 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             selectKey(songKey: songKey)
 
         }
-        
+        NSLog("Rotation angle: \(rotationAngle)")
+
 
     }
        
+    var rotationAngle: CGFloat = 0.0
 
     func selectKey(songKey: String) {
         circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
 
         circleView.transform = CGAffineTransform.identity
 
-        let rotationAngle: CGFloat
         switch songKey {
         case "C":
             rotationAngle = 0
@@ -1649,13 +1579,66 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.circleView.transform = .identity
 
-            self?.circleView.transform = self?.circleView.transform.rotated(by: rotationAngle) ?? .identity
+            self?.circleView.transform = self?.circleView.transform.rotated(by: self!.rotationAngle) ?? .identity
         }
+        
+        
+        
+       
     
+    
+    }
+    func adjustWheelPosition(){
+        switch(initialHeight){
+            // pro msx
+        case 932: circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 560)
+            break
+        // When a different key was selected on the XS, the letters were shifted. The following case statements are to fix that. Values were found through trial and error
+        case 812:
+            switch(songKey){
+                case "C":
+                    circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 496)
+                NSLog("C")
+                case "D":
+                    circleView.center = CGPoint(x: self.view.center.x+5, y:initialHeight! - 496)
+                case "A":
+                    circleView.center = CGPoint(x: self.view.center.x+4, y:initialHeight! - 499)
+                case "B":
+                    circleView.center = CGPoint(x: self.view.center.x+3, y:initialHeight! - 507)
+                case "F#":
+                    circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 505)
+                case "Db":
+                    circleView.center = CGPoint(x: self.view.center.x-4, y: initialHeight! - 505)
+                case "Eb":
+                    circleView.center = CGPoint(x: self.view.center.x-5, y: initialHeight! - 502)
+                case "Bb":
+                    circleView.center = CGPoint(x: self.view.center.x-3, y: initialHeight! - 497)
+                case "F":
+                circleView.center = CGPoint(x: self.view.center.x-3, y: initialHeight! - 496)
+                case "E":
+                    circleView.center = CGPoint(x: self.view.center.x+3, y:initialHeight! - 505)
+                default:
+                    rotationAngle = 0
+                    
+                    break
+                }
+            // pro
+        case 852:
+            circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 520)
+            // se gen 3
+        case 667:
+            circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 430)
+        default:
+            circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 520)
+
+            break
+
+
+
+        }
     }
 
     func unlockPremiumVersion(){
-        freeVersionView.isHidden = true
         btnLevel.isHidden = false
         buttonsView.isHidden = false
         labelBPM.isHidden = false
@@ -2042,7 +2025,15 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         print("beat on: \(beatOn)")
             loopEnded = false
             print("Bar on: \(barOn)")
-        metronomeClick.play()
+        AudioManager.shared.startAudio()
+
+//        let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
+//        var player: AVPlayer?
+//        if let url = url {
+//            player = AVPlayer(url: url)
+//            player?.play()
+//        }
+//        metronomeClick.play()
 
             DispatchQueue.global(qos: .background).async { [self] in
 //                AudioServicesPlaySystemSound(soundID)

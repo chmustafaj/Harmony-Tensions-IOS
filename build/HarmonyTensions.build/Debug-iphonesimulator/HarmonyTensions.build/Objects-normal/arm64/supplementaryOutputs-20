@@ -1,0 +1,18 @@
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/RotaryWheelProject/StartingViewController.swift":
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StartingViewController.d"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StartingViewController.o"
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StartingViewController.swiftconstvalues"
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StartingViewController.dia"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StartingViewController.swiftdeps"
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/RotaryWheelProject/Views/Onboarding/onBoardingViewController.swift":
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/onBoardingViewController.d"
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/onBoardingViewController.swiftconstvalues"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/onBoardingViewController.swiftdeps"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/onBoardingViewController.o"
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/onBoardingViewController.dia"
+"/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/StoreKitManager.swift":
+  dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StoreKitManager.d"
+  object: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StoreKitManager.o"
+  swift-dependencies: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StoreKitManager.swiftdeps"
+  const-values: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StoreKitManager.swiftconstvalues"
+  diagnostics: "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/HarmonyTensions.build/Debug-iphonesimulator/HarmonyTensions.build/Objects-normal/arm64/StoreKitManager.dia"

@@ -14,8 +14,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2062"
-            endingLineNumber = "2062"
+            startingLineNumber = "2053"
+            endingLineNumber = "2053"
             landmarkName = "startGame()"
             landmarkType = "7">
             <Locations>
@@ -92,8 +92,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1988"
-            endingLineNumber = "1988"
+            startingLineNumber = "1971"
+            endingLineNumber = "1971"
             landmarkName = "createTimer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -108,8 +108,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2029"
-            endingLineNumber = "2029"
+            startingLineNumber = "2012"
+            endingLineNumber = "2012"
             landmarkName = "createTimer()"
             landmarkType = "7">
             <Locations>
@@ -186,8 +186,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2008"
-            endingLineNumber = "2008"
+            startingLineNumber = "1991"
+            endingLineNumber = "1991"
             landmarkName = "createTimer()"
             landmarkType = "7">
          </BreakpointContent>

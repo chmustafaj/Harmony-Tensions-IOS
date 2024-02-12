@@ -1,0 +1,38 @@
+{
+  "" : {
+    "diagnostics" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager-master.dia",
+    "emit-module-dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager-master-emit-module.dia",
+    "swift-dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager-master.swiftdeps"
+  },
+  "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/LZViewPager/LZViewPager/LZViewPager.swift" : {
+    "const-values" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.swiftconstvalues",
+    "dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.d",
+    "diagnostics" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.o",
+    "llvm-bc" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.bc",
+    "object" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.o",
+    "swift-dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager.swiftdeps",
+    "swiftmodule" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPager~partial.swiftmodule"
+  },
+  "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/LZViewPager/LZViewPager/LZViewPagerContent.swift" : {
+    "const-values" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.swiftconstvalues",
+    "dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.d",
+    "diagnostics" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.o",
+    "llvm-bc" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.bc",
+    "object" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.o",
+    "swift-dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent.swiftdeps",
+    "swiftmodule" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerContent~partial.swiftmodule"
+  },
+  "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/Pods/LZViewPager/LZViewPager/LZViewPagerHeader.swift" : {
+    "const-values" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.swiftconstvalues",
+    "dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.d",
+    "diagnostics" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.dia",
+    "index-unit-output-path" : "/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.o",
+    "llvm-bc" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.bc",
+    "object" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.o",
+    "swift-dependencies" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader.swiftdeps",
+    "swiftmodule" : "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/build/Pods.build/Debug-iphonesimulator/LZViewPager.build/Objects-normal/arm64/LZViewPagerHeader~partial.swiftmodule"
+  }
+}
