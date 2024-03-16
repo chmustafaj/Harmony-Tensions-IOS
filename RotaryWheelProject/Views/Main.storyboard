@@ -34,7 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FZU-oC-PrX">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FZU-oC-PrX">
                                 <rect key="frame" x="0.0" y="59" width="393" height="703"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pk6-2p-1db">
@@ -317,12 +317,13 @@
                                     <constraint firstAttribute="height" constant="163" id="Bkl-jC-NIH"/>
                                 </constraints>
                             </pickerView>
-                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.0" maxValue="2.5" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-CI-oMO">
+                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.10000000000000001" maxValue="2.5" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-CI-oMO">
                                 <rect key="frame" x="14" y="747" width="365" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hD1-9n-Nq7"/>
                                 </constraints>
                                 <connections>
+                                    <action selector="sliderReleased:" destination="8HR-tR-r9D" eventType="touchUpInside" id="NHo-XC-QPy"/>
                                     <action selector="sliderValueChanged:" destination="8HR-tR-r9D" eventType="valueChanged" id="EtB-oN-V9T"/>
                                 </connections>
                             </slider>

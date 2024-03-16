@@ -14,8 +14,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2053"
-            endingLineNumber = "2053"
+            startingLineNumber = "2002"
+            endingLineNumber = "2002"
             landmarkName = "startGame()"
             landmarkType = "7">
             <Locations>
@@ -92,88 +92,10 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1971"
-            endingLineNumber = "1971"
+            startingLineNumber = "1925"
+            endingLineNumber = "1925"
             landmarkName = "createTimer()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RotaryWheelProject/GameViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2012"
-            endingLineNumber = "2012"
-            landmarkName = "createTimer()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f34c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
-                  moduleName = "HarmonyTensions"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2026"
-                  endingLineNumber = "2026"
-                  offsetFromSymbolStart = "1940">
-               </Location>
-               <Location
-                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f3915"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
-                  moduleName = "HarmonyTensions"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2008"
-                  endingLineNumber = "2008"
-                  offsetFromSymbolStart = "1496">
-               </Location>
-               <Location
-                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f3934"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
-                  moduleName = "HarmonyTensions"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2007"
-                  endingLineNumber = "2007"
-                  offsetFromSymbolStart = "1508">
-               </Location>
-               <Location
-                  uuid = "2E2E56C4-8911-45A6-98ED-815EF3B2ACFD - 1a27b2164e4f3934"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
-                  moduleName = "HarmonyTensions"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chaudhrymustafajawad/Downloads/How-To-Create-a-Rotating-Wheel-Control-with-UIKit-master/RotaryWheelProject/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2007"
-                  endingLineNumber = "2007"
-                  offsetFromSymbolStart = "1484">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,10 +108,121 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1991"
-            endingLineNumber = "1991"
+            startingLineNumber = "1945"
+            endingLineNumber = "1945"
             landmarkName = "createTimer()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6401015F-5CE0-4BAA-B5EB-A6D8EB2FD768"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6401015F-5CE0-4BAA-B5EB-A6D8EB2FD768 - 60e44a6d078c94fc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Documents/IOS%20Projects/Harmony%20Tensions%20IOS/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "1640">
+               </Location>
+               <Location
+                  uuid = "6401015F-5CE0-4BAA-B5EB-A6D8EB2FD768 - 60e44a6d078c94fc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Documents/IOS%20Projects/Harmony%20Tensions%20IOS/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "1608">
+               </Location>
+               <Location
+                  uuid = "6401015F-5CE0-4BAA-B5EB-A6D8EB2FD768 - 60e44a6d078c94fc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Documents/IOS%20Projects/Harmony%20Tensions%20IOS/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "1616">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3C3EF4F2-146F-4CDE-B8A9-008EA922BD40"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1916"
+            endingLineNumber = "1916"
+            landmarkName = "createTimer()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3C3EF4F2-146F-4CDE-B8A9-008EA922BD40 - e1c084f58d24a5e1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Documents/IOS%20Projects/Harmony%20Tensions%20IOS/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1927"
+                  endingLineNumber = "1927"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "3C3EF4F2-146F-4CDE-B8A9-008EA922BD40 - e1c084f58d24a400"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HarmonyTensions.GameViewController.createTimer() -&gt; ()"
+                  moduleName = "HarmonyTensions"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/chaudhrymustafajawad/Documents/IOS%20Projects/Harmony%20Tensions%20IOS/RotaryWheelProject/GameViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1926"
+                  endingLineNumber = "1926"
+                  offsetFromSymbolStart = "196">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

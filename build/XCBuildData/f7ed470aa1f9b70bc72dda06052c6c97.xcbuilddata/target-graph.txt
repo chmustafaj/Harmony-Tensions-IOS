@@ -1,0 +1,15 @@
+Target dependency graph (8 targets)
+Target 'libpd-osx-multi' in project 'libpd' (no dependencies)
+Target 'libpd-osx' in project 'libpd' (no dependencies)
+Target 'libpd-ios-multi' in project 'libpd' (no dependencies)
+Target 'Pods-HarmonyTensions' in project 'Pods'
+➜ Explicit dependency on target 'LZViewPager' in project 'Pods'
+➜ Explicit dependency on target 'SnapKit' in project 'Pods'
+Target 'HarmonyTensions' in project 'HarmonyTensions'
+➜ Explicit dependency on target 'libpd-ios' in project 'libpd'
+➜ Implicit dependency on target 'LZViewPager' in project 'Pods' via options '-framework LZViewPager' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'SnapKit' in project 'Pods' via options '-framework SnapKit' in build setting 'OTHER_LDFLAGS'
+Target 'LZViewPager' in project 'Pods'
+➜ Explicit dependency on target 'SnapKit' in project 'Pods'
+Target 'SnapKit' in project 'Pods' (no dependencies)
+Target 'libpd-ios' in project 'libpd' (no dependencies)

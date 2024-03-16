@@ -1,0 +1,5 @@
+ extern const unsigned char Pods_HarmonyTensionsVersionString[];
+ extern const double Pods_HarmonyTensionsVersionNumber;
+
+ const unsigned char Pods_HarmonyTensionsVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:Pods_HarmonyTensions  PROJECT:Pods-1" "\n";
+ const double Pods_HarmonyTensionsVersionNumber __attribute__ ((used)) = (double)1.;

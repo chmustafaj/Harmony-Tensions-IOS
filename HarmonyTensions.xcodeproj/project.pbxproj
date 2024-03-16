@@ -101,6 +101,8 @@
 		1C5FC9682B1E1164003D56F2 /* HarmonyWheelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */; };
 		1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C625B14299AA2DB009F4205 /* SceneDelegate.m */; };
 		1C625B19299AB3CD009F4205 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */; };
+		1C79FCB92BA0738C00B4F682 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C79FCB02BA0731100B4F682 /* libpd-ios.a */; };
+		1C79FCD02BA30E9300B4F682 /* PDMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C79FCCF2BA30E9300B4F682 /* PDMetronome.m */; };
 		1C8983122B22149000B83961 /* screen_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C89830D2B22149000B83961 /* screen_4.jpg */; };
 		1C8983132B22149100B83961 /* screen_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C89830E2B22149000B83961 /* screen_3.jpg */; };
 		1C8983142B22149100B83961 /* screen_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C89830F2B22149000B83961 /* screen_5.jpg */; };
@@ -118,6 +120,12 @@
 		1CB8C95D2B2A1CCD007CFA3C /* ViewControllerBuyPDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CB8C95B2B2A1CCD007CFA3C /* ViewControllerBuyPDF.xib */; };
 		1CB8C9622B2A28E4007CFA3C /* ViewControllerGetPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8C95E2B2A28E4007CFA3C /* ViewControllerGetPDF.m */; };
 		1CB8C9642B2A28E4007CFA3C /* ViewControllerGetPDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CB8C9612B2A28E4007CFA3C /* ViewControllerGetPDF.xib */; };
+		1CBD38AE2BA4BA9A00C589C9 /* test.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1CBD38AA2BA4BA9A00C589C9 /* test.pd */; };
+		1CCB13932BA3394B004EE09F /* click.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1CCB13902BA3394B004EE09F /* click.pd */; };
+		1CCB13942BA3394B004EE09F /* ratelogic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1CCB13912BA3394B004EE09F /* ratelogic.pd */; };
+		1CCB13952BA3394B004EE09F /* metronome.pd in Resources */ = {isa = PBXBuildFile; fileRef = 1CCB13922BA3394B004EE09F /* metronome.pd */; };
+		1CCB567C2BA4226C0090D72E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C79FCBA2BA0738C00B4F682 /* AudioToolbox.framework */; };
+		1CCB567D2BA4226D0090D72E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C79FCBB2BA0738C00B4F682 /* AVFoundation.framework */; };
 		1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */; };
 		1CEA4BA32A458B1900965B05 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEA4BA22A458B1900965B05 /* IAPHelper.swift */; };
 		1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEBEC72299A6FAC00250820 /* PagingViewController.swift */; };
@@ -136,6 +144,44 @@
 		BDF438B714E5638700A27135 /* SMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDF438B514E5638700A27135 /* SMViewController.xib */; };
 		BDF438BF14E5641000A27135 /* SMRotaryWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF438BE14E5641000A27135 /* SMRotaryWheel.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1C79FCAF2BA0731100B4F682 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "libpd-ios";
+		};
+		1C79FCB12BA0731100B4F682 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 119013AB1486450C00086F19;
+			remoteInfo = "libpd-osx";
+		};
+		1C79FCB32BA0731100B4F682 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30C3D36D1FAA200100C67F08;
+			remoteInfo = "libpd-ios-multi";
+		};
+		1C79FCB52BA0731100B4F682 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30C3D2FA1FAA1FCC00C67F08;
+			remoteInfo = "libpd-osx-multi";
+		};
+		1C79FCB72BA0735100B4F682 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "libpd-ios";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1C27912F2B7A9298002E72CC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
@@ -235,6 +281,11 @@
 		1C625B18299AB3CD009F4205 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		1C625B1A299BC261009F4205 /* HarmonyWheelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarmonyWheelViewController.h; sourceTree = "<group>"; };
 		1C625B1B299BC261009F4205 /* HarmonyWheelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarmonyWheelViewController.m; sourceTree = "<group>"; };
+		1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = ../libpd/libpd.xcodeproj; sourceTree = "<group>"; };
+		1C79FCBA2BA0738C00B4F682 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1C79FCBB2BA0738C00B4F682 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1C79FCCE2BA30E9300B4F682 /* PDMetronome.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDMetronome.h; sourceTree = "<group>"; };
+		1C79FCCF2BA30E9300B4F682 /* PDMetronome.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDMetronome.m; sourceTree = "<group>"; };
 		1C89830D2B22149000B83961 /* screen_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = screen_4.jpg; sourceTree = "<group>"; };
 		1C89830E2B22149000B83961 /* screen_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = screen_3.jpg; sourceTree = "<group>"; };
 		1C89830F2B22149000B83961 /* screen_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = screen_5.jpg; sourceTree = "<group>"; };
@@ -254,6 +305,10 @@
 		1CB8C95E2B2A28E4007CFA3C /* ViewControllerGetPDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerGetPDF.m; sourceTree = "<group>"; };
 		1CB8C9602B2A28E4007CFA3C /* ViewControllerGetPDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerGetPDF.h; sourceTree = "<group>"; };
 		1CB8C9612B2A28E4007CFA3C /* ViewControllerGetPDF.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewControllerGetPDF.xib; sourceTree = "<group>"; };
+		1CBD38AA2BA4BA9A00C589C9 /* test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.pd; sourceTree = "<group>"; };
+		1CCB13902BA3394B004EE09F /* click.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = click.pd; sourceTree = "<group>"; };
+		1CCB13912BA3394B004EE09F /* ratelogic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ratelogic.pd; sourceTree = "<group>"; };
+		1CCB13922BA3394B004EE09F /* metronome.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = metronome.pd; sourceTree = "<group>"; };
 		1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIViewExtension.swift; sourceTree = "<group>"; };
 		1CEA4BA22A458B1900965B05 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		1CEBEC72299A6FAC00250820 /* PagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewController.swift; sourceTree = "<group>"; };
@@ -287,6 +342,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CCB567C2BA4226C0090D72E /* AudioToolbox.framework in Frameworks */,
+				1CCB567D2BA4226D0090D72E /* AVFoundation.framework in Frameworks */,
+				1C79FCB92BA0738C00B4F682 /* libpd-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +363,21 @@
 		1C5FC9762B1F6301003D56F2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1C79FCBA2BA0738C00B4F682 /* AudioToolbox.framework */,
+				1C79FCBB2BA0738C00B4F682 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1C79FCA92BA0731100B4F682 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C79FCB02BA0731100B4F682 /* libpd-ios.a */,
+				1C79FCB22BA0731100B4F682 /* libpd-osx.a */,
+				1C79FCB42BA0731100B4F682 /* libpd-ios-multi.a */,
+				1C79FCB62BA0731100B4F682 /* libpd-osx-multi.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		1CAD03B229D17C4100411901 /* Sounds */ = {
@@ -338,6 +409,17 @@
 				BDD8AD3514EA8A1B002425D6 /* SMCLove.m */,
 			);
 			path = Wheel;
+			sourceTree = "<group>";
+		};
+		1CCB138F2BA3394B004EE09F /* patches */ = {
+			isa = PBXGroup;
+			children = (
+				1CBD38AA2BA4BA9A00C589C9 /* test.pd */,
+				1CCB13902BA3394B004EE09F /* click.pd */,
+				1CCB13912BA3394B004EE09F /* ratelogic.pd */,
+				1CCB13922BA3394B004EE09F /* metronome.pd */,
+			);
+			path = patches;
 			sourceTree = "<group>";
 		};
 		1CEC985529F07EA200FA370A /* Models */ = {
@@ -484,6 +566,7 @@
 		BDF4389114E5638700A27135 = {
 			isa = PBXGroup;
 			children = (
+				1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */,
 				1CEA4BA22A458B1900965B05 /* IAPHelper.swift */,
 				1C48612C2A20A8C8001DE8C0 /* Harmony Tensions.storekit */,
 				1C4861332A20E0F6001DE8C0 /* StoreKitTestCertificate.cer */,
@@ -507,6 +590,7 @@
 		BDF438A614E5638700A27135 /* RotaryWheelProject */ = {
 			isa = PBXGroup;
 			children = (
+				1CCB138F2BA3394B004EE09F /* patches */,
 				1C8E28BE29942C6B00CF01B7 /* HarmonyTensions-Bridging-Header.h */,
 				1CB8C9682B2DE1BC007CFA3C /* Wheel */,
 				1CAD03B229D17C4100411901 /* Sounds */,
@@ -527,6 +611,8 @@
 				1CE45C2129993EF00041C241 /* SwiftUIViewExtension.swift */,
 				1CB8C95E2B2A28E4007CFA3C /* ViewControllerGetPDF.m */,
 				1CB8C95A2B2A1CCD007CFA3C /* ViewControllerBuyPDF.swift */,
+				1C79FCCE2BA30E9300B4F682 /* PDMetronome.h */,
+				1C79FCCF2BA30E9300B4F682 /* PDMetronome.m */,
 			);
 			path = RotaryWheelProject;
 			sourceTree = "<group>";
@@ -561,6 +647,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1C79FCB82BA0735100B4F682 /* PBXTargetDependency */,
 			);
 			name = HarmonyTensions;
 			packageProductDependencies = (
@@ -597,12 +684,49 @@
 			);
 			productRefGroup = BDF4389D14E5638700A27135 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1C79FCA92BA0731100B4F682 /* Products */;
+					ProjectRef = 1C79FCA82BA0731100B4F682 /* libpd.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				BDF4389B14E5638700A27135 /* HarmonyTensions */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1C79FCB02BA0731100B4F682 /* libpd-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-ios.a";
+			remoteRef = 1C79FCAF2BA0731100B4F682 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1C79FCB22BA0731100B4F682 /* libpd-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-osx.a";
+			remoteRef = 1C79FCB12BA0731100B4F682 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1C79FCB42BA0731100B4F682 /* libpd-ios-multi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-ios-multi.a";
+			remoteRef = 1C79FCB32BA0731100B4F682 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1C79FCB62BA0731100B4F682 /* libpd-osx-multi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-osx-multi.a";
+			remoteRef = 1C79FCB52BA0731100B4F682 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		BDF4389A14E5638700A27135 /* Resources */ = {
@@ -617,6 +741,7 @@
 				1C5FC94B2B1A4960003D56F2 /* fb.png in Resources */,
 				1C5FC94E2B1A4960003D56F2 /* dimiiyellow.png in Resources */,
 				1C5FC90C2B1A47A6003D56F2 /* note1g.png in Resources */,
+				1CBD38AE2BA4BA9A00C589C9 /* test.pd in Resources */,
 				BDF438AB14E5638700A27135 /* InfoPlist.strings in Resources */,
 				1C5FC92B2B1A47A6003D56F2 /* note5w.png in Resources */,
 				1C5FC90A2B1A47A6003D56F2 /* note10g.png in Resources */,
@@ -637,7 +762,9 @@
 				1C5FC8FF2B1A47A6003D56F2 /* note2y.png in Resources */,
 				1C5FC9262B1A47A6003D56F2 /* logo.png in Resources */,
 				1C5FC9312B1A47A6003D56F2 /* note0y.png in Resources */,
+				1CCB13942BA3394B004EE09F /* ratelogic.pd in Resources */,
 				1C5FC9052B1A47A6003D56F2 /* note9w.png in Resources */,
+				1CCB13952BA3394B004EE09F /* metronome.pd in Resources */,
 				1C5FC92A2B1A47A6003D56F2 /* v74_white.png in Resources */,
 				1C5FC90B2B1A47A6003D56F2 /* note0g.png in Resources */,
 				1C5FC9022B1A47A6003D56F2 /* v72_green.png in Resources */,
@@ -705,6 +832,7 @@
 				1C8983132B22149100B83961 /* screen_3.jpg in Resources */,
 				1C5FC91F2B1A47A6003D56F2 /* v76_white.png in Resources */,
 				1C5FC9222B1A47A6003D56F2 /* note7y.png in Resources */,
+				1CCB13932BA3394B004EE09F /* click.pd in Resources */,
 				1C5FC8FC2B1A47A6003D56F2 /* note3y.png in Resources */,
 				1C5FC9102B1A47A6003D56F2 /* note2w.png in Resources */,
 				1C5FC94D2B1A4960003D56F2 /* dimvyellow.png in Resources */,
@@ -788,6 +916,7 @@
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
 				1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,
+				1C79FCD02BA30E9300B4F682 /* PDMetronome.m in Sources */,
 				1CB8C95C2B2A1CCD007CFA3C /* ViewControllerBuyPDF.swift in Sources */,
 				1CEC985E29F081EE00FA370A /* onboardingSlide.swift in Sources */,
 				1CEBEC73299A6FAC00250820 /* PagingViewController.swift in Sources */,
@@ -795,6 +924,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1C79FCB82BA0735100B4F682 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libpd-ios";
+			targetProxy = 1C79FCB72BA0735100B4F682 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BDF438A914E5638700A27135 /* InfoPlist.strings */ = {
@@ -945,6 +1082,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "../libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -977,6 +1115,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "RotaryWheelProject/HarmonyTensions-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "../libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

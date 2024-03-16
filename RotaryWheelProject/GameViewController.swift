@@ -7,13 +7,12 @@
 
 import UIKit
 import SwiftUI
-import AudioToolbox
 import StoreKit
 import MultipeerConnectivity
-import AVFoundation
 
-
+ 
 class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, isAbleToReceiveData {
+
     var peerId: MCPeerID!
     var session: MCSession!
     
@@ -55,7 +54,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     @IBOutlet weak var btnUnlock: UIButton!
     @IBOutlet weak var freeVersionView: UIView!
     var selectedSong : Song?
-    var metronomeClick : AVAudioPlayer!
     private var difficultySelection = Int()
     let circleView = UIView()
     let lettersViewG = UIView()
@@ -158,7 +156,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let note11g = UIImageView();
     var dataToSend: [String: Any] = [:]
     var initialHeight : CGFloat?
-
+    var initialCentre: CGFloat?
     
    
     func makeDiminishedNotesVisible(_ isVisible:Bool){
@@ -214,11 +212,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             gameStarted=true
             savedProgression.removeAll()
             btnSave.isHidden=true
-//            startGame()
-            if(isController){
-                // Sending the key to the other device for multiplayer mode
-//               sendNote(key)
-            }
            
             createTimer()
             
@@ -304,8 +297,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             
         }
     }
-//    let circleView = UIImageView(image: UIImage(named: "letters.jpeg"))
-    
+
+    lazy var metronome: PDMetronome = {
+        let newMetronome = PDMetronome(bpm: 15, andSubdivisions: 3)  // 15 bpm value works as 60
+        newMetronome!.on = false
+        return newMetronome!
+    }()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -325,13 +323,16 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initUI()
         //todo
          unlockPremiumVersion()
+//        metronome = PDMetronome(bpm: 60, andSubdivisions: 1)
+
+        
+
 //        let cfSoundURL = url as! CFURL
 //        AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
    
 //        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
         NSLog("View did load")
      
-        adjustWheelPosition()
       
        
         
@@ -344,6 +345,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
   
   
     func stopGame(){
+        metronome.on = false
         isFirstLoop = true
         timer?.invalidate()
         if difficultySelection == -1 {
@@ -990,6 +992,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
     func initUI(){
         initialHeight = self.view.frame.height
+        initialCentre = self.view.center.y
             view.backgroundColor = .white
             btnSave.isHidden = true
             view.addSubview(ring)
@@ -1002,13 +1005,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             difficultyPicker.delegate = self
             difficultyPicker.isHidden=true
             
-            
-            
+     
             view.addSubview(circleView)
             circleView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: self.view.frame.width, height: self.view.frame.width)
-            circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-       
-            
+        circleView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+
+//        circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 90)
+
             if(self.view.frame.height>800){       //Different transformations for different screen sizes
                 lettersViewG.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
                 lettersViewY.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.height*0.19)
@@ -1484,6 +1487,8 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             selectKey(songKey: songKey)
 
         }
+        adjustWheelPosition()
+
         NSLog("Rotation angle: \(rotationAngle)")
 
 
@@ -1525,55 +1530,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             rotationAngle = 0
         }
         NSLog("Height: \(self.view.frame.height)")
-        // Correcting a bug where letters got translated on smaller screen sizes
-        if(self.view.frame.height<750){
-            print("Translating")
-
-            var translationx: CGFloat
-            var translationy: CGFloat
-            switch songKey {
-            case "C":
-                translationx = 0
-                translationy = 0
-            case "G":
-                translationx = -3*rotationAngle
-                translationy = 1.5*rotationAngle
-            case "D":
-                translationx = -6*rotationAngle
-                translationy = 4*rotationAngle
-            case "A":
-                translationx = -8*rotationAngle
-                translationy = 8*rotationAngle
-            case "E":
-                translationx = -8*rotationAngle
-                translationy = 14*rotationAngle
-            case "B":
-                translationx = -6*rotationAngle
-                translationy = 20*rotationAngle
-            case "F#":
-                translationx = -0.5*rotationAngle
-                translationy = 25*rotationAngle
-            case "Db":
-                translationx = 7*rotationAngle
-                translationy = 29*rotationAngle
-            case "Ab":
-                translationx = 15*rotationAngle
-                translationy = 30*rotationAngle
-            case "Eb":
-                translationx = 24*rotationAngle
-                translationy = 25*rotationAngle
-            case "Bb":
-                translationx = 30*rotationAngle
-                translationy = 20*rotationAngle
-            case "F":
-                translationx = 35*rotationAngle
-                translationy = 17*rotationAngle
-            default:
-                translationx = 0
-                translationy=0
-            }
-            self.circleView.transform = CGAffineTransform(translationX: translationx, y: translationy)
-        }
+     
 
         // Apply the rotation transform to the circleView
         UIView.animate(withDuration: 0.3) { [weak self] in
@@ -1583,59 +1540,50 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
         
         
-        
-       
+        // Correcting a bug where letters got translated on smaller screen sizes
+//
     
     
     }
     func adjustWheelPosition(){
-        switch(initialHeight){
-            // pro msx
-        case 932: circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 560)
+        NSLog("Centre: \(self.view.center.y)")
+        switch(initialHeight!){
+        case 932: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
             break
         // When a different key was selected on the XS, the letters were shifted. The following case statements are to fix that. Values were found through trial and error
         case 812:
             switch(songKey){
                 case "C":
-                    circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 496)
-                NSLog("C")
+                    circleView.center = CGPoint(x: self.view.center.x, y: initialCentre! - 90)
                 case "D":
-                    circleView.center = CGPoint(x: self.view.center.x+5, y:initialHeight! - 496)
+                    circleView.center = CGPoint(x: self.view.center.x+5, y: initialCentre! - 90)
                 case "A":
-                    circleView.center = CGPoint(x: self.view.center.x+4, y:initialHeight! - 499)
+                    circleView.center = CGPoint(x: self.view.center.x+4, y: initialCentre! - 93)
                 case "B":
-                    circleView.center = CGPoint(x: self.view.center.x+3, y:initialHeight! - 507)
+                    circleView.center = CGPoint(x: self.view.center.x+3, y: initialCentre! - 100)
                 case "F#":
-                    circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 505)
-                case "Db":
-                    circleView.center = CGPoint(x: self.view.center.x-4, y: initialHeight! - 505)
-                case "Eb":
-                    circleView.center = CGPoint(x: self.view.center.x-5, y: initialHeight! - 502)
-                case "Bb":
-                    circleView.center = CGPoint(x: self.view.center.x-3, y: initialHeight! - 497)
-                case "F":
-                circleView.center = CGPoint(x: self.view.center.x-3, y: initialHeight! - 496)
+                    circleView.center = CGPoint(x: self.view.center.x-3, y: initialCentre! - 100)
                 case "E":
-                    circleView.center = CGPoint(x: self.view.center.x+3, y:initialHeight! - 505)
+                    circleView.center = CGPoint(x: self.view.center.x+4, y: initialCentre! - 100)
+                case "Db":
+                    circleView.center = CGPoint(x: self.view.center.x-4, y: initialCentre! - 100)
+                case "Eb":
+                    circleView.center = CGPoint(x: self.view.center.x-5, y: initialCentre! - 96)
+                case "Bb":
+                    circleView.center = CGPoint(x: self.view.center.x-3, y: initialCentre! - 90)
+                case "F":
+                    circleView.center = CGPoint(x: self.view.center.x, y: initialCentre! - 90)
                 default:
-                    rotationAngle = 0
-                    
+                    circleView.center = CGPoint(x: self.view.center.x, y: initialCentre! - 90)
+
                     break
                 }
-            // pro
-        case 852:
-            circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 520)
-            // se gen 3
-        case 667:
-            circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 430)
         default:
-            circleView.center = CGPoint(x: self.view.center.x, y: initialHeight! - 520)
-
-            break
-
+            circleView.center = CGPoint(x: self.view.center.x, y: initialCentre! - 95)
 
 
         }
+
     }
 
     func unlockPremiumVersion(){
@@ -1694,12 +1642,14 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
         probabilityListDimSharpII += [-1, 7, 3, 3]
     }
-    @IBAction func sliderValueChanged(_ sender: Any) {
+    @IBAction func sliderReleased(_ sender: Any) {
+        print("Slider released")
         var sliderValue = slider.value
         sliderValue=sliderValue*100
         bpmText=Int(sliderValue)
         labelBPM.text=String(Int(sliderValue))
         timeInterval = 60.0 / Double(bpmText)
+        metronome.bpm = UInt(bpmText/4)
 //        if(isController){
 //           let bpmData = Data(Data(bytes: &timeInterval, count: MemoryLayout<Float>.size))
 //            sendData(data: bpmData)
@@ -1710,6 +1660,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
       
         NSLog("slider " + String(sliderValue))
+    }
+    @IBAction func sliderValueChanged(_ sender: Any) {
+       
     }
     private func initTurnAroundLists() {
         //These are the outros. Either of the 4 will be played based on a 1/4 probability
@@ -1960,6 +1913,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
     }
     func createTimer(){
+        
         for bar in 1...12{
             if (bar>=5 && difficultySelection == -1){  // The intermediate diffficluty will be similar to the beginner difficulty for bars 5 and 6
                 difficultySelection = 2
@@ -2009,36 +1963,31 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             
 
         }
+        //self.metronome.on = true
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true)
+      
+
         timer?.tolerance = 0.01
        
        
     }
 
     @objc func startGame(){
-    
+        
         NSLog("Start Game")
+        if(isFirstLoop){
+            metronome.on = true
+        }
         if (barOn == savedProgression.count+2) {
             restartGame()
             replayGame = true
         }
-        print("beat on: \(beatOn)")
+        print("beat on: \(beatOn) \(currentTimeFormatted())")
             loopEnded = false
             print("Bar on: \(barOn)")
-        AudioManager.shared.startAudio()
-
-//        let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
-//        var player: AVPlayer?
-//        if let url = url {
-//            player = AVPlayer(url: url)
-//            player?.play()
-//        }
-//        metronomeClick.play()
-
+        //AudioManager.shared.startAudio()
             DispatchQueue.global(qos: .background).async { [self] in
-//                AudioServicesPlaySystemSound(soundID)
-//                NSLog("Note on "+noteOn)
-             
+
                 if self.beat == 1 {
                     DispatchQueue.main.async { [self] in
                         txtBarOn.text = "\(barOn)"
@@ -2235,6 +2184,34 @@ extension GameViewController: MCBrowserViewControllerDelegate{
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
         browserViewController.dismiss(animated: true )
     }
+    func currentTimeFormatted() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm:ss.SSS"
+        formatter.timeZone = TimeZone.current
+        return formatter.string(from: date)
+    }
+   
+//    func initPD(){
+//        if let mainBundlePath = Bundle.main.resourcePath {
+//            // Load the metronome.pd file
+//            metronome = PDMetronome(bpm: 60, andSubdivisions: 0)
+//        
+//            // If the patch doesn't load, throw an alert with an error
+//            if metronome == nil {
+//                let alert = UIAlertController(title: "Error", message: "Patch not found", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//                // Show the alert
+//                UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+//            }else{
+//                metronome.setOn(true)
+//            }
+//        }
+
+         
+
+
+   // }
     
     
 }

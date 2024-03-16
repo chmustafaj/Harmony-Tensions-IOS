@@ -286,7 +286,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import UIKit;
 #endif
 
-#import "/Users/chaudhrymustafajawad/Documents/Harmony Tensions IOS/RotaryWheelProject/HarmonyTensions-Bridging-Header.h"
+#import "/Users/chaudhrymustafajawad/Documents/IOS Projects/Harmony Tensions with libpd/Harmony Tensions IOS/RotaryWheelProject/HarmonyTensions-Bridging-Header.h"
 
 #endif
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
