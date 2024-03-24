@@ -346,6 +346,11 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
   
     func stopGame(){
         metronome.on = false
+        // These two lines will make sure the metronome begins from the start of the bar
+        metronome.reset = true
+        metronome.reset = false
+
+        
         isFirstLoop = true
         timer?.invalidate()
         if difficultySelection == -1 {
@@ -1654,14 +1659,32 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 //           let bpmData = Data(Data(bytes: &timeInterval, count: MemoryLayout<Float>.size))
 //            sendData(data: bpmData)
 //        }
+    
         if(gameStarted){
-            timer?.invalidate()
+            metronome.on = true
+            if beat >= 4 {
+                beat = 1
+            } else {
+                beat += 1
+            }
+            beatOn += 1
+            if beatOn > 4 {
+                barOn += 1
+                print("increasing bar on to :\(barOn)")
+                beatOn = 1
+            }
+        
+           // timer?.invalidate()
             timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true) // Recreate the timer with the updated time interval
         }
       
         NSLog("slider " + String(sliderValue))
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
+        print("Slider touched")
+        timer?.invalidate()
+
+        metronome.on = false
        
     }
     private func initTurnAroundLists() {
@@ -1977,6 +2000,8 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         NSLog("Start Game")
         if(isFirstLoop){
             metronome.on = true
+//            metronome.reset = true
+            //metronome.reset(false)
         }
         if (barOn == savedProgression.count+2) {
             restartGame()

@@ -35,11 +35,11 @@
 
 }
 
-//-(void) onOff:(BOOL)yesNo{
-//    float yn = (float) yesNo;
-//    [PdBase sendFloat:yn toReceiver:@"onOff"];
-//    NSLog(@"Settingn on ", yesNo);
-//}
+-(void) setReset:(BOOL)yesNo{
+    _reset = yesNo;
+    [PdBase sendFloat:_reset toReceiver:@"reset"];
+    NSLog(@"Setting reset as %@", yesNo ? @"YES" : @"NO");
+}
 -(instancetype) initWithBPM: (NSUInteger) bpm andSubdivisions: (NSUInteger) subdivisions{
     void *patch;
     self = [super init];

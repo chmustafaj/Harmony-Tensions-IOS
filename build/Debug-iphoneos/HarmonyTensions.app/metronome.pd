@@ -24,8 +24,12 @@
 #X obj 395 319 s onOff;
 #X obj 103 68 r onOff;
 #X obj 103 92 t f f;
-#X obj 103 116 sel 0;
-#X msg 103 140 0;
+#X obj 103 128 sel 0;
+#X msg 104 162 0;
+#X obj 47 290 s reset;
+#X obj 45 248 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 26 86 r reset;
+#X obj 27 125 t f f;
 #X connect 0 0 2 1;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
@@ -51,7 +55,9 @@
 #X connect 19 0 20 0;
 #X connect 21 0 22 0;
 #X connect 23 0 24 0;
-#X connect 24 0 25 0;
 #X connect 24 1 5 0;
 #X connect 25 0 26 0;
 #X connect 26 0 6 1;
+#X connect 28 0 27 0;
+#X connect 29 0 30 0;
+#X connect 30 0 25 0;

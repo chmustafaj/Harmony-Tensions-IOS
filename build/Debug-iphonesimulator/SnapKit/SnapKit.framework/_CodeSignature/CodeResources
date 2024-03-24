@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/SnapKit-Swift.h</key>
 		<data>
-		RFtRkeiUAYHacz9/4ZZlTa5jJr0=
+		tSqdPZX7l0Ir1OMAZNduaPqd+BQ=
 		</data>
 		<key>Headers/SnapKit-umbrella.h</key>
 		<data>
@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		fPWxCV6UOBQ2p7/slUlhFHZeyRo=
+		S9tnR8KT9dZ3bfvIAhUu1+vhhE4=
 		</data>
 		<key>Modules/SnapKit.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		9nwE66DiGVxCmmPon69LvCTPKVY=
+		ZFst6sAQEmn1MPp/FxbE1FFPdl4=
 		</data>
 		<key>Modules/SnapKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Modules/SnapKit.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		abk5tGCijzdvjsxQ4FIafpTBFhg=
+		e4Kh5xQCvuOBQhzoE+5A0UlrKrY=
 		</data>
 		<key>Modules/SnapKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		j5qb8kKQcMP1nd3BfxDATONP+vw=
+		9SxWLLeR+VOJs2t8sJr9NVRiLzU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,7 +43,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qxRoHFZv1tYHNbw37fw5wvB9XAlqtK0OWPRi0O7sACc=
+			PXcdU91IddnmglBpDCAjTaQdysB6ip2sInrv8VzSgTk=
 			</data>
 		</dict>
 		<key>Headers/SnapKit-umbrella.h</key>
@@ -57,7 +57,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LTsPEq0brVIknrMeagmqPPEnRU51m3Y/iR6EOI/Cv6E=
+			a0TGWlqgAAuHtk83eBziVqtTDS1yXz/gZSsBm4aP7w0=
 			</data>
 		</dict>
 		<key>Modules/SnapKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -71,14 +71,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dtjTVecvJiz3uI0FfNP3aoKUkKQ41xeZt0aT1VuP6Uc=
+			IPiV7mNFXVFpx6ruDqsjbJUuzvkxXcqiYckDz3dtvVM=
 			</data>
 		</dict>
 		<key>Modules/SnapKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			q+K9KsY+qJY2G4L3D9EVsF6YA0U70zwEGjhhbvBXvTg=
+			4cIP9KFaERu3DuC8IRwKX83jqfk9zPoonpDDLZC1Yb8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

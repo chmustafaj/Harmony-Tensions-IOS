@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/LZViewPager-Swift.h</key>
 		<data>
-		KJew74z27FKDoF6d7vsbdVJPleA=
+		wEyXxjNO3KvhryIzh72+XO/SyBo=
 		</data>
 		<key>Headers/LZViewPager-umbrella.h</key>
 		<data>
@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		kxghCJXsPEwZMBja4Q4Eest7yf8=
+		6AErDf9A0e9co8IrCEd3STon39w=
 		</data>
 		<key>Modules/LZViewPager.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		R86o6W72YXewmPouZzxjbzU5HB0=
+		ytIpfie4Bg4UdoDX3HdunX7J1Qc=
 		</data>
 		<key>Modules/LZViewPager.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Modules/LZViewPager.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		vupZLX2sVvHl8SrVKy5f/PSwdaU=
+		QEQNn2v2O4C2SCtGXh+QU8BeY1I=
 		</data>
 		<key>Modules/LZViewPager.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		UTyx4wjqOuwbuKUTGl4EyWvwREc=
+		0FAhtrpViy1hvl+AXDTOLLOk6+w=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,7 +43,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QvW9vZUW6k3z3kzQQFADm9YvCZXLNf6cl/hWNak5bGE=
+			8FcrDhUVFPU7L/IlxUUn7b5uhh6NFo02IXc/AXloTfo=
 			</data>
 		</dict>
 		<key>Headers/LZViewPager-umbrella.h</key>
@@ -57,7 +57,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6TjOqZgvAf/1ArPEaA7qIETxZSWw/C6406Mp+b8Rv6c=
+			GU5tAVYkEp1X7byqxJwobfhbKKA5ZLClRzJBQxXx/sY=
 			</data>
 		</dict>
 		<key>Modules/LZViewPager.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -71,14 +71,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZLzbYX2eJuF8Mk0u7jspQqeIJ8KR/OUuflW+pwy1ljc=
+			zD6gGiMq8nSCsbXDZl48qbxylI5pjK9V6Kp7qOl4GVE=
 			</data>
 		</dict>
 		<key>Modules/LZViewPager.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			iL0B4J8oXRc4otN5E8ufjEcrTTIu1URXdMLvIcL4BZI=
+			/6PRC+mNVSEgKnRLGEMusgsFOwmmjRg0NSgHKW+mamY=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -14,8 +14,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2002"
-            endingLineNumber = "2002"
+            startingLineNumber = "2027"
+            endingLineNumber = "2027"
             landmarkName = "startGame()"
             landmarkType = "7">
             <Locations>
@@ -31,8 +31,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "2085"
-                  endingLineNumber = "2085"
-                  offsetFromSymbolStart = "1232">
+                  endingLineNumber = "2085">
                </Location>
                <Location
                   uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - 339a71e3d49c1b09"
@@ -46,8 +45,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "2086"
-                  endingLineNumber = "2086"
-                  offsetFromSymbolStart = "52">
+                  endingLineNumber = "2086">
                </Location>
                <Location
                   uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - fabfde35130f4955"
@@ -61,8 +59,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "2083"
-                  endingLineNumber = "2083"
-                  offsetFromSymbolStart = "1220">
+                  endingLineNumber = "2083">
                </Location>
                <Location
                   uuid = "4FCB5F85-2C55-4452-A4A2-9CF63FCE6818 - 6d4574d10b605c37"
@@ -76,8 +73,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "2084"
-                  endingLineNumber = "2084"
-                  offsetFromSymbolStart = "68">
+                  endingLineNumber = "2084">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -92,8 +88,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1925"
-            endingLineNumber = "1925"
+            startingLineNumber = "1948"
+            endingLineNumber = "1948"
             landmarkName = "createTimer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -108,8 +104,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1945"
-            endingLineNumber = "1945"
+            startingLineNumber = "1968"
+            endingLineNumber = "1968"
             landmarkName = "createTimer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -141,8 +137,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "337"
-                  endingLineNumber = "337"
-                  offsetFromSymbolStart = "1640">
+                  endingLineNumber = "337">
                </Location>
                <Location
                   uuid = "6401015F-5CE0-4BAA-B5EB-A6D8EB2FD768 - 60e44a6d078c94fc"
@@ -156,8 +151,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "337"
-                  endingLineNumber = "337"
-                  offsetFromSymbolStart = "1608">
+                  endingLineNumber = "337">
                </Location>
                <Location
                   uuid = "6401015F-5CE0-4BAA-B5EB-A6D8EB2FD768 - 60e44a6d078c94fc"
@@ -171,8 +165,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "337"
-                  endingLineNumber = "337"
-                  offsetFromSymbolStart = "1616">
+                  endingLineNumber = "337">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -187,8 +180,8 @@
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1916"
-            endingLineNumber = "1916"
+            startingLineNumber = "1939"
+            endingLineNumber = "1939"
             landmarkName = "createTimer()"
             landmarkType = "7">
             <Locations>
@@ -204,8 +197,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1927"
-                  endingLineNumber = "1927"
-                  offsetFromSymbolStart = "196">
+                  endingLineNumber = "1927">
                </Location>
                <Location
                   uuid = "3C3EF4F2-146F-4CDE-B8A9-008EA922BD40 - e1c084f58d24a400"
@@ -219,8 +211,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "1926"
-                  endingLineNumber = "1926"
-                  offsetFromSymbolStart = "196">
+                  endingLineNumber = "1926">
                </Location>
             </Locations>
          </BreakpointContent>

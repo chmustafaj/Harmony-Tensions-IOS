@@ -13,8 +13,9 @@
 @property (assign, nonatomic) NSUInteger bpm;
 @property (assign, nonatomic) NSUInteger subdivisions;
 @property (assign, nonatomic) BOOL on;
+@property (assign, nonatomic) BOOL reset;
+
 -(instancetype) initWithBPM: (NSUInteger) bpm andSubdivisions: (NSUInteger)subdivisions;
-//-(void) onOff : (BOOL) yesNo;
 //-(void) setBpm: (NSUInteger) bpm;
 //-(void) setSubdivisions: (NSUInteger) subdiv;
 
