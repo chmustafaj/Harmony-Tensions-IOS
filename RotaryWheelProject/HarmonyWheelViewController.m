@@ -61,7 +61,7 @@ int noOfHarmonywheels=4;
 NSString *key;
 UIImageView *mask;
 bool isPurchased = false;
-NSString *urlPDF = @"https://drive.google.com/uc?export=download&id=1giV75QxA5vCztCTMAy957s9D5DcSX9R7";
+NSString *urlPDF = @"";
 
 
 - (void)viewDidLoad

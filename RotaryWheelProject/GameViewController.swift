@@ -239,7 +239,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         overLayer.key=songKey
         overLayer.appear(sender: self)
     }
-    
+     
     @IBAction func btnConnectPressed(_ sender: Any) {
         NSLog("connect")
         invite()
@@ -321,17 +321,18 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         initProbabilityList()
         initTurnAroundLists()
         initUI()
-        //todo
          unlockPremiumVersion()
-//        metronome = PDMetronome(bpm: 60, andSubdivisions: 1)
+        adjustWheelPosition()
 
-        
-
-//        let cfSoundURL = url as! CFURL
-//        AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
-   
-//        metronomeClick = try! AVAudioPlayer(contentsOf: url!)
         NSLog("View did load")
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playback, mode: .default)
+            try audioSession.setActive(true)
+        } catch {
+            print("Failed to set audio session category: \(error)")
+        }
+
      
       
        
@@ -832,9 +833,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             let url = Bundle.main.url(forResource: "click", withExtension: "mp3")
             let cfSoundURL = url as! CFURL
             var soundID: SystemSoundID = 0
-//            AudioServicesCreateSystemSoundID(cfSoundURL, &soundID)
 
-//            metronomeClick = try! AVAudioPlayer(contentsOf: url!)
             selectKey(songKey: (selectedSong?.key)!) // The key of the saved song could be different from the current selected key
             replayIndex = 0  
             createTimer()
@@ -1492,9 +1491,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             selectKey(songKey: songKey)
 
         }
-        adjustWheelPosition()
 
         NSLog("Rotation angle: \(rotationAngle)")
+        adjustWheelPosition()
 
 
     }
@@ -1553,8 +1552,8 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     func adjustWheelPosition(){
         NSLog("Centre: \(self.view.center.y)")
         switch(initialHeight!){
-        case 932: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
-            break
+//        case 932: circleView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
+//            break
         // When a different key was selected on the XS, the letters were shifted. The following case statements are to fix that. Values were found through trial and error
         case 812:
             switch(songKey){
@@ -2000,8 +1999,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         NSLog("Start Game")
         if(isFirstLoop){
             metronome.on = true
-//            metronome.reset = true
-            //metronome.reset(false)
+
         }
         if (barOn == savedProgression.count+2) {
             restartGame()

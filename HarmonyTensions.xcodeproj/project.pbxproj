@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C2791302B7A9298002E72CC /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C27912F2B7A9298002E72CC /* AudioManager.swift */; };
 		1C3B72A729A246F200E663B8 /* letters.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1C3B72A629A246F200E663B8 /* letters.jpeg */; };
 		1C48612E2A20A921001DE8C0 /* PropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C48612D2A20A921001DE8C0 /* PropertyList.plist */; };
 		1C4861302A20AAD6001DE8C0 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C48612F2A20AAD6001DE8C0 /* StoreKitManager.swift */; };
@@ -111,7 +110,6 @@
 		1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */; };
 		1CA93A9629D44AB4008A02EF /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA93A9529D44AB4008A02EF /* SongCell.swift */; };
 		1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03AE29B9B8BC00411901 /* Utils.swift */; };
-		1CAD03B429D17C4100411901 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03B329D17C4100411901 /* click.mp3 */; };
 		1CAD03BB29D1B8A000411901 /* ViewControllerSaveSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */; };
 		1CAD03BC29D1B8A000411901 /* ViewControllerSaveSong.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */; };
 		1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */; };
@@ -184,7 +182,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1C27912F2B7A9298002E72CC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		1C3B72A629A246F200E663B8 /* letters.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = letters.jpeg; sourceTree = "<group>"; };
 		1C48612C2A20A8C8001DE8C0 /* Harmony Tensions.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Harmony Tensions.storekit"; sourceTree = "<group>"; };
 		1C48612D2A20A921001DE8C0 /* PropertyList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PropertyList.plist; sourceTree = "<group>"; };
@@ -295,7 +292,6 @@
 		1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSavedSongs.swift; sourceTree = "<group>"; };
 		1CA93A9529D44AB4008A02EF /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		1CAD03AE29B9B8BC00411901 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		1CAD03B329D17C4100411901 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSaveSong.swift; sourceTree = "<group>"; };
 		1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewControllerSaveSong.xib; sourceTree = "<group>"; };
 		1CAD03BE29D2C8D500411901 /* HarmonyTensions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HarmonyTensions.xcdatamodel; sourceTree = "<group>"; };
@@ -378,15 +374,6 @@
 				1C79FCB62BA0731100B4F682 /* libpd-osx-multi.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		1CAD03B229D17C4100411901 /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				1CAD03B329D17C4100411901 /* click.mp3 */,
-				1C27912F2B7A9298002E72CC /* AudioManager.swift */,
-			);
-			path = Sounds;
 			sourceTree = "<group>";
 		};
 		1CB8C9672B2DE130007CFA3C /* Header Files */ = {
@@ -593,7 +580,6 @@
 				1CCB138F2BA3394B004EE09F /* patches */,
 				1C8E28BE29942C6B00CF01B7 /* HarmonyTensions-Bridging-Header.h */,
 				1CB8C9682B2DE1BC007CFA3C /* Wheel */,
-				1CAD03B229D17C4100411901 /* Sounds */,
 				BDF438AC14E5638700A27135 /* main.m */,
 				BDF438A714E5638700A27135 /* Supporting Files */,
 				1CB8C9672B2DE130007CFA3C /* Header Files */,
@@ -755,7 +741,6 @@
 				1C5FC9212B1A47A6003D56F2 /* note2g.png in Resources */,
 				1C5FC9322B1A47A6003D56F2 /* simple_hw.png in Resources */,
 				1C5FC9602B1A4F88003D56F2 /* circle_border.png in Resources */,
-				1CAD03B429D17C4100411901 /* click.mp3 in Resources */,
 				1C5FC9522B1A4960003D56F2 /* instagram_logo.png in Resources */,
 				1C5FC8F72B1A47A6003D56F2 /* note0w.png in Resources */,
 				1C5FC9542B1A4960003D56F2 /* dimivgreen.png in Resources */,
@@ -912,7 +897,6 @@
 				1CEC985929F07F1F00FA370A /* onBoardingViewController.swift in Sources */,
 				1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */,
 				1C4861302A20AAD6001DE8C0 /* StoreKitManager.swift in Sources */,
-				1C2791302B7A9298002E72CC /* AudioManager.swift in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
 				1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,
