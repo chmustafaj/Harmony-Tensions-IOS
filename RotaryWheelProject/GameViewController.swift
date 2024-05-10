@@ -1934,6 +1934,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             }
         }
     }
+
     func createTimer(){
         
         for bar in 1...12{
@@ -1985,6 +1986,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             
 
         }
+        countdown = 5
         //self.metronome.on = true
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true)
       
@@ -1993,31 +1995,38 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
        
        
     }
-
+    var countdown = 0;
     @objc func startGame(){
-        
-        NSLog("Start Game")
-        if(isFirstLoop){
-            metronome.on = true
-
-        }
-        if (barOn == savedProgression.count+2) {
-            restartGame()
-            replayGame = true
-        }
-        print("beat on: \(beatOn) \(currentTimeFormatted())")
+        if(countdown>1){
+            if(isFirstLoop){
+                metronome.on = true
+                isFirstLoop = false
+            }
+            DispatchQueue.main.async { [self] in
+                txtBarOn.text = "\(countdown)"
+                
+            }
+            countdown -= 1
+        }else{
+            
+            NSLog("Start Game")
+            
+            if (barOn == savedProgression.count+2) {
+                restartGame()
+                replayGame = true
+            }
+            print("beat on: \(beatOn) \(currentTimeFormatted())")
             loopEnded = false
             print("Bar on: \(barOn)")
-        //AudioManager.shared.startAudio()
+            //AudioManager.shared.startAudio()
             DispatchQueue.global(qos: .background).async { [self] in
-
+                
                 if self.beat == 1 {
                     DispatchQueue.main.async { [self] in
                         txtBarOn.text = "\(barOn)"
-//                        NSLog("Note on "+noteOn)
-
+                        
                     }
-                   
+                    
                     DispatchQueue.main.async { [self] in
                         self.resetWheel()
                         //                        NSLog("Turning note " + String(self.noteOn) + "green")
@@ -2031,13 +2040,13 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                                 self.changeColor(note: self.utils.getFirst(self.songKey), c: "y")
                             }else{
                                 self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
-
+                                
                             }
                             self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-2]), c: "g")
                         }
                     }
                     if(difficultySelection==2 || difficultySelection==3){
-
+                        
                         if barOn==3 {
                             DispatchQueue.main.async {
                                 self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
@@ -2058,7 +2067,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                         
                     }
                     
-                
+                    
                 }
                 else {
                     if difficultySelection == 3 && barOn == 2 {
@@ -2071,7 +2080,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     }
                 }
                 
-               
+                
                 if beat >= 4 {
                     beat = 1
                 } else {
@@ -2083,16 +2092,17 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                     print("increasing bar on to :\(barOn)")
                     beatOn = 1
                 }
-               
+                
                 noteOn = nextNote
-            
+                
             }
-
-        self.loopEnded = true
-        isFirstLoop = false
-
             
+            self.loopEnded = true
         }
+  
+        
+        
+    }
   
    
    
