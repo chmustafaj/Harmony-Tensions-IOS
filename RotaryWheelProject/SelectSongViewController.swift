@@ -7,23 +7,39 @@
 
 import UIKit
 
-class SelectSongViewController: UIViewController {
+class SelectSongViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    let songs = Utils().songsString
+    var songSelection: String!
+    var delegate: selectSongFromSongMode?
+    @IBAction func btnDonePressed(_ sender: Any) {
+        delegate?.sendSong(data: Utils().setSelectedSong(songString: songSelection))
+       dismiss(animated: true)
 
+    }
+    @IBOutlet weak var songPicker: UIPickerView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        songPicker.delegate = self
+        songPicker .dataSource = self
+        songSelection = songs[0]
+            
 
-        // Do any additional setup after loading the view.
     }
-    
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+           return 1
+       }
 
-    /*
-    // MARK: - Navigation
+       public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+           return songs.count
+       }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+       func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+           return songs[row]
+       }
+
+       func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+           songSelection = songs[row]
+           print("You selected: " + songSelection)
+       }
 
 }

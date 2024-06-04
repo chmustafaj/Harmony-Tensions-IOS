@@ -33,7 +33,9 @@ import CoreData
     
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var contentView: UIView!
-   
+    func redeemCode(){
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         configView()

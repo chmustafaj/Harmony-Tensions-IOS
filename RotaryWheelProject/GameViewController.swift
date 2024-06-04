@@ -11,7 +11,9 @@ import StoreKit
 import MultipeerConnectivity
 
  
-class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, isAbleToReceiveData {
+class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromSongMode, setRandomProgressionDifficulty {
+ 
+    
 
     var peerId: MCPeerID!
     var session: MCSession!
@@ -39,11 +41,42 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     @IBAction func btnUnlock(_ sender: Any) {
     }
         
+    @IBAction func btnConfigurationPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let selectDetailsVC = storyboard.instantiateViewController(withIdentifier: "SelectGameDetailsViewController") as? SelectGameDetailsViewController {
+                    selectDetailsVC.modalPresentationStyle = .popover
+                    selectDetailsVC.songDelegate = self
+                    selectDetailsVC.randomProgressionDelegate = self
+                    self.present(selectDetailsVC, animated: true, completion: nil)
+                }
+        
 
+    }
+    
     func pass(data: Song) {
         selectedSong = data
         NSLog((selectedSong?.name)!)
     }
+    func sendSong(data: [SongChord]) {
+        print("Selected song: " + (selectedSongForSongMode.description))
+        selectedSongForSongMode = data
+        difficultySelection = 1
+        makeDiminishedNotesVisible(false)
+        makeSecondaryDominantsVisible(false)
+    }
+    func setDifficulty(difficulty: Int){
+        print("Difficulty set: " + String(difficulty))
+        difficultySelection = difficulty // todo change
+        if(difficulty == 2){
+            makeSecondaryDominantsVisible(true)
+            makeDiminishedNotesVisible(false)
+        }else if(difficulty == 3){
+                makeDiminishedNotesVisible(true)
+                makeSecondaryDominantsVisible(true)
+            }
+        
+    }
+    
     var isFirstLoop :Bool = true
     var songKey : String = ""
     let harmonyTensionsServiceType = "gt-game"
@@ -67,6 +100,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     var bpm = Int()
     var beatOn = 1
     var barOn = 1
+    var beatFromStart = 1
     var isPeer = false
     var isController = false
     
@@ -88,6 +122,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     var turnaroundList3 = [Int]()
     var turnaroundList4 = [Int]()
     var savedProgression = [String]() //the user can save a particular progression and and replay it
+    var tensions = [Int]()
     var beat = 1 //'beat' will allow us to play the metronome sound and update the textview, and update the notes after every 4 beats
     var loopEnded = true //To make sure the loop is completed before starting it again, or else 2 loops will go on at the same time
     var randomSecDom = 0
@@ -101,6 +136,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     var ranDiminished = 0
     var goToDiminished = 0
     var bpmText=Int()
+    var selectedSongForSongMode = [SongChord]()
     let dimii = UIImageView(image: UIImage(named: "dimiiwhite"))
     let dimv = UIImageView(image: UIImage(named: "dimvwhite"))
     let dimi = UIImageView(image: UIImage(named: "dimiwhite"))
@@ -111,9 +147,36 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     let v72ImageView = UIImageView(image: UIImage(named: "v72_white"))
     let v76ImageView = UIImageView(image: UIImage(named: "v76_white"))
     let v73ImageView = UIImageView(image: UIImage(named: "v73_white"))
+    let t1ImageView = UIImageView(image: UIImage(named: "1_w"))
+    let t5ImageView = UIImageView(image: UIImage(named: "5_w"))
+    let t9ImageView = UIImageView(image: UIImage(named: "9_w"))
+    let t13ImageView = UIImageView(image: UIImage(named: "13_w"))
+    let t3ImageView = UIImageView(image: UIImage(named: "3_w"))
+    let t7ImageView = UIImageView(image: UIImage(named: "7_w"))
+    let ts11ImageView = UIImageView(image: UIImage(named: "s11_w"))
+    let tb9ImageView = UIImageView(image: UIImage(named: "b9_w"))
+    let tb13ImageView = UIImageView(image: UIImage(named: "b13_w"))
+    let ts9ImageView = UIImageView(image: UIImage(named: "s9_w"))
+    let tb7ImageView = UIImageView(image: UIImage(named: "b7_w"))
+    let t11ImageView = UIImageView(image: UIImage(named: "11_w"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     let ring = UIImageView(image: UIImage(named: "circle_border"))
     let imageView = UIImageView(image: UIImage(named: "simple_hw"))
-    let centre = UIImageView(image: UIImage(named: "centre"))
+    let centre = UIImageView(image: UIImage(named: "centre_clear"))
 
 
     let note0w = UIImageView();
@@ -244,59 +307,14 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         NSLog("connect")
         invite()
     }
-    @IBAction func btnLevelPressed(_ sender: Any) {
-        btnLevel.isHidden=true
-        btnSave.isHidden = true
-        if(difficultyPicker.isHidden){
-            difficultyPicker.isHidden=false
-        }
-    }
-    @IBOutlet weak var difficultyPicker: UIPickerView!
-    @IBOutlet weak var btnLevel: UIButton!
+
     func setSelectedSong(song: Song){
         selectedSong = song
         NSLog("Setting song")
         NSLog(song.name!)
     }
 
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return difficulties.count
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return difficulties[row]
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        btnLevel.setTitle(difficulties[row], for: .normal)
-        difficultyPicker.isHidden=true
-        btnLevel.isHidden=false
-        btnSave.isHidden = false
-
-        switch(difficulties[row]){
-        case "Level 1":
-            difficultySelection=1
-            makeSecondaryDominantsVisible(false);
-            makeDiminishedNotesVisible(false)
-            break
-        case "Level 2":
-            difficultySelection=2
-            makeSecondaryDominantsVisible(true);
-            makeDiminishedNotesVisible(false);
-            break
-        case "Level 3":
-            difficultySelection=3
-            makeDiminishedNotesVisible(true);
-            makeSecondaryDominantsVisible(true);
-            break
-        default:
-            makeSecondaryDominantsVisible(false);
-            makeDiminishedNotesVisible(false)
-            difficultySelection=1
-            
-        }
-    }
+   
 
     lazy var metronome: PDMetronome = {
         let newMetronome = PDMetronome(bpm: 15, andSubdivisions: 3)  // 15 bpm value works as 60
@@ -315,14 +333,16 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         advertise()
         NSLog("Peer id: \(peerId.displayName)")
         bpm = 60;  //default value
-        difficultySelection=1
         bpmText = bpm;
         noteOn = songKey
         initProbabilityList()
         initTurnAroundLists()
         initUI()
+        difficultySelection = 1
+
          unlockPremiumVersion()
         adjustWheelPosition()
+        selectedSongForSongMode = utils.aintSheSweet // todo change later
 
         NSLog("View did load")
         let audioSession = AVAudioSession.sharedInstance()
@@ -350,6 +370,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         // These two lines will make sure the metronome begins from the start of the bar
         metronome.reset = true
         metronome.reset = false
+        beatFromStart = 1
 
         
         isFirstLoop = true
@@ -447,6 +468,20 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         v72ImageView.image = UIImage(named: "v72_white")
         v76ImageView.image = UIImage(named: "v76_white")
         v73ImageView.image = UIImage(named: "v73_white")
+        
+        t1ImageView.image = UIImage(named: "1_w")
+        t5ImageView.image = UIImage(named: "5_w")
+        t9ImageView.image = UIImage(named: "9_w")
+        t13ImageView.image = UIImage(named: "13_w")
+        t3ImageView.image = UIImage(named: "3_w")
+        t7ImageView.image = UIImage(named: "7_w")
+        ts11ImageView.image = UIImage(named: "s11_w")
+        tb9ImageView.image = UIImage(named: "b9_w")
+        tb13ImageView.image = UIImage(named: "b13_w")
+        ts9ImageView.image = UIImage(named: "s9_w")
+        tb7ImageView.image = UIImage(named: "b7_w")
+        t11ImageView.image =  UIImage(named: "11_w")
+        
 
 
 
@@ -799,21 +834,17 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             switch (Int(selectedSong!.level)) {
                         // The correct level will be selected corresponding to the saved song
                         case 1:
-                            difficultyPicker.selectRow(0, inComponent: 0, animated: false)
-                            btnLevel.setTitle("Level 1", for: .normal)
+                          
                             makeSecondaryDominantsVisible(false);
                             makeDiminishedNotesVisible(false)
                             break;
                         case 2:
-                            difficultyPicker.selectRow(1, inComponent: 0, animated: false)
-                            btnLevel.setTitle("Level 2", for: .normal)
+                           
                             makeSecondaryDominantsVisible(true);
                             makeDiminishedNotesVisible(false);
             
                             break;
                         case 3:
-                            difficultyPicker.selectRow(2, inComponent: 0, animated: false)
-                            btnLevel.setTitle("Level 3", for: .normal)
                             makeDiminishedNotesVisible(true);
                             makeSecondaryDominantsVisible(true);
                             break;
@@ -837,6 +868,180 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             selectKey(songKey: (selectedSong?.key)!) // The key of the saved song could be different from the current selected key
             replayIndex = 0  
             createTimer()
+        }
+    }
+    private func changeColorTension(tensionNo: Int, color: Character){
+        switch tensionNo{
+        case 0:
+            switch color{
+            case "g":
+                t1ImageView.image = UIImage(named: "1_g")
+                return
+            case "w":
+                t1ImageView.image = UIImage(named: "1_w")
+                return
+            case "y":
+                t1ImageView.image = UIImage(named: "1_y")
+            default:
+                break
+                
+            }
+        case 1:
+            switch color{
+            case "g":
+                t5ImageView.image = UIImage(named: "5_g")
+                return
+            case "w":
+                t5ImageView.image = UIImage(named: "5_w")
+                return
+            case "y":
+                t5ImageView.image = UIImage(named: "5_y")
+            default:
+                break
+                
+            }
+        case 2:
+            switch color{
+            case "g":
+                t9ImageView.image = UIImage(named: "9_g")
+                return
+            case "w":
+                t9ImageView.image = UIImage(named: "9_w")
+                return
+            case "y":
+                t9ImageView.image = UIImage(named: "9_y")
+            default:
+                break
+                
+            }
+        case 3:
+            switch color{
+            case "g":
+                t13ImageView.image = UIImage(named: "13_g")
+                return
+            case "w":
+                t13ImageView.image = UIImage(named: "13_w")
+                return
+            case "y":
+                t13ImageView.image = UIImage(named: "13_y")
+            default:
+                break
+                
+            }
+        case 4:
+            switch color{
+            case "g":
+                t3ImageView.image = UIImage(named: "3_g")
+                return
+            case "w":
+                t3ImageView.image = UIImage(named: "3_w")
+                return
+            case "y":
+                t3ImageView.image = UIImage(named: "3_y")
+            default:
+                break
+                
+            }
+        case 5:
+            switch color{
+            case "g":
+                t7ImageView.image = UIImage(named: "7_g")
+                return
+            case "w":
+                t7ImageView.image = UIImage(named: "7_w")
+                return
+            case "y":
+                t7ImageView.image = UIImage(named: "7_y")
+            default:
+                break
+                
+            }
+        case 6:
+            switch color{
+            case "g":
+                ts11ImageView.image = UIImage(named: "s11_g")
+                return
+            case "w":
+                ts11ImageView.image = UIImage(named: "s11_w")
+                return
+            case "y":
+                ts11ImageView.image = UIImage(named: "s11_y")
+            default:
+                break
+                
+            }
+        case 7:
+            switch color{
+            case "g":
+                tb9ImageView.image = UIImage(named: "b9_g")
+                return
+            case "w":
+                tb9ImageView.image = UIImage(named: "b9_w")
+                return
+            case "y":
+                tb9ImageView.image = UIImage(named: "b9_y")
+            default:
+                break
+                
+            }
+        case 8:
+            switch color{
+            case "g":
+                tb13ImageView.image = UIImage(named: "b13_g")
+                return
+            case "w":
+                tb13ImageView.image = UIImage(named: "b13_w")
+                return
+            case "y":
+                tb13ImageView.image = UIImage(named: "b13_y")
+            default:
+                break
+                
+            }
+        case 9:
+            switch color{
+            case "g":
+                ts9ImageView.image = UIImage(named: "s9_g")
+                return
+            case "w":
+                ts9ImageView.image = UIImage(named: "s9_w")
+                return
+            case "y":
+                ts9ImageView.image = UIImage(named: "s9_y")
+            default:
+                break
+                
+            }
+        case 10:
+            switch color{
+            case "g":
+                tb7ImageView.image = UIImage(named: "b7_g")
+                return
+            case "w":
+                tb7ImageView.image = UIImage(named: "b7_w")
+                return
+            case "y":
+                tb7ImageView.image = UIImage(named: "b7_y")
+            default:
+                break
+                
+            }
+        case 11:
+            switch color{
+            case "g":
+                t11ImageView.image = UIImage(named: "11_g")
+                return
+            case "w":
+                t11ImageView.image = UIImage(named: "11_w")
+                return
+            case "y":
+                t11ImageView.image = UIImage(named: "11_y")
+            default:
+                break
+                
+            }
+        default:
+            break
         }
     }
     private func changeColorSecondaryDom(secDomNum: Int, color: Character) {
@@ -1005,9 +1210,9 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             
             ring.center = CGPoint(x: self.view.center.x, y: self.view.center.y - 95)
             
-            difficultyPicker.dataSource = self
-            difficultyPicker.delegate = self
-            difficultyPicker.isHidden=true
+//            difficultyPicker.dataSource = self
+//            difficultyPicker.delegate = self
+//            difficultyPicker.isHidden=true
             
      
             view.addSubview(circleView)
@@ -1464,6 +1669,16 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
                 dimiv.widthAnchor.constraint(equalToConstant: 35),
                 dimiv.heightAnchor.constraint(equalToConstant: 35)
             ])
+        
+        
+            // For displaying the tensions
+        let tensionImageViews = [t1ImageView, t5ImageView, t9ImageView, t13ImageView, t3ImageView, t7ImageView, ts11ImageView, tb9ImageView, tb13ImageView, ts9ImageView, tb7ImageView, t11ImageView]
+        positionTensionImageViews(tensionImageViews, in: centre)
+
+        
+
+        
+
             makeSecondaryDominantsVisible(false)
             makeDiminishedNotesVisible(false)
             txtBarOn.center = CGPoint(x: centerX, y: centerY-30)
@@ -1479,6 +1694,26 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
            
 
         }
+    func positionTensionImageViews(_ imageViews: [UIImageView], in imageView: UIView) {
+        let radius = CGFloat(31)
+        let centerX = imageView.bounds.midX
+        let centerY = imageView.bounds.midY
+        let angleIncrement = 2 * CGFloat.pi / CGFloat(imageViews.count)
+        
+        for (index, tensionView) in imageViews.enumerated() {
+            tensionView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.addSubview(tensionView)
+            
+            let angle = CGFloat(index) * angleIncrement - CGFloat.pi / 2 // Adjust for starting position at 12 o'clock
+            let xPosition = centerX + radius * cos(angle)
+            let yPosition = centerY + radius * sin(angle)
+            
+            tensionView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor, constant: xPosition - centerX).isActive = true
+            tensionView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: yPosition - centerY).isActive = true
+            tensionView.widthAnchor.constraint(equalToConstant: 15).isActive = true
+            tensionView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         NSLog("View did appear")
 
@@ -1542,10 +1777,6 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
             self?.circleView.transform = self?.circleView.transform.rotated(by: self!.rotationAngle) ?? .identity
         }
-        
-        
-        // Correcting a bug where letters got translated on smaller screen sizes
-//
     
     
     }
@@ -1591,7 +1822,7 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
 
     func unlockPremiumVersion(){
-        btnLevel.isHidden = false
+//        btnLevel.isHidden = false
         buttonsView.isHidden = false
         labelBPM.isHidden = false
         slider.isHidden = false
@@ -1704,6 +1935,17 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
 
         let r = Int.random(in: 0..<3)
         turnaroundRandom = r
+    }
+    private func songMode(song: [SongChord], bar: Int, beat: Int){
+      
+        let nextStepAndTension = utils.getNoteAndTension(song: song, bar: bar, beat: beat)
+        let nextStep = (nextStepAndTension?.note)!
+        let tension = (nextStepAndTension?.tension)!
+        savedProgression.append(noteFromNumber(n: nextStep))
+        tensions.append(tension)
+        
+        
+        
     }
     private func beginnerDifficulty(_ bar :Int) {
         if nextNote == "" {
@@ -1936,34 +2178,40 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
     }
 
     func createTimer(){
-        
-        for bar in 1...12{
-            if (bar>=5 && difficultySelection == -1){  // The intermediate diffficluty will be similar to the beginner difficulty for bars 5 and 6
-                difficultySelection = 2
-            }
-            switch difficultySelection {
-            case 1:
-                beginnerDifficulty(bar)
-            case 2:
-                intermediateDifficulty(bar)
-            case -1:   //This is the modified case in the advanced difficulty, which works like the beginner difficulty for the first few bars
-                if barOn >= 5 {
+        if(difficultySelection != 1){ // checking if we haven;t selected song mode
+            for bar in 1...12{
+                if (bar>=5 && difficultySelection == -1){  // The intermediate diffficluty will be similar to the beginner difficulty for bars 5 and 6
                     difficultySelection = 2
                 }
-                beginnerDifficulty(bar)
-            case 3:
-                advancedDifficulty(bar)
-                if bar == 2 {
-                    if !replayGame {
-                        if(!isPeer){
-                            ranDiminished = Int.random(in: 0..<3)
-                            goToDiminished = Int.random(in: 0..<3)
+                switch difficultySelection {
+                case 2:
+                    intermediateDifficulty(bar)
+                case -1:   //This is the modified case in the advanced difficulty, which works like the beginner difficulty for the first few bars
+                    if barOn >= 5 {
+                        difficultySelection = 2
+                    }
+                    beginnerDifficulty(bar)
+                case 3:
+                    advancedDifficulty(bar)
+                    if bar == 2 {
+                        if !replayGame {
+                            if(!isPeer){
+                                ranDiminished = Int.random(in: 0..<3)
+                                goToDiminished = Int.random(in: 0..<3)
+                            }
                         }
                     }
+                   
+                default:
+                    break
                 }
-               
-            default:
-                break
+            }
+        }else{
+            transposeSongToSelectedKey()
+            for barIndex in 0..<utils.numberOfBars(in: selectedSongForSongMode) {
+                for beat in 0...3{
+                    songMode(song: selectedSongForSongMode, bar: barIndex, beat: beat)
+                }
             }
         }
     
@@ -1988,12 +2236,18 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         }
         countdown = 5
         //self.metronome.on = true
+        print(savedProgression)
+        print(tensions)
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(startGame), userInfo: nil, repeats: true)
       
 
         timer?.tolerance = 0.01
        
        
+    }
+    private func transposeSongToSelectedKey(){
+        var interval = utils.getFirst(songKey)
+        selectedSongForSongMode = utils.transposeSong(chords: selectedSongForSongMode, interval: interval)
     }
     var countdown = 0;
     @objc func startGame(){
@@ -2019,67 +2273,43 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
             loopEnded = false
             print("Bar on: \(barOn)")
             //AudioManager.shared.startAudio()
+          
             DispatchQueue.global(qos: .background).async { [self] in
-                
-                if self.beat == 1 {
-                    DispatchQueue.main.async { [self] in
-                        txtBarOn.text = "\(barOn)"
-                        
-                    }
-                    
-                    DispatchQueue.main.async { [self] in
-                        self.resetWheel()
-                        //                        NSLog("Turning note " + String(self.noteOn) + "green")
-                    }
-                    DispatchQueue.main.async { [self] in
-                        if(self.barOn == 1){
-                            self.changeColor(note: self.utils.getFirst(self.songKey), c: "g")
-                            self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
-                        }else{
-                            if(self.barOn == savedProgression.count+1){
-                                self.changeColor(note: self.utils.getFirst(self.songKey), c: "y")
-                            }else{
-                                self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
-                                
-                            }
-                            self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-2]), c: "g")
-                        }
-                    }
-                    if(difficultySelection==2 || difficultySelection==3){
-                        
-                        if barOn==3 {
-                            DispatchQueue.main.async {
-                                self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
-                                
-                            }
-                        }
-                        if barOn == 2{
-                            DispatchQueue.main.async {
-                                self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "y")
-                            }
-                        }
-                        if(barOn<2 || barOn>3){
-                            DispatchQueue.main.async {
-                                self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "w")
-                            }
+                    if self.beat == 1 {
+                        DispatchQueue.main.async { [self] in
+                            txtBarOn.text = "\(barOn)"
                             
                         }
                         
+                        DispatchQueue.main.async { [self] in
+                            self.resetWheel()
+                            //                        NSLog("Turning note " + String(self.noteOn) + "green")
+                        }
+                        if(difficultySelection != 1 ){ // todo change
+                            startRandomMode()
+                        }
+                        
+                        
+                        
                     }
-                    
-                    
-                }
-                else {
-                    if difficultySelection == 3 && barOn == 2 {
-                        goToDiminishedNote(ranDiminished: ranDiminished)
+                    else {
+                        if difficultySelection == 3 && barOn == 2 {
+                            goToDiminishedNote(ranDiminished: ranDiminished)
+                        }
                     }
-                }
-                if barOn == 3 {
-                    DispatchQueue.main.async { [self] in
-                        self.changeColorDiminished(self.ranDiminished, "w")
+                    if barOn == 3 {
+                        DispatchQueue.main.async { [self] in
+                            self.changeColorDiminished(self.ranDiminished, "w")
+                        }
                     }
+                if(difficultySelection == 1){
+                    startSongMode()
+
                 }
+
                 
+                
+               
                 
                 if beat >= 4 {
                     beat = 1
@@ -2103,12 +2333,124 @@ class GameViewController: UIViewController, UIPickerViewDataSource, UIPickerView
         
         
     }
+    private func rotateTensionWheel(note: String){
+        print("Note to rotate to: " + note.description)
+        switch note {
+        case "C":
+            rotationAngle = 0
+        case "G":
+            rotationAngle = CGFloat.pi * (30 * 11) / 180
+        case "D":
+            rotationAngle = CGFloat.pi * (30 * 10) / 180
+        case "A":
+            rotationAngle = CGFloat.pi * (30 * 9) / 180
+        case "E":
+            rotationAngle = CGFloat.pi * (30 * 8) / 180
+        case "B":
+            rotationAngle = CGFloat.pi * (30 * 7) / 180
+        case "F#":
+            rotationAngle = CGFloat.pi * (30 * 6) / 180
+        case "Db":
+            rotationAngle = CGFloat.pi * (30 * 5) / 180
+        case "Ab":
+            rotationAngle = CGFloat.pi * (30 * 4) / 180
+        case "Eb":
+            rotationAngle = CGFloat.pi * (30 * 3) / 180
+        case "Bb":
+            rotationAngle = CGFloat.pi * (30 * 2) / 180
+        case "F":
+            rotationAngle = CGFloat.pi * 30 / 180
+        default:
+            rotationAngle = 0
+        }
+     
+
+        // Apply the rotation transform to the circleView
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.centre.transform = .identity
+
+            self?.centre.transform = self?.centre.transform.rotated(by: -self!.rotationAngle) ?? .identity
+        }
+    
+    }
+    private func startSongMode(){
+        DispatchQueue.main.async{ [self] in
+            self.resetWheel()
+            if(self.beatFromStart == 1){
+                self.changeColor(note: self.utils.getFirst(self.savedProgression[0]), c: "g")
+                self.changeColorTension(tensionNo: tensions[1], color: "y")
+
+            }else{
+               
+                //if(beatOn == 1){
+                    self.changeColor(note: self.utils.getFirst(self.savedProgression[self.beatFromStart - 1]), c: "y")
+                    self.changeColorTension(tensionNo: tensions[self.beatFromStart - 1], color: "y")
+                self.changeColor(note: self.utils.getFirst(self.savedProgression[self.beatFromStart - 2]), c: "g")
+                self.changeColorTension(tensionNo: tensions[self.beatFromStart - 2], color: "g")
+                rotateTensionWheel(note: self.savedProgression[self.beatFromStart - 1])
+                
+               // }
+               
+
+
+            }
+        }
+        print("Switching to note : " + (self.savedProgression[self.beatFromStart]))
+        print("Beat on from start: " + String(beatFromStart))
+        beatFromStart += 1
+        
+    }
+    private func startRandomMode(){
+        DispatchQueue.main.async { [self] in
+            if(self.barOn == 1){
+                self.changeColor(note: self.utils.getFirst(self.songKey), c: "g")
+                self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
+            }else{
+                if(self.barOn == savedProgression.count+1){
+                    self.changeColor(note: self.utils.getFirst(self.songKey), c: "y")
+                }else{
+                    self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-1]), c: "y")
+                    
+                }
+                self.changeColor(note: self.utils.getFirst(self.savedProgression[self.barOn-2]), c: "g")
+            }
+        }
+        if(difficultySelection==2 || difficultySelection==3){
+            
+            if barOn==3 {
+                DispatchQueue.main.async {
+                    self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "g")
+                    
+                }
+            }
+            if barOn == 2{
+                DispatchQueue.main.async {
+                    self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "y")
+                }
+            }
+            if(barOn<2 || barOn>3){
+                DispatchQueue.main.async {
+                    self.changeColorSecondaryDom(secDomNum: self.randomSecDom, color: "w")
+                }
+                
+            }
+            
+        }
+
+    }
   
    
    
 }
+
 protocol isAbleToReceiveData {
-  func pass(data: Song)  //data: string is an example parameter
+  func pass(data: Song)
+}
+protocol selectSongFromSongMode{
+    func sendSong(data: [SongChord])
+}
+protocol setRandomProgressionDifficulty{
+    func setDifficulty(difficulty: Int)
 }
 
 
@@ -2145,9 +2487,7 @@ extension GameViewController : MCSessionDelegate{
                 if(barOn == 1 && beatOn == 1 && isFirstLoop == true){
                     
                     DispatchQueue.main.async {
-                        self.difficultyPicker.selectRow(difficulty!-1, inComponent: 0, animated: true)
-                        self.btnLevel.setTitle(self.difficulties[difficulty!-1], for: .normal)
-
+                      
                         print("Setting difficulty: \(difficulty!-1)")
                         self.difficultySelection = difficulty!
 

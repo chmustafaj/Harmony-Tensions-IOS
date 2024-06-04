@@ -7,8 +7,14 @@
 
 import UIKit
 
-class SelecGameDetailsViewController: UIViewController {
+class SelectGameDetailsViewController: UIViewController {
+    var selectSong: SelectSongViewController!
+       var selectRandom: SelectRandomProgressionViewController!
+     var songDelegate: selectSongFromSongMode?
+    var randomProgressionDelegate: setRandomProgressionDifficulty?
 
+    
+    @IBOutlet weak var myView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -16,27 +22,39 @@ class SelecGameDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     private func setup(){
-        let selectSong = SelectSongViewController()
-        let selectRandom = SelectRandomProgressionViewController()
-        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        selectSong = storyboard.instantiateViewController(withIdentifier: "SelectSongViewController") as? SelectSongViewController
+                selectRandom = storyboard.instantiateViewController(withIdentifier: "SelectRandomProgressionViewController") as? SelectRandomProgressionViewController
+        selectSong.delegate = songDelegate
+        selectRandom.delegate = randomProgressionDelegate
+        print("Sending delegate: " + songDelegate.debugDescription)
         addChild(selectSong)
         addChild(selectRandom)
         
-        self.view.addSubview(selectSong.view)
-        self.view.addSubview(selectRandom.view)
+        self.myView.addSubview(selectSong.view)
+        self.myView.addSubview(selectRandom.view)
         
         selectSong.didMove(toParent: self)
         selectRandom.didMove(toParent: self)
         
-        selectSong.view.frame = self.view.bounds
-        selectRandom.view.frame = self.view.bounds
+        selectSong.view.frame = self.myView.bounds
+        selectRandom.view.frame = self.myView.bounds
         
         selectRandom.view.isHidden = true
         
 
     }
     @IBAction func didTapSegment(segment: UISegmentedControl){
-        
+        if(segment.selectedSegmentIndex == 0){
+            selectSong.view.isHidden = false
+            selectRandom.view.isHidden = true
+            
+        }else if (segment.selectedSegmentIndex == 1){
+            selectSong.view.isHidden = true
+            selectRandom.view.isHidden = false
+            
+        }
     }
     
 

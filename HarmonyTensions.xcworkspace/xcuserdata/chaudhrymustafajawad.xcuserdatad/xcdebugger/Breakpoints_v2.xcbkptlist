@@ -7,47 +7,63 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3B1CB2D2-3CD6-4C65-A3D6-C870BB655BB5"
+            uuid = "BB639403-DA09-44A9-8CE5-F36D6C6DE228"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1948"
-            endingLineNumber = "1948"
-            landmarkName = "createTimer()"
+            startingLineNumber = "1941"
+            endingLineNumber = "1941"
+            landmarkName = "songMode(song:bar:beat:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F7B6894A-31DB-4A69-9A8C-39345A989C20"
+            uuid = "F944D602-45C8-45F4-89BB-D86907A17D10"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RotaryWheelProject/GameViewController.swift"
+            filePath = "RotaryWheelProject/SelectSongViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1968"
-            endingLineNumber = "1968"
-            landmarkName = "createTimer()"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "btnDonePressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3C3EF4F2-146F-4CDE-B8A9-008EA922BD40"
+            uuid = "4534B858-578D-43CE-8CB7-8E7E856AD22D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RotaryWheelProject/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1939"
-            endingLineNumber = "1939"
+            startingLineNumber = "1048"
+            endingLineNumber = "1048"
+            landmarkName = "changeColorSecondaryDom(secDomNum:color:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E118DFC-0691-43DE-8528-1B0F32998115"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RotaryWheelProject/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2211"
+            endingLineNumber = "2211"
             landmarkName = "createTimer()"
             landmarkType = "7">
          </BreakpointContent>
