@@ -160,7 +160,9 @@ class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromS
     let tb7ImageView = UIImageView(image: UIImage(named: "b7_w"))
     let t11ImageView = UIImageView(image: UIImage(named: "11_w"))
 
-
+        // For displaying the tensions
+    var tensionImageViews = [UIImageView]()
+   
 
 
 
@@ -1670,10 +1672,11 @@ class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromS
                 dimiv.heightAnchor.constraint(equalToConstant: 35)
             ])
         
+            tensionImageViews =  [t1ImageView, t5ImageView, t9ImageView, t13ImageView, t3ImageView, t7ImageView, ts11ImageView, tb9ImageView, tb13ImageView, ts9ImageView, tb7ImageView, t11ImageView]
+            positionTensionImageViews(tensionImageViews, in: centre)
+
         
-            // For displaying the tensions
-        let tensionImageViews = [t1ImageView, t5ImageView, t9ImageView, t13ImageView, t3ImageView, t7ImageView, ts11ImageView, tb9ImageView, tb13ImageView, ts9ImageView, tb7ImageView, t11ImageView]
-        positionTensionImageViews(tensionImageViews, in: centre)
+    
 
         
 
@@ -1938,11 +1941,12 @@ class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromS
     }
     private func songMode(song: [SongChord], bar: Int, beat: Int){
       
-        let nextStepAndTension = utils.getNoteAndTension(song: song, bar: bar, beat: beat)
-        let nextStep = (nextStepAndTension?.note)!
-        let tension = (nextStepAndTension?.tension)!
-        savedProgression.append(noteFromNumber(n: nextStep))
-        tensions.append(tension)
+        if let nextStepAndTension = utils.getNoteAndTension(song: song, bar: bar, beat: beat){
+            let nextStep = (nextStepAndTension.note)
+            let tension = (nextStepAndTension.tension)
+            savedProgression.append(noteFromNumber(n: nextStep))
+            tensions.append(tension)
+        }
         
         
         
@@ -2335,6 +2339,8 @@ class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromS
     }
     private func rotateTensionWheel(note: String){
         print("Note to rotate to: " + note.description)
+        let rotationAngle: CGFloat
+
         switch note {
         case "C":
             rotationAngle = 0
@@ -2363,16 +2369,23 @@ class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromS
         default:
             rotationAngle = 0
         }
-     
 
         // Apply the rotation transform to the circleView
         UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.centre.transform = .identity
+            guard let self = self else { return }
 
-            self?.centre.transform = self?.centre.transform.rotated(by: -self!.rotationAngle) ?? .identity
+            // Rotate the centre image view
+            self.centre.transform = .identity
+            self.centre.transform = self.centre.transform.rotated(by: -rotationAngle)
+
+            // Apply counter rotation to keep the tension image views upright
+            for tensionView in self.tensionImageViews {
+                tensionView.transform = self.centre.transform.inverted()
+            }
         }
-    
     }
+
+
     private func startSongMode(){
         DispatchQueue.main.async{ [self] in
             self.resetWheel()
@@ -2395,7 +2408,7 @@ class GameViewController: UIViewController, isAbleToReceiveData, selectSongFromS
 
             }
         }
-        print("Switching to note : " + (self.savedProgression[self.beatFromStart]))
+        print("Switching to note : " + (self.savedProgression[self.beatFromStart-1]))
         print("Beat on from start: " + String(beatFromStart))
         beatFromStart += 1
         

@@ -603,14 +603,30 @@
                                     <action selector="btnDonePressed:" destination="Lk9-RG-xai" eventType="touchUpInside" id="sYH-JF-QiE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6w-bP-3sv">
+                                <rect key="frame" x="259" y="88" width="118" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="6MB-jE-wyT"/>
+                                    <constraint firstAttribute="width" constant="118" id="lCh-jG-RfR"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Sheet Music">
+                                    <color key="baseBackgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="viewSheetMusicPressed:" destination="Lk9-RG-xai" eventType="touchUpInside" id="Duo-00-mJc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5RB-C4-WkU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="5RB-C4-WkU" firstAttribute="trailing" secondItem="v6w-bP-3sv" secondAttribute="trailing" constant="16" id="2qk-7r-IFU"/>
                             <constraint firstItem="5RB-C4-WkU" firstAttribute="bottom" secondItem="Gpd-L2-TpV" secondAttribute="bottom" constant="40" id="3YC-wi-YVQ"/>
                             <constraint firstItem="Gpd-L2-TpV" firstAttribute="centerX" secondItem="5RB-C4-WkU" secondAttribute="centerX" id="66V-gZ-5HA"/>
                             <constraint firstItem="uPk-Kj-8sO" firstAttribute="top" secondItem="5RB-C4-WkU" secondAttribute="top" constant="72" id="Abe-S6-g3W"/>
                             <constraint firstItem="uPk-Kj-8sO" firstAttribute="leading" secondItem="5RB-C4-WkU" secondAttribute="leading" id="GDa-Ly-UEg"/>
+                            <constraint firstItem="uPk-Kj-8sO" firstAttribute="top" secondItem="v6w-bP-3sv" secondAttribute="bottom" constant="8" id="VWP-dz-qtz"/>
                             <constraint firstItem="uPk-Kj-8sO" firstAttribute="trailing" secondItem="5RB-C4-WkU" secondAttribute="trailing" id="Y7n-sK-SU3"/>
                         </constraints>
                     </view>
