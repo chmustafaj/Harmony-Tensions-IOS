@@ -10,8 +10,6 @@ import UIKit
 class SelectGameDetailsViewController: UIViewController {
     var selectSong: SelectSongViewController!
        var selectRandom: SelectRandomProgressionViewController!
-     var songDelegate: selectSongFromSongMode?
-    var randomProgressionDelegate: setRandomProgressionDifficulty?
 
     
     @IBOutlet weak var myView: UIView!
@@ -26,9 +24,6 @@ class SelectGameDetailsViewController: UIViewController {
 
         selectSong = storyboard.instantiateViewController(withIdentifier: "SelectSongViewController") as? SelectSongViewController
                 selectRandom = storyboard.instantiateViewController(withIdentifier: "SelectRandomProgressionViewController") as? SelectRandomProgressionViewController
-        selectSong.delegate = songDelegate
-        selectRandom.delegate = randomProgressionDelegate
-        print("Sending delegate: " + songDelegate.debugDescription)
         addChild(selectSong)
         addChild(selectRandom)
         

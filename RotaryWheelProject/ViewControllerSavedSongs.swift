@@ -8,7 +8,6 @@
 import UIKit
 
 class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var delegate: isAbleToReceiveData?
 
     @IBAction func close(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -61,7 +60,6 @@ class ViewControllerSavedSongs: UIViewController, UITableViewDataSource, UITable
 //        let gameView = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
 //        self.present(gameView, animated: true, completion: nil)
         let gameViewController = GameViewController()
-        delegate?.pass(data: songs[indexPath.row])
 //
 //        GameViewController().selectedSong = songs[indexPath.row]
         self.dismiss(animated: true, completion: nil)

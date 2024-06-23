@@ -8,7 +8,6 @@
 import UIKit
 
 class SelectRandomProgressionViewController: UIViewController {
-    var delegate: setRandomProgressionDifficulty?
     var difficulty: Int?
     @IBAction func didTapSegment(segment: UISegmentedControl) {
         switch segment.selectedSegmentIndex{
@@ -23,7 +22,6 @@ class SelectRandomProgressionViewController: UIViewController {
         }
     }
     @IBAction func btnDone(_ sender: Any) {
-        delegate?.setDifficulty(difficulty: difficulty!)
         dismiss(animated: true)
     }
     override func viewDidLoad() {

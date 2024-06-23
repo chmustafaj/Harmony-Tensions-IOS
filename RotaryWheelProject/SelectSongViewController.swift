@@ -10,11 +10,9 @@ import UIKit
 class SelectSongViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     let songs = Utils().songsString
     var songSelection: String!
-    var delegate: selectSongFromSongMode?
     var sheetMusicUrl: String = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/aintsswt.pdf"
     @IBAction func btnDonePressed(_ sender: Any) {
-        delegate?.sendSong(data: Utils().setSelectedSong(songString: songSelection))
-       dismiss(animated: true)
+      
 
     }
     @IBAction func viewSheetMusicPressed(_ sender: Any) {
