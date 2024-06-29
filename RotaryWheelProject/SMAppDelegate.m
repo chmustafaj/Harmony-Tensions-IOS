@@ -7,6 +7,7 @@
 
 #import "SMAppDelegate.h"
 #import "CoreData/CoreData.h"
+#import "HarmonyTensions-Swift.h"
 
 @implementation SMAppDelegate
 
@@ -31,11 +32,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    //self.viewController = [[SMViewController alloc] initWithNibName:@"SMViewController" bundle:nil];
-//    self.window.rootViewController = self.viewController;
-//    [self.window makeKeyAndVisible];
+
     NSLog(@"Initializing pd");
     self.pd = [[PdAudioController alloc] init];
     PdAudioStatus pdInit = [self.pd configureAmbientWithSampleRate:44100 numberChannels:2 mixingEnabled:YES];
@@ -43,6 +40,7 @@
         NSLog(@"Pd failed to initialise");
     }
     self.pd.active = true;
+    self.orientation = UIInterfaceOrientationMaskPortrait;
     return YES;
 }
 - (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
@@ -50,7 +48,10 @@
     // Use this method to select a configuration to create the new scene with.
     return [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
 }
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    return self.orientation;
 
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*

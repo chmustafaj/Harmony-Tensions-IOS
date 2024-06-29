@@ -12,9 +12,7 @@
 		1C4861302A20AAD6001DE8C0 /* StoreKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C48612F2A20AAD6001DE8C0 /* StoreKitManager.swift */; };
 		1C4861342A20E0F6001DE8C0 /* StoreKitTestCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 1C4861332A20E0F6001DE8C0 /* StoreKitTestCertificate.cer */; };
 		1C5AB4E02BFD1A95001B9805 /* centre.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C5AB4DF2BFD1A95001B9805 /* centre.png */; };
-		1C5AB4E42BFE358E001B9805 /* SelectGameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5AB4E32BFE358E001B9805 /* SelectGameDetailsViewController.swift */; };
 		1C5AB4E62BFE39A7001B9805 /* SelectSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5AB4E52BFE39A7001B9805 /* SelectSongViewController.swift */; };
-		1C5AB4E82BFE39B8001B9805 /* SelectRandomProgressionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5AB4E72BFE39B8001B9805 /* SelectRandomProgressionViewController.swift */; };
 		1C5FC8F62B1A47A6003D56F2 /* hw2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C5FC8B32B1A47A5003D56F2 /* hw2.png */; };
 		1C5FC9002B1A47A6003D56F2 /* page_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1C5FC8BD2B1A47A5003D56F2 /* page_3.jpg */; };
 		1C5FC9062B1A47A6003D56F2 /* letters.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1C5FC8C32B1A47A5003D56F2 /* letters.jpeg */; };
@@ -59,9 +57,9 @@
 		1CAD03BC29D1B8A000411901 /* ViewControllerSaveSong.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */; };
 		1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */; };
 		1CAD03C329D339BA00411901 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAD03C229D339BA00411901 /* DataManager.swift */; };
-		1CAD92062C283BCD00BEF3F2 /* ahleuca_row_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD92032C283BCD00BEF3F2 /* ahleuca_row_2.png */; };
-		1CAD92072C283BCD00BEF3F2 /* ahleuca_row_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD92042C283BCD00BEF3F2 /* ahleuca_row_1.png */; };
-		1CAD92082C283BCD00BEF3F2 /* ahleuca_row_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD92052C283BCD00BEF3F2 /* ahleuca_row_3.png */; };
+		1CAD92062C283BCD00BEF3F2 /* Ah-Leu-Cha_row_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD92032C283BCD00BEF3F2 /* Ah-Leu-Cha_row_2.png */; };
+		1CAD92072C283BCD00BEF3F2 /* Ah-Leu-Cha_row_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD92042C283BCD00BEF3F2 /* Ah-Leu-Cha_row_1.png */; };
+		1CAD92082C283BCD00BEF3F2 /* Ah-Leu-Cha_row_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CAD92052C283BCD00BEF3F2 /* Ah-Leu-Cha_row_3.png */; };
 		1CB8C95C2B2A1CCD007CFA3C /* ViewControllerBuyPDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8C95A2B2A1CCD007CFA3C /* ViewControllerBuyPDF.swift */; };
 		1CB8C95D2B2A1CCD007CFA3C /* ViewControllerBuyPDF.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CB8C95B2B2A1CCD007CFA3C /* ViewControllerBuyPDF.xib */; };
 		1CB8C9622B2A28E4007CFA3C /* ViewControllerGetPDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8C95E2B2A28E4007CFA3C /* ViewControllerGetPDF.m */; };
@@ -87,6 +85,17 @@
 		1CEC986229F0833300FA370A /* onBoardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */; };
 		1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEC986329F13B7100FA370A /* StartingViewController.swift */; };
 		1CEC988729F1454800FA370A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CEC988629F1454800FA370A /* Media.xcassets */; };
+		1CF2DD292C2DBFCE009B7366 /* An Oscar For Treadwell_row_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD232C2DBFCE009B7366 /* An Oscar For Treadwell_row_1.png */; };
+		1CF2DD2A2C2DBFCE009B7366 /* An Oscar For Treadwell_row_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD272C2DBFCE009B7366 /* An Oscar For Treadwell_row_2.png */; };
+		1CF2DD2B2C2DBFCE009B7366 /* An Oscar For Treadwell_row_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD282C2DBFCE009B7366 /* An Oscar For Treadwell_row_3.png */; };
+		1CF2DD2F2C2DC084009B7366 /* Another Hair Do_row_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD2C2C2DC083009B7366 /* Another Hair Do_row_2.png */; };
+		1CF2DD312C2DC084009B7366 /* Another Hair Do_row_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD2E2C2DC084009B7366 /* Another Hair Do_row_1.png */; };
+		1CF2DD332C2DCE40009B7366 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2DD322C2DCE40009B7366 /* UIApplication+Extension.swift */; };
+		1CF2DD352C2F205C009B7366 /* Another Hair Do_row_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD342C2F205C009B7366 /* Another Hair Do_row_3.png */; };
+		1CF2DD3E2C2FFCA1009B7366 /* Anthropology_row_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD372C2FFCA0009B7366 /* Anthropology_row_2.png */; };
+		1CF2DD3F2C2FFCA1009B7366 /* Anthropology_row_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD3B2C2FFCA1009B7366 /* Anthropology_row_3.png */; };
+		1CF2DD402C2FFCA1009B7366 /* Anthropology_row_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD3C2C2FFCA1009B7366 /* Anthropology_row_4.png */; };
+		1CF2DD412C2FFCA1009B7366 /* Anthropology_row_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF2DD3D2C2FFCA1009B7366 /* Anthropology_row_1.png */; };
 		BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */ = {isa = PBXBuildFile; fileRef = BDD8AD3514EA8A1B002425D6 /* SMCLove.m */; };
 		BDF438AB14E5638700A27135 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDF438A914E5638700A27135 /* InfoPlist.strings */; };
 		BDF438AD14E5638700A27135 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BDF438AC14E5638700A27135 /* main.m */; };
@@ -140,9 +149,7 @@
 		1C48612F2A20AAD6001DE8C0 /* StoreKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitManager.swift; sourceTree = "<group>"; };
 		1C4861332A20E0F6001DE8C0 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		1C5AB4DF2BFD1A95001B9805 /* centre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = centre.png; sourceTree = "<group>"; };
-		1C5AB4E32BFE358E001B9805 /* SelectGameDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameDetailsViewController.swift; sourceTree = "<group>"; };
 		1C5AB4E52BFE39A7001B9805 /* SelectSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSongViewController.swift; sourceTree = "<group>"; };
-		1C5AB4E72BFE39B8001B9805 /* SelectRandomProgressionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRandomProgressionViewController.swift; sourceTree = "<group>"; };
 		1C5FC8B32B1A47A5003D56F2 /* hw2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hw2.png; sourceTree = "<group>"; };
 		1C5FC8BD2B1A47A5003D56F2 /* page_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = page_3.jpg; sourceTree = "<group>"; };
 		1C5FC8C32B1A47A5003D56F2 /* letters.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = letters.jpeg; sourceTree = "<group>"; };
@@ -193,9 +200,9 @@
 		1CAD03BA29D1B8A000411901 /* ViewControllerSaveSong.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewControllerSaveSong.xib; sourceTree = "<group>"; };
 		1CAD03BE29D2C8D500411901 /* HarmonyTensions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HarmonyTensions.xcdatamodel; sourceTree = "<group>"; };
 		1CAD03C229D339BA00411901 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		1CAD92032C283BCD00BEF3F2 /* ahleuca_row_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ahleuca_row_2.png; sourceTree = "<group>"; };
-		1CAD92042C283BCD00BEF3F2 /* ahleuca_row_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ahleuca_row_1.png; sourceTree = "<group>"; };
-		1CAD92052C283BCD00BEF3F2 /* ahleuca_row_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ahleuca_row_3.png; sourceTree = "<group>"; };
+		1CAD92032C283BCD00BEF3F2 /* Ah-Leu-Cha_row_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ah-Leu-Cha_row_2.png"; sourceTree = "<group>"; };
+		1CAD92042C283BCD00BEF3F2 /* Ah-Leu-Cha_row_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ah-Leu-Cha_row_1.png"; sourceTree = "<group>"; };
+		1CAD92052C283BCD00BEF3F2 /* Ah-Leu-Cha_row_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ah-Leu-Cha_row_3.png"; sourceTree = "<group>"; };
 		1CB8C95A2B2A1CCD007CFA3C /* ViewControllerBuyPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerBuyPDF.swift; sourceTree = "<group>"; };
 		1CB8C95B2B2A1CCD007CFA3C /* ViewControllerBuyPDF.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewControllerBuyPDF.xib; sourceTree = "<group>"; };
 		1CB8C95E2B2A28E4007CFA3C /* ViewControllerGetPDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerGetPDF.m; sourceTree = "<group>"; };
@@ -220,6 +227,17 @@
 		1CEC986129F0833300FA370A /* onBoardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = onBoardingCollectionViewCell.swift; sourceTree = "<group>"; };
 		1CEC986329F13B7100FA370A /* StartingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingViewController.swift; sourceTree = "<group>"; };
 		1CEC988629F1454800FA370A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		1CF2DD232C2DBFCE009B7366 /* An Oscar For Treadwell_row_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "An Oscar For Treadwell_row_1.png"; sourceTree = "<group>"; };
+		1CF2DD272C2DBFCE009B7366 /* An Oscar For Treadwell_row_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "An Oscar For Treadwell_row_2.png"; sourceTree = "<group>"; };
+		1CF2DD282C2DBFCE009B7366 /* An Oscar For Treadwell_row_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "An Oscar For Treadwell_row_3.png"; sourceTree = "<group>"; };
+		1CF2DD2C2C2DC083009B7366 /* Another Hair Do_row_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Another Hair Do_row_2.png"; sourceTree = "<group>"; };
+		1CF2DD2E2C2DC084009B7366 /* Another Hair Do_row_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Another Hair Do_row_1.png"; sourceTree = "<group>"; };
+		1CF2DD322C2DCE40009B7366 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		1CF2DD342C2F205C009B7366 /* Another Hair Do_row_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Another Hair Do_row_3.png"; sourceTree = "<group>"; };
+		1CF2DD372C2FFCA0009B7366 /* Anthropology_row_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anthropology_row_2.png; sourceTree = "<group>"; };
+		1CF2DD3B2C2FFCA1009B7366 /* Anthropology_row_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anthropology_row_3.png; sourceTree = "<group>"; };
+		1CF2DD3C2C2FFCA1009B7366 /* Anthropology_row_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anthropology_row_4.png; sourceTree = "<group>"; };
+		1CF2DD3D2C2FFCA1009B7366 /* Anthropology_row_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anthropology_row_1.png; sourceTree = "<group>"; };
 		3D5C5C0B103CC78F63C0A256 /* Pods-HarmonyTensions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyTensions.debug.xcconfig"; path = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.debug.xcconfig"; sourceTree = "<group>"; };
 		8DB413B28B2B2337EFEE50BF /* Pods-HarmonyTensions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HarmonyTensions.release.xcconfig"; path = "Target Support Files/Pods-HarmonyTensions/Pods-HarmonyTensions.release.xcconfig"; sourceTree = "<group>"; };
 		BDD8AD3414EA8A1B002425D6 /* SMCLove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCLove.h; sourceTree = "<group>"; };
@@ -358,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				1CEC985B29F0810600FA370A /* UIView+Extension.swift */,
+				1CF2DD322C2DCE40009B7366 /* UIApplication+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,8 +390,18 @@
 				1C89830E2B22149000B83961 /* screen_3.jpg */,
 				1C89830F2B22149000B83961 /* screen_5.jpg */,
 				1CBFBE492C09D91E00C59ECB /* screen_3.jpeg */,
+				1CF2DD3D2C2FFCA1009B7366 /* Anthropology_row_1.png */,
+				1CF2DD372C2FFCA0009B7366 /* Anthropology_row_2.png */,
+				1CF2DD3B2C2FFCA1009B7366 /* Anthropology_row_3.png */,
+				1CF2DD3C2C2FFCA1009B7366 /* Anthropology_row_4.png */,
+				1CF2DD232C2DBFCE009B7366 /* An Oscar For Treadwell_row_1.png */,
+				1CF2DD272C2DBFCE009B7366 /* An Oscar For Treadwell_row_2.png */,
+				1CF2DD282C2DBFCE009B7366 /* An Oscar For Treadwell_row_3.png */,
 				1C5FC95F2B1A4F88003D56F2 /* circle_border.png */,
 				1C5AB4DF2BFD1A95001B9805 /* centre.png */,
+				1CF2DD2E2C2DC084009B7366 /* Another Hair Do_row_1.png */,
+				1CF2DD2C2C2DC083009B7366 /* Another Hair Do_row_2.png */,
+				1CF2DD342C2F205C009B7366 /* Another Hair Do_row_3.png */,
 				1C5FC8E52B1A47A6003D56F2 /* hw.png */,
 				1C5FC8C52B1A47A5003D56F2 /* hw1.png */,
 				1CCCB0CB2C2816900093DB49 /* background.jpeg */,
@@ -395,9 +424,9 @@
 				1C5FC8E32B1A47A6003D56F2 /* logo.png */,
 				1C5FC8CC2B1A47A5003D56F2 /* Media.xcassets */,
 				1C5FC8F32B1A47A6003D56F2 /* page_1.png */,
-				1CAD92042C283BCD00BEF3F2 /* ahleuca_row_1.png */,
-				1CAD92032C283BCD00BEF3F2 /* ahleuca_row_2.png */,
-				1CAD92052C283BCD00BEF3F2 /* ahleuca_row_3.png */,
+				1CAD92042C283BCD00BEF3F2 /* Ah-Leu-Cha_row_1.png */,
+				1CAD92032C283BCD00BEF3F2 /* Ah-Leu-Cha_row_2.png */,
+				1CAD92052C283BCD00BEF3F2 /* Ah-Leu-Cha_row_3.png */,
 				1C5FC8C42B1A47A5003D56F2 /* page_2.jpg */,
 				1C5FC8BD2B1A47A5003D56F2 /* page_3.jpg */,
 				1CABF7072C28227D00E96E32 /* note1w.png */,
@@ -439,7 +468,6 @@
 			children = (
 				1CDE405D2C0F695D00A97187 /* Storekit */,
 				1CCB138F2BA3394B004EE09F /* patches */,
-				1C8E28BE29942C6B00CF01B7 /* HarmonyTensions-Bridging-Header.h */,
 				1CB8C9682B2DE1BC007CFA3C /* Wheel */,
 				BDF438AC14E5638700A27135 /* main.m */,
 				BDF438A714E5638700A27135 /* Supporting Files */,
@@ -449,9 +477,7 @@
 				1CEC985529F07EA200FA370A /* Models */,
 				BD683C5214EAB964005EF069 /* assets */,
 				1CAD03B929D1B8A000411901 /* ViewControllerSaveSong.swift */,
-				1C5AB4E32BFE358E001B9805 /* SelectGameDetailsViewController.swift */,
 				1C5AB4E52BFE39A7001B9805 /* SelectSongViewController.swift */,
-				1C5AB4E72BFE39B8001B9805 /* SelectRandomProgressionViewController.swift */,
 				1CEC986329F13B7100FA370A /* StartingViewController.swift */,
 				1CA93A9329D44AA2008A02EF /* ViewControllerSavedSongs.swift */,
 				1CA93A9529D44AB4008A02EF /* SongCell.swift */,
@@ -472,6 +498,7 @@
 			children = (
 				1C625B14299AA2DB009F4205 /* SceneDelegate.m */,
 				1C625B13299AA2DB009F4205 /* SceneDelegate.h */,
+				1C8E28BE29942C6B00CF01B7 /* HarmonyTensions-Bridging-Header.h */,
 				BDF438B014E5638700A27135 /* SMAppDelegate.m */,
 				1CAD03BD29D2C8D500411901 /* HarmonyTensions.xcdatamodeld */,
 				BDF438A814E5638700A27135 /* HarmonyTensions-Info.plist */,
@@ -588,12 +615,15 @@
 				BDF438AB14E5638700A27135 /* InfoPlist.strings in Resources */,
 				1C8983162B22149100B83961 /* screen_2.jpg in Resources */,
 				BDF438B714E5638700A27135 /* SMViewController.xib in Resources */,
+				1CF2DD312C2DC084009B7366 /* Another Hair Do_row_1.png in Resources */,
 				1CABF7022C2821F200E96E32 /* note4w.png in Resources */,
+				1CF2DD3F2C2FFCA1009B7366 /* Anthropology_row_3.png in Resources */,
 				1CABF6EA2C28180400E96E32 /* background_rotated.jpeg in Resources */,
 				1CAD03BC29D1B8A000411901 /* ViewControllerSaveSong.xib in Resources */,
 				1C5FC9322B1A47A6003D56F2 /* simple_hw.png in Resources */,
 				1C5FC9602B1A4F88003D56F2 /* circle_border.png in Resources */,
-				1CAD92072C283BCD00BEF3F2 /* ahleuca_row_1.png in Resources */,
+				1CF2DD292C2DBFCE009B7366 /* An Oscar For Treadwell_row_1.png in Resources */,
+				1CAD92072C283BCD00BEF3F2 /* Ah-Leu-Cha_row_1.png in Resources */,
 				1C5FC9262B1A47A6003D56F2 /* logo.png in Resources */,
 				1CCB13942BA3394B004EE09F /* ratelogic.pd in Resources */,
 				1CABF7052C2821F200E96E32 /* note8w.png in Resources */,
@@ -605,12 +635,14 @@
 				1C5FC8F62B1A47A6003D56F2 /* hw2.png in Resources */,
 				1C5FC9572B1A4960003D56F2 /* circle_modified.png in Resources */,
 				1C5FC90F2B1A47A6003D56F2 /* Media.xcassets in Resources */,
+				1CF2DD402C2FFCA1009B7366 /* Anthropology_row_4.png in Resources */,
 				1C625B19299AB3CD009F4205 /* Launch Screen.storyboard in Resources */,
 				1CABF7042C2821F200E96E32 /* note5w.png in Resources */,
+				1CF2DD352C2F205C009B7366 /* Another Hair Do_row_3.png in Resources */,
 				1C3B72A729A246F200E663B8 /* letters.jpeg in Resources */,
 				1C4861342A20E0F6001DE8C0 /* StoreKitTestCertificate.cer in Resources */,
 				1C8983142B22149100B83961 /* screen_5.jpg in Resources */,
-				1CAD92082C283BCD00BEF3F2 /* ahleuca_row_3.png in Resources */,
+				1CAD92082C283BCD00BEF3F2 /* Ah-Leu-Cha_row_3.png in Resources */,
 				1CABF6FF2C2821F200E96E32 /* note2w.png in Resources */,
 				1CABF6FE2C2821F200E96E32 /* note6w.png in Resources */,
 				1CBFBE4C2C09DA2E00C59ECB /* screen_4.jpeg in Resources */,
@@ -620,12 +652,15 @@
 				1CABF7012C2821F200E96E32 /* note7w.png in Resources */,
 				1CEBEC75299A70A300250820 /* Main.storyboard in Resources */,
 				1CBFBE4A2C09D91E00C59ECB /* screen_3.jpeg in Resources */,
-				1CAD92062C283BCD00BEF3F2 /* ahleuca_row_2.png in Resources */,
+				1CF2DD2B2C2DBFCE009B7366 /* An Oscar For Treadwell_row_3.png in Resources */,
+				1CAD92062C283BCD00BEF3F2 /* Ah-Leu-Cha_row_2.png in Resources */,
 				1CABF6FD2C2821F200E96E32 /* note10w.png in Resources */,
+				1CF2DD2F2C2DC084009B7366 /* Another Hair Do_row_2.png in Resources */,
 				1C5FC9112B1A47A6003D56F2 /* hw3.png in Resources */,
 				1CDE40622C0F69B500A97187 /* pdf.storekit in Resources */,
 				1CABF7032C2821F200E96E32 /* note3w.png in Resources */,
 				1C5FC9132B1A47A6003D56F2 /* hw4.png in Resources */,
+				1CF2DD412C2FFCA1009B7366 /* Anthropology_row_1.png in Resources */,
 				1C5FC9282B1A47A6003D56F2 /* hw.png in Resources */,
 				1C48612E2A20A921001DE8C0 /* PropertyList.plist in Resources */,
 				1CABF7062C2821F200E96E32 /* note9w.png in Resources */,
@@ -633,9 +668,11 @@
 				1CABF6FC2C2821F200E96E32 /* note11w.png in Resources */,
 				1C5FC90E2B1A47A6003D56F2 /* page_4.jpg in Resources */,
 				1CABF7002C2821F200E96E32 /* note0w.png in Resources */,
+				1CF2DD2A2C2DBFCE009B7366 /* An Oscar For Treadwell_row_2.png in Resources */,
 				1C8983132B22149100B83961 /* screen_3.jpg in Resources */,
 				1CCB13932BA3394B004EE09F /* click.pd in Resources */,
 				1CB8C95D2B2A1CCD007CFA3C /* ViewControllerBuyPDF.xib in Resources */,
+				1CF2DD3E2C2FFCA1009B7366 /* Anthropology_row_2.png in Resources */,
 				1C5AB4E02BFD1A95001B9805 /* centre.png in Resources */,
 				1C5FC9002B1A47A6003D56F2 /* page_3.jpg in Resources */,
 			);
@@ -698,12 +735,12 @@
 				1CA93A9629D44AB4008A02EF /* SongCell.swift in Sources */,
 				BDF438AD14E5638700A27135 /* main.m in Sources */,
 				1CE45C2629994BB10041C241 /* SwiftUIViewExtension.swift in Sources */,
+				1CF2DD332C2DCE40009B7366 /* UIApplication+Extension.swift in Sources */,
 				1CAD03C329D339BA00411901 /* DataManager.swift in Sources */,
 				BDF438B114E5638700A27135 /* SMAppDelegate.m in Sources */,
 				1CEBEC77299A76B400250820 /* GameViewController.swift in Sources */,
 				1CEC985C29F0810600FA370A /* UIView+Extension.swift in Sources */,
 				1CAD03BF29D2C8D500411901 /* HarmonyTensions.xcdatamodeld in Sources */,
-				1C5AB4E42BFE358E001B9805 /* SelectGameDetailsViewController.swift in Sources */,
 				1CEC986229F0833300FA370A /* onBoardingCollectionViewCell.swift in Sources */,
 				1CAD03AF29B9B8BC00411901 /* Utils.swift in Sources */,
 				BDF438BF14E5641000A27135 /* SMRotaryWheel.m in Sources */,
@@ -713,7 +750,6 @@
 				1CEC986429F13B7100FA370A /* StartingViewController.swift in Sources */,
 				1C4861302A20AAD6001DE8C0 /* StoreKitManager.swift in Sources */,
 				1C625B15299AA2DB009F4205 /* SceneDelegate.m in Sources */,
-				1C5AB4E82BFE39B8001B9805 /* SelectRandomProgressionViewController.swift in Sources */,
 				1CA93A9429D44AA2008A02EF /* ViewControllerSavedSongs.swift in Sources */,
 				BDD8AD3614EA8A1B002425D6 /* SMCLove.m in Sources */,
 				1C79FCD02BA30E9300B4F682 /* PDMetronome.m in Sources */,

@@ -11,14 +11,51 @@ import StoreKit
 import MultipeerConnectivity
 
  
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, selectSongFromSongMode {
     
+    @IBAction func btnSongNamePressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let selectDetailsVC = storyboard.instantiateViewController(withIdentifier: "SelectSongViewController") as? SelectSongViewController {
+            selectDetailsVC.modalPresentationStyle = .popover
+            selectDetailsVC.delegate = self
+            self.present(selectDetailsVC, animated: true, completion: nil)
+        }
+
+    }
+    @IBOutlet weak var btnSongName: UIButton!
     
+    @IBAction func btnGamePressed(_ sender: Any) {
+        if(!gameStarted){
+            startScrolling()
+            gameStarted = true
+            metronome.on = true
+            metronome.bpm = UInt(bpm/4)
+            btnGame.setTitle("Stop", for: .normal)
+        }else{
+            stopScrolling()
+            metronome.on = false
+            metronome.reset = true
+            metronome.reset = false
+            gameStarted = false
+            btnGame.setTitle("Start", for: .normal)
+
+        }
+    }
+    @IBOutlet weak var btnGame: UIButton!
+    @IBOutlet weak var setBpm: UISlider!
     
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        bpm = CGFloat(selectBPM.value)
+        metronome.bpm = UInt(bpm/4)
+    }
+    @IBOutlet weak var selectBPM: UISlider!
+    
+    var gameStarted: Bool!
     var peerId: MCPeerID!
     var session: MCSession!
     var scrollTimer: Timer?
-       let scrollSpeed: CGFloat = 50  // Adjust this value to set the scroll speed (points per second)
+    var bpm: CGFloat = 60
+    var selectedSong : String?
 
     @IBOutlet weak var sheetMusicStackView: UIStackView!
     @IBOutlet weak var sheetMusicScrollView: UIScrollView!
@@ -45,26 +82,21 @@ class GameViewController: UIViewController {
     @IBAction func btnUnlock(_ sender: Any) {
     }
     
-    @IBAction func btnConfigurationPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let selectDetailsVC = storyboard.instantiateViewController(withIdentifier: "SelectGameDetailsViewController") as? SelectGameDetailsViewController {
-           
-            self.present(selectDetailsVC, animated: true, completion: nil)
-        }
-        
-        
-    }
-    
+
     func pass(data: Song) {
         //        selectedSong = data
         //        NSLog((selectedSong?.name)!)
     }
-    func sendSong(data: [SongChord]) {
-        //        print("Selected song: " + (selectedSongForSongMode.description))
-        //        selectedSongForSongMode = data
-        //        difficultySelection = 1
-        //        makeDiminishedNotesVisible(false)
-        //        makeSecondaryDominantsVisible(false)
+    func sendSong(data: String) {
+        selectedSong = data
+        btnSongName.setTitle(selectedSong, for: .normal)
+        var rows = 3
+        if(selectedSong == "Anthropology"){
+            rows = 4
+        }
+        loadSheetMusic(for: selectedSong!, rowCount: rows)
+
+  
     }
     
     
@@ -84,20 +116,6 @@ class GameViewController: UIViewController {
     var isController = false
     
     //A separate probability list for being on each note
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     func sendData(data: Data){
         if session.connectedPeers.count > 0 {
@@ -127,8 +145,9 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSheetMusic(for: "ahleuca", rowCount: 3)
-        startScrolling()
+        gameStarted = false
+        selectedSong = "Ah-Leu-Cha"
+        loadSheetMusic(for: selectedSong!, rowCount: 3)
 
         UIApplication.shared.isIdleTimerDisabled = true
         peerId = MCPeerID(displayName:  UIDevice.current.name)
@@ -187,13 +206,17 @@ class GameViewController: UIViewController {
         // Update the scroll view content size
         sheetMusicScrollView.contentSize = CGSize(width: sheetMusicScrollView.frame.width, height: rowHeight * CGFloat(rowCount))
     }
+    func stopScrolling() {
+        scrollTimer?.invalidate()
+        sheetMusicScrollView.contentOffset.y = 0
+    }
     func startScrolling() {
            scrollTimer?.invalidate()
            scrollTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(scrollStep), userInfo: nil, repeats: true)
        }
 
        @objc func scrollStep() {
-           let yOffset = sheetMusicScrollView.contentOffset.y + scrollSpeed * 0.01
+           let yOffset = sheetMusicScrollView.contentOffset.y + bpm * 0.01
            if yOffset <= sheetMusicScrollView.contentSize.height - sheetMusicScrollView.frame.height {
                sheetMusicScrollView.contentOffset = CGPoint(x: 0, y: yOffset)
            } else {
@@ -213,7 +236,10 @@ class GameViewController: UIViewController {
     
     
     func initUI(){
-        
+        setBpm.transform = setBpm.transform.rotated(by: .pi/2)
+        btnGame.transform = btnGame.transform.rotated(by: .pi/2)
+        btnSongName.transform = btnSongName.transform.rotated(by: .pi/2)
+
         
         
         
@@ -223,9 +249,7 @@ class GameViewController: UIViewController {
     protocol isAbleToReceiveData {
         func pass(data: Song)
     }
-    protocol selectSongFromSongMode{
-        func sendSong(data: [SongChord])
-    }
+ 
     protocol setRandomProgressionDifficulty{
         func setDifficulty(difficulty: Int)
     }
@@ -289,4 +313,7 @@ extension GameViewController: MCBrowserViewControllerDelegate{
 
     
     
+}
+protocol selectSongFromSongMode{
+    func sendSong(data: String)
 }

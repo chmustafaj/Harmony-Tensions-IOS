@@ -11,8 +11,9 @@
 //@class SMViewController;
 
 @interface SMAppDelegate : UIResponder <UIApplicationDelegate>
+@property (nonatomic) UIInterfaceOrientationMask orientation;
 @property (strong, nonatomic) PdAudioController *pd;
-//@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow *window;
 //
 //@property (strong, nonatomic) SMViewController *viewController;
 

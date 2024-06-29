@@ -8,11 +8,13 @@
 import UIKit
 
 class SelectSongViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    var delegate: selectSongFromSongMode?
     let songs = Utils().songsString
     var songSelection: String!
-    var sheetMusicUrl: String = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/aintsswt.pdf"
+    var sheetMusicUrl: String = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/mode/2up"
     @IBAction func btnDonePressed(_ sender: Any) {
-      
+        delegate?.sendSong(data: songSelection)
+               dismiss(animated: true)
 
     }
     @IBAction func viewSheetMusicPressed(_ sender: Any) {
@@ -24,17 +26,17 @@ class SelectSongViewController: UIViewController, UIPickerViewDataSource, UIPick
     private func setUrl(row: Int){
         switch row{
         case 0:
-            sheetMusicUrl = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/aintsswt.pdf"
+            sheetMusicUrl = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/page/n9/mode/2up"
         case 1:
-            sheetMusicUrl = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/alcblgwn.pdf"
+            sheetMusicUrl = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/page/n9/mode/2up"
         case 2:
-            sheetMusicUrl = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/aprlshwr.pdf"
+            sheetMusicUrl = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/page/n11/mode/2up"
         case 3:
-            sheetMusicUrl = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/babyface.pdf"
+            sheetMusicUrl = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/page/n11/mode/2up"
         case 4:
-            sheetMusicUrl = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/barkrole.pdf"
+            sheetMusicUrl = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/page/n11/mode/2up"
         default:
-            sheetMusicUrl = "https://github.com/lfinston/Songlist/blob/main/lead_sheets/aintsswt.pdf"
+            sheetMusicUrl = "https://archive.org/details/TheCommercialMusicFakebook1/Charlie%20Parker%20Tune%20Book/mode/2up"
 
             
             
@@ -42,6 +44,8 @@ class SelectSongViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let value = UIInterfaceOrientation.landscapeRight.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
         songPicker.delegate = self
         songPicker .dataSource = self
         songSelection = songs[0]
@@ -66,5 +70,51 @@ class SelectSongViewController: UIViewController, UIPickerViewDataSource, UIPick
            setUrl(row: row)
            print("You selected: " + songSelection)
        }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        (UIApplication.shared.delegate as? SMAppDelegate)?.orientation = .landscapeRight
 
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        if #available(iOS 16.0, *) {
+            windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .landscapeRight))
+        } else {
+            // Fallback on earlier versions
+        }
+
+        if #available(iOS 16.0, *) {
+            UIApplication.navigationTopViewController()?.setNeedsUpdateOfSupportedInterfaceOrientations()
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+         super.viewWillDisappear(animated)
+         (UIApplication.shared.delegate as? SMAppDelegate)?.orientation = .portrait
+
+         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        if #available(iOS 16.0, *) {
+            windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+        } else {
+            // Fallback on earlier versions
+        }
+
+        if #available(iOS 16.0, *) {
+            UIApplication.navigationTopViewController()?.setNeedsUpdateOfSupportedInterfaceOrientations()
+        } else {
+            // Fallback on earlier versions
+        }
+     }
+
+     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+         return .landscape
+     }
+
+     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+         return .landscapeRight
+     }
+
+     override var shouldAutorotate: Bool {
+         return false
+     }
 }
